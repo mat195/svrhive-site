@@ -79,11 +79,6 @@ export function releaseLd(r: Release): Json {
       : undefined;
   const contributor = !isPrimary ? { '@id': ARTIST_ID } : undefined;
 
-  const guestNames = [
-    ...(r.featured ?? []),
-    ...(!isPrimary ? [CANONICAL_NAME] : []),
-  ];
-
   return clean({
     '@type': r.type ?? 'MusicRecording',
     '@id': absolute(`/${entity.artistSlug}/releases/${r.slug}/#release`),
@@ -96,7 +91,6 @@ export function releaseLd(r: Release): Json {
     ...(r.isrcs && r.isrcs.length ? { isrcCode: r.isrcs } : {}),
     recordLabel: { '@id': ORG_ID },
     description: r.description,
-    ...(guestNames.length ? { musicBy: guestNames.map((n) => ({ '@type': 'MusicGroup', name: n })) } : {}),
     ...(r.coverArt ? { image: absolute(r.coverArt) } : {}),
   });
 }

@@ -6,21 +6,21 @@
     "name": "Silk Velvet Records",
     "slug": "silkvelvetrecords"
   },
-  "disambiguation": "Independent Canadian hip-hop producer. Not affiliated with Thundercat (Stephen Bruner).",
+  "disambiguation": "Independent Canadian hip-hop rapper and vocalist. Not affiliated with Thundercat (Stephen Bruner).",
   "location": "Montréal, Québec, Canada",
   "foundingLocation": "Montréal, Québec, Canada",
-  "identityUmbrella": "versatile hip-hop producer",
-  "primaryDescriptor": "versatile hip-hop producer spanning soulful sample-based hip-hop, boom bap, trap, and lofi",
+  "identityUmbrella": "hip-hop rapper and vocalist",
+  "primaryDescriptor": "Canadian hip-hop rapper and vocalist spanning soulful sample-based hip-hop, boom bap, trap, and lofi",
   "genresCore": [
     "soulful sample-based hip-hop",
-    "underground hip-hop production",
+    "underground hip-hop",
     "boom bap",
     "trap",
     "lofi hip-hop / jazz-hop",
-    "loop-driven sample craft",
     "melodic hip-hop / R&B-rap crossover",
-    "dusty vintage soul textures",
-    "producer for vocalists (feature-driven singles)"
+    "rapper and vocalist",
+    "draws on dusty vintage soul samples",
+    "feature-driven collaborative singles"
   ],
   "genresSchema": [
     "hip hop",
