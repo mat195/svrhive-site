@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
+import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
+
+const title = `${CANONICAL_NAME} — ${entity.identityUmbrella} on ${LABEL_NAME}`;
+const description = entity.bio100 ?? `${entity.primaryDescriptor}. Releases on ${LABEL_NAME}. ${entity.disambiguation}`;
+
+const primary = entity.releases.filter((r) => (r.role ?? 'primary') === 'primary');
+const featured = entity.releases.filter((r) => r.role === 'featured');
+
+const jsonld = graph([
+  musicGroupLd(),
+  organizationLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: CANONICAL_NAME, path: '/lucius-p-thundercat/' },
+  ]),
+]);
+---
+
+<Base title={title} description={description} path="/lucius-p-thundercat/" jsonld={jsonld} ogType="profile">
+  <p class="eyebrow">{entity.identityUmbrella} · {entity.location}</p>
+  <h1>{CANONICAL_NAME}</h1>
+
+  {entity.bio100 ? (
+    <p class="lede">{entity.bio100}</p>
+  ) : (
+    <p class="lede">
+      {CANONICAL_NAME} is a {entity.primaryDescriptor}, based in {entity.location} and
+      releasing through <a href="/">{LABEL_NAME}</a>. Known as a producer for
+      vocalists, with feature-driven singles alongside collaborators including Magi
+      Merlin, Frei, Nick Nigh, Sunnie and Muffin.
+    </p>
+  )}
+
+  <p class="disambig">{entity.disambiguation}</p>
+
+  <h2>Sound</h2>
+  <ul class="tags">
+    {entity.genresCore.map((g) => <li>{g}</li>)}
+  </ul>
+
+  {primary.length > 0 && (
+    <>
+      <h2>Releases</h2>
+      <ul class="linklist">
+        {primary.map((r) => (
+          <li>
+            <a href={`/lucius-p-thundercat/releases/${r.slug}/`}>{r.title}</a>
+            <span class="muted">
+              {[r.releaseDate, r.featured && r.featured.length ? `feat. ${r.featured.join(', ')}` : null]
+                .filter(Boolean)
+                .join(' · ')}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {featured.length > 0 && (
+    <>
+      <h2>Featured appearances</h2>
+      <ul class="linklist">
+        {featured.map((r) => (
+          <li>
+            <a href={`/lucius-p-thundercat/releases/${r.slug}/`}>{r.title}</a>
+            <span class="muted">{r.primaryArtist ?? 'guest feature'}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {entity.links.length > 0 && (
+    <>
+      <h2>Listen &amp; follow</h2>
+      <ul class="linklist">
+        {entity.links.map((l) => (
+          <li>
+            <a href={l.url} rel="me noopener">{l.platform}</a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <p class="muted"><small>Released on <a href="/">{LABEL_NAME}</a>.</small></p>
+</Base>

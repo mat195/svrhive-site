@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import { entity, LABEL_NAME, CANONICAL_NAME } from '../lib/entity';
+import { organizationLd, websiteLd, musicGroupLd, breadcrumbLd, graph } from '../lib/jsonld';
+
+const title = `${LABEL_NAME} — independent record label`;
+const description = `${LABEL_NAME} is an independent Canadian record label, home of ${CANONICAL_NAME}, a ${entity.identityUmbrella}.`;
+const jsonld = graph([
+  organizationLd(),
+  websiteLd(),
+  musicGroupLd(),
+  breadcrumbLd([{ name: LABEL_NAME, path: '/' }]),
+]);
+---
+
+<Base title={title} description={description} path="/" jsonld={jsonld}>
+  <p class="eyebrow">Independent record label · Montréal, Québec</p>
+  <h1>{LABEL_NAME}</h1>
+  <p class="lede">
+    {LABEL_NAME} is an independent Canadian record label. It is the home of
+    <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a>, a {entity.identityUmbrella}
+    spanning soulful sample-based hip-hop, boom bap, trap, and lofi.
+  </p>
+
+  <p class="disambig">{entity.disambiguation}</p>
+
+  <h2>Artist</h2>
+  <div class="card">
+    <h3 style="margin-top:0"><a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a></h3>
+    <p class="muted">{entity.primaryDescriptor}.</p>
+    <p>Releases on {LABEL_NAME}. <a href="/lucius-p-thundercat/">Read more →</a></p>
+  </div>
+
+  <h2>About the label</h2>
+  <p>
+    {LABEL_NAME} releases the work of {CANONICAL_NAME}. The label credit appears on
+    every release so the association is unambiguous across streaming platforms and
+    catalogs.
+  </p>
+</Base>

@@ -1,0 +1,61 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { entity, LABEL_NAME, CANONICAL_NAME } from '../../../lib/entity';
+import { releaseLd, musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../../lib/jsonld';
+import type { Release } from '../../../lib/entity';
+
+export function getStaticPaths() {
+  return entity.releases.map((r) => ({ params: { slug: r.slug }, props: { release: r } }));
+}
+
+const { release } = Astro.props as { release: Release };
+const isPrimary = (release.role ?? 'primary') === 'primary';
+const path = `/lucius-p-thundercat/releases/${release.slug}/`;
+
+const creditLine = isPrimary
+  ? `${CANONICAL_NAME}${release.featured && release.featured.length ? ` feat. ${release.featured.join(', ')}` : ''}`
+  : `${release.primaryArtist ?? 'Primary artist to be confirmed'} feat. ${CANONICAL_NAME}`;
+
+const title = `${release.title} — ${CANONICAL_NAME}`;
+const description = `${release.title} — ${creditLine}. Released on ${LABEL_NAME}.${release.description ? ' ' + release.description : ''}`;
+
+const jsonld = graph([
+  releaseLd(release),
+  musicGroupLd(),
+  organizationLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: CANONICAL_NAME, path: '/lucius-p-thundercat/' },
+    { name: release.title, path },
+  ]),
+]);
+---
+
+<Base title={title} description={description} path={path} ogType="music.song" jsonld={jsonld}>
+  <p class="eyebrow"><a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> · Release</p>
+  <h1>{release.title}</h1>
+
+  {release.coverArt ? (
+    <img src={release.coverArt} alt={`${release.title} cover art`} width="320" height="320" style="border-radius:10px;border:1px solid var(--velvet-line)" />
+  ) : (
+    <div class="release-cover" style="max-width:320px" role="img" aria-label={`${release.title} — text-only cover`}>
+      <div>
+        <div style="font-size:1.2rem;color:var(--silk-300)">{release.title}</div>
+        <div style="font-size:0.85rem;margin-top:0.4rem">{CANONICAL_NAME}</div>
+      </div>
+    </div>
+  )}
+
+  <p class="lede" style="margin-top:1.2rem">{creditLine}</p>
+  {release.description && <p>{release.description}</p>}
+
+  <ul class="linklist">
+    {release.releaseDate && <li><span class="muted">Released</span><span>{release.releaseDate}</span></li>}
+    <li><span class="muted">Label</span><span><a href="/">{LABEL_NAME}</a></span></li>
+    <li><span class="muted">Artist</span><span><a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a>{isPrimary ? '' : ' (featured)'}</span></li>
+    {release.upc && <li><span class="muted">UPC</span><span>{release.upc}</span></li>}
+    {release.isrcs && release.isrcs.length > 0 && <li><span class="muted">ISRC</span><span>{release.isrcs.join(', ')}</span></li>}
+  </ul>
+
+  <p><a href="/lucius-p-thundercat/">← All releases by {CANONICAL_NAME}</a></p>
+</Base>

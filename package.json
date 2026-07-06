@@ -1,0 +1,21 @@
+{
+  "name": "svrhive-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "silkvelvetrecords.com — schema-native static label site for Silk Velvet Records / Lucius P. Thundercat.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "sync": "node scripts/sync-entity.mjs",
+    "prebuild": "node scripts/sync-entity.mjs",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "validate:schema": "node scripts/validate-schema.mjs",
+    "check:secrets": "node scripts/check-secrets.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.6.0",
+    "@astrojs/sitemap": "^3.3.0"
+  }
+}

@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import { LABEL_NAME, SITE, absolute } from '../lib/entity';
+
+export interface Props {
+  title: string;
+  description: string;
+  path: string; // e.g. "/lucius-p-thundercat/"
+  jsonld?: string; // serialized @graph
+  ogType?: string;
+}
+
+const { title, description, path, jsonld, ogType = 'website' } = Astro.props;
+const canonical = absolute(path);
+const nav = [
+  { href: '/', label: 'Label' },
+  { href: '/lucius-p-thundercat/', label: 'Lucius P. Thundercat' },
+  { href: '/notes/', label: 'Notes' },
+  { href: '/contact/', label: 'Contact' },
+];
+const isCurrent = (href: string) => href === path;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={LABEL_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {jsonld && <script type="application/ld+json" set:html={jsonld} />}
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">{LABEL_NAME}</a>
+        <nav class="primary" aria-label="Primary">
+          {nav.map((n) => (
+            <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          {LABEL_NAME} — independent record label. Home of Lucius P. Thundercat.<br />
+          <span class="muted">Montréal, Québec, Canada · <a href={SITE}>silkvelvetrecords.com</a></span>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

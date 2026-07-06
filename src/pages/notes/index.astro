@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { LABEL_NAME } from '../../lib/entity';
+import { organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
+
+const notes = (await getCollection('notes')).filter((n) => !n.data.draft);
+notes.sort((a, b) => (b.data.pubDate?.getTime() ?? 0) - (a.data.pubDate?.getTime() ?? 0));
+
+const title = `Notes — ${LABEL_NAME}`;
+const description = `Notes and answer-engine reference pages from ${LABEL_NAME}.`;
+const jsonld = graph([
+  organizationLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: 'Notes', path: '/notes/' },
+  ]),
+]);
+---
+
+<Base title={title} description={description} path="/notes/" jsonld={jsonld}>
+  <p class="eyebrow">Reference</p>
+  <h1>Notes</h1>
+  {notes.length === 0 ? (
+    <p class="muted">No notes yet.</p>
+  ) : (
+    <ul class="linklist">
+      {notes.map((n) => (
+        <li>
+          <a href={`/notes/${n.slug}/`}>{n.data.title}</a>
+          <span class="muted">{n.data.pubDate?.toISOString().slice(0, 10)}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>

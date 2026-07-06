@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import { entity, LABEL_NAME, CANONICAL_NAME } from '../lib/entity';
+import { organizationLd, breadcrumbLd, graph } from '../lib/jsonld';
+
+const title = `Contact — ${LABEL_NAME}`;
+const description = `Contact ${LABEL_NAME} for label, licensing, and press enquiries regarding ${CANONICAL_NAME}.`;
+const jsonld = graph([
+  organizationLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: 'Contact', path: '/contact/' },
+  ]),
+]);
+---
+
+<Base title={title} description={description} path="/contact/" jsonld={jsonld}>
+  <p class="eyebrow">Get in touch</p>
+  <h1>Contact</h1>
+  <p class="lede">
+    For label, licensing, sync, and press enquiries regarding {CANONICAL_NAME}.
+  </p>
+
+  {entity.contactEmail ? (
+    <p><a href={`mailto:${entity.contactEmail}`}>{entity.contactEmail}</a></p>
+  ) : (
+    <p class="muted">
+      A public contact address is being set up. In the meantime, reach
+      {' '}{CANONICAL_NAME} through the official channels listed on the
+      {' '}<a href="/lucius-p-thundercat/">artist page</a>.
+    </p>
+  )}
+
+  <p class="muted"><small>No forms, no tracking.</small></p>
+</Base>

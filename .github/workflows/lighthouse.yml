@@ -1,0 +1,25 @@
+name: Lighthouse (>=95 perf/SEO/a11y)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.14.x
+          lhci autorun --config=./lighthouserc.json

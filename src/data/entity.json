@@ -1,0 +1,203 @@
+{
+  "canonicalName": "Lucius P. Thundercat",
+  "artistSlug": "lucius-p-thundercat",
+  "siteBaseUrl": "https://silkvelvetrecords.com",
+  "label": {
+    "name": "Silk Velvet Records",
+    "slug": "silkvelvetrecords"
+  },
+  "disambiguation": "Independent Canadian hip-hop producer. Not affiliated with Thundercat (Stephen Bruner).",
+  "location": "Montréal, Québec, Canada",
+  "foundingLocation": "Montréal, Québec, Canada",
+  "identityUmbrella": "versatile hip-hop producer",
+  "primaryDescriptor": "versatile hip-hop producer spanning soulful sample-based hip-hop, boom bap, trap, and lofi",
+  "genresCore": [
+    "soulful sample-based hip-hop",
+    "underground hip-hop production",
+    "boom bap",
+    "trap",
+    "lofi hip-hop / jazz-hop",
+    "loop-driven sample craft",
+    "melodic hip-hop / R&B-rap crossover",
+    "dusty vintage soul textures",
+    "producer for vocalists (feature-driven singles)"
+  ],
+  "genresSchema": [
+    "hip hop",
+    "boom bap",
+    "lofi hip hop"
+  ],
+  "genresQuarantined": [
+    "cinematic / score",
+    "ambient interludes"
+  ],
+  "referenceArtists": [
+    "Conductor Williams",
+    "Nicholas Craven",
+    "The Alchemist",
+    "Harry Fraud"
+  ],
+  "bio25": null,
+  "bio100": null,
+  "bio300": null,
+  "activeSince": null,
+  "contactEmail": null,
+  "links": [
+    {
+      "platform": "Spotify",
+      "url": "https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1",
+      "status": "live"
+    },
+    {
+      "platform": "Apple Music",
+      "url": "https://music.apple.com/us/artist/lucius-p-thundercat/958381434",
+      "status": "live"
+    },
+    {
+      "platform": "Deezer",
+      "url": "https://www.deezer.com/en/artist/7367252",
+      "status": "live"
+    },
+    {
+      "platform": "TIDAL",
+      "url": "https://tidal.com/browse/artist/6441893",
+      "status": "live"
+    },
+    {
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/channel/UCFLo4zgjKpAk1IZ4rCDdw5g",
+      "status": "live"
+    },
+    {
+      "platform": "Bandcamp",
+      "url": "https://luciuspthundercat.bandcamp.com",
+      "status": "live"
+    },
+    {
+      "platform": "Official website",
+      "url": "https://luciuspthundercat.com",
+      "status": "live"
+    },
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/luciuspthundercat",
+      "status": "live"
+    },
+    {
+      "platform": "SoundCloud",
+      "url": "https://soundcloud.com/lpthrilla",
+      "status": "live"
+    },
+    {
+      "platform": "X (Twitter)",
+      "url": "https://x.com/thrillalpt",
+      "status": "live"
+    },
+    {
+      "platform": "Songstats",
+      "url": "https://songstats.com/artist/z9xuspnb/lucius-p-thundercat",
+      "status": "live"
+    }
+  ],
+  "releases": [
+    {
+      "slug": "must-be-love",
+      "title": "Must Be Love",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Magi Merlin",
+        "Frei"
+      ],
+      "releaseDate": null
+    },
+    {
+      "slug": "grind-and-stack",
+      "title": "Grind and Stack",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": null
+    },
+    {
+      "slug": "love-potion",
+      "title": "Love Potion",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Sunnie"
+      ],
+      "releaseDate": "2022"
+    },
+    {
+      "slug": "tempo",
+      "title": "Tempo",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Sunnie"
+      ],
+      "releaseDate": "2023",
+      "description": "Includes sped-up and slowed-down versions by Nick Nigh."
+    },
+    {
+      "slug": "next-man-remix",
+      "title": "Next Man [Remix]",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Muffin"
+      ],
+      "releaseDate": "2023"
+    },
+    {
+      "slug": "they-are-not-your-friends-remix",
+      "title": "They Are Not Your Friends [Remix]",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Nick Nigh"
+      ],
+      "releaseDate": "2023"
+    },
+    {
+      "slug": "wish-you-the-best",
+      "title": "Wish You the Best",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Nick Nigh"
+      ],
+      "releaseDate": null
+    },
+    {
+      "slug": "neck-me-down-oclock",
+      "title": "Neck Me Down O'clock",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Nick Nigh"
+      ],
+      "releaseDate": null
+    },
+    {
+      "slug": "love-you-leave-you",
+      "title": "Love You/Leave You",
+      "type": "MusicRecording",
+      "role": "featured",
+      "primaryArtist": null,
+      "releaseDate": null
+    },
+    {
+      "slug": "forbidden-fruit",
+      "title": "Forbidden Fruit",
+      "type": "MusicRecording",
+      "role": "featured",
+      "primaryArtist": "Briley Bell & Lawrence A. Bossong",
+      "featured": [
+        "Curtis Williams"
+      ],
+      "releaseDate": null
+    }
+  ]
+}

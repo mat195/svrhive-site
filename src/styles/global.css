@@ -1,0 +1,100 @@
+/* Silk Velvet Records — dark velvet + silk light accents.
+   Restrained, typographically confident. System fonts only (no external
+   requests → fast, private, no cookie/tracking banners needed). */
+
+:root {
+  --velvet-950: #120a17;
+  --velvet-900: #1a0f22;
+  --velvet-850: #221530;
+  --velvet-800: #2c1b3d;
+  --velvet-line: #3a2750;
+  --silk-100: #f5efe6; /* silk light */
+  --silk-300: #e7dcc9;
+  --silk-muted: #b9a9c4;
+  --accent: #d9b98c; /* champagne silk accent */
+  --accent-soft: #caa9d6;
+  --focus: #e7c9a0;
+
+  --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --maxw: 44rem;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--velvet-950);
+  color: var(--silk-100);
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, var(--velvet-800), transparent 60%),
+    var(--velvet-950);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; letter-spacing: 0.01em; }
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); margin: 0 0 0.4em; }
+h2 { font-size: clamp(1.35rem, 3.5vw, 1.8rem); margin: 2.2rem 0 0.6rem; color: var(--silk-300); }
+h3 { font-size: 1.15rem; margin: 1.4rem 0 0.4rem; color: var(--silk-300); }
+
+p { margin: 0 0 1rem; color: var(--silk-100); }
+.lede { font-size: 1.15rem; color: var(--silk-300); }
+.muted { color: var(--silk-muted); }
+small { color: var(--silk-muted); }
+
+/* Header / nav */
+.site-header { border-bottom: 1px solid var(--velvet-line); }
+.site-header .wrap { display: flex; align-items: baseline; justify-content: space-between; padding-top: 1.1rem; padding-bottom: 1.1rem; gap: 1rem; flex-wrap: wrap; }
+.brand { font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--silk-100); }
+.brand:hover { text-decoration: none; color: var(--accent); }
+nav.primary { display: flex; gap: 1.1rem; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+nav.primary a { color: var(--silk-muted); }
+nav.primary a[aria-current='page'] { color: var(--accent); }
+
+/* Main */
+main { flex: 1; padding: 2.6rem 0 3.5rem; }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.8rem; }
+
+/* Cards / lists */
+.card {
+  border: 1px solid var(--velvet-line);
+  background: linear-gradient(180deg, var(--velvet-850), var(--velvet-900));
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem;
+  margin: 1rem 0;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.tags li { font-size: 0.8rem; color: var(--silk-300); border: 1px solid var(--velvet-line); border-radius: 999px; padding: 0.25rem 0.7rem; }
+
+.linklist { list-style: none; padding: 0; margin: 1rem 0; }
+.linklist li { padding: 0.55rem 0; border-bottom: 1px solid var(--velvet-line); display: flex; justify-content: space-between; gap: 1rem; }
+.linklist li:last-child { border-bottom: none; }
+
+.release-cover {
+  aspect-ratio: 1 / 1; border-radius: 10px; border: 1px solid var(--velvet-line);
+  display: grid; place-items: center; text-align: center; padding: 1rem;
+  background: linear-gradient(145deg, var(--velvet-800), var(--velvet-950));
+  color: var(--silk-muted); font-family: var(--serif);
+}
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--velvet-line); padding: 1.6rem 0; color: var(--silk-muted); font-size: 0.85rem; }
+.site-footer a { color: var(--silk-muted); }
+
+.disambig { font-size: 0.92rem; color: var(--silk-muted); border-left: 2px solid var(--accent-soft); padding-left: 0.9rem; margin: 1.2rem 0; }
