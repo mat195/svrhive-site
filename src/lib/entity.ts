@@ -33,7 +33,7 @@ export interface Entity {
   genresCore: string[];
   genresSchema: string[];
   genresQuarantined: string[];
-  referenceArtists: string[];
+  referenceArtists?: string[];
   bio25: string | null;
   bio100: string | null;
   bio300: string | null;
