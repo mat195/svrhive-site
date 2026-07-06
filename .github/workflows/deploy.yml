@@ -36,6 +36,9 @@ jobs:
       - name: Validate structured data (fail on invalid JSON-LD)
         run: npm run validate:schema
 
+      - name: Provenance lint (fail on identity drift)
+        run: npm run lint:provenance
+
       - name: Secret hygiene grep (no keys in bundle)
         run: npm run check:secrets
 

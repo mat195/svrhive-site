@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { LABEL_NAME, absolute, entity } from '../../lib/entity';
+import { organizationLd, musicGroupLd, breadcrumbLd, clean, graph } from '../../lib/jsonld';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.filter((n) => !n.data.draft).map((n) => ({ params: { slug: n.slug }, props: { note: n } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await note.render();
+const path = `/notes/${note.slug}/`;
+
+const article = clean({
+  '@type': 'Article',
+  headline: note.data.title,
+  description: note.data.description,
+  mainEntityOfPage: absolute(path),
+  author: { '@type': 'MusicGroup', name: LABEL_NAME },
+  publisher: { '@id': absolute('/#organization') },
+  about: { '@id': absolute(`/${entity.artistSlug}/#musicgroup`) },
+  datePublished: note.data.pubDate ? note.data.pubDate.toISOString() : undefined,
+});
+
+const jsonld = graph([
+  article,
+  organizationLd(),
+  musicGroupLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: 'Notes', path: '/notes/' },
+    { name: note.data.title, path },
+  ]),
+]);
+---
+
+<Base title={note.data.title} description={note.data.description} path={path} jsonld={jsonld} ogType="article">
+  <p class="eyebrow"><a href="/notes/">Notes</a> · {LABEL_NAME}</p>
+  <article class="note">
+    <Content />
+  </article>
+  <p class="muted" style="margin-top:2rem"><small>Silk Velvet Records notes.</small></p>
+</Base>

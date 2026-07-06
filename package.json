@@ -12,6 +12,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "validate:schema": "node scripts/validate-schema.mjs",
+    "lint:provenance": "node scripts/provenance-lint.mjs",
     "check:secrets": "node scripts/check-secrets.mjs"
   },
   "dependencies": {

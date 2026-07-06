@@ -8,6 +8,7 @@ const notes = defineCollection({
     title: z.string(),
     description: z.string(),
     targetQuery: z.string().optional(),
+    canonical_url: z.string().optional(),
     pubDate: z.coerce.date().optional(),
     draft: z.boolean().default(false),
   }),
