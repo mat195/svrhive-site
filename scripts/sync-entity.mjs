@@ -42,5 +42,14 @@ if (!src) {
 }
 
 const data = extractBlock(readFileSync(src, 'utf8'));
+
+// Privacy guard at the public boundary — the master may hold internal-only fields
+// that must NEVER reach the PUBLIC site repo:
+//  • beat provenance (producer credits) — §11, metadata not positioning
+//  • real-name policy — Mat's legal name is for music-database legal-name fields ONLY
+//    (submission kits), never public copy or public source.
+for (const r of data.releases ?? []) delete r.producers;
+delete data.realNamePolicy;
+
 writeFileSync(OUT, JSON.stringify(data, null, 2) + '\n');
 console.log(`[sync-entity] Synced entity.json from ${src} (${data.releases?.length ?? 0} releases, ${data.links?.length ?? 0} links).`);
