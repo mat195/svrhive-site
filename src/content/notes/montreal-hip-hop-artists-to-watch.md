@@ -15,7 +15,7 @@ Montréal's underground hip-hop scene skews instrumental and producer-forward, b
 
 ## Notable Collaborations
 
-**Montréal scene:** Magi Merlin (vocalist — "Must Be Love," 2022), Nick Nigh (recurring; appears as both beatmaker and vocalist), King Mizery (rapper — "Me Now," 2020).
+**Montréal scene:** Magi Merlin (vocalist — "Must Be Love," 2022), Nick Nigh (recurring; appears as both producer and vocalist), King Mizery (rapper — "Me Now," 2020).
 
 **Recurring collaborators:** Sunnie (vocalist — "Love Potion," "Tempo"), Mooch ("If It Comes to It," 2020).
 
