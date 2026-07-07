@@ -215,6 +215,500 @@
       "releaseDate": "2017-09-25",
       "source": "Spotify",
       "dsp_status": "live"
+    },
+    {
+      "slug": "ruse-de-guerre",
+      "title": "Ruse de Guerre",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2026-02-20",
+      "isrc": "QZDA62657315",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "a-2-pack-of-throat",
+      "title": "A 2-Pack of Throat",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2024-02-29",
+      "isrc": "QZDA42445130",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "rock-with-it",
+      "title": "Rock With It",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2023-12-08",
+      "isrc": "QZTBF2385454",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "mind-my-biz",
+      "title": "Mind My Biz",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "OG Maco"
+      ],
+      "releaseDate": "2023-08-04",
+      "isrc": "QZNWT2323660",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "tempo-sped-up-and-slowed-down-by-nick-nigh",
+      "title": "Tempo (Sped up and Slowed Down by Nick Nigh)",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Nick Nigh"
+      ],
+      "releaseDate": "2023-07-19",
+      "isrc": "QZHN31906790",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "love-pack-tokyo-drift",
+      "title": "Love Pack : Tokyo Drift",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2023-05-19",
+      "isrc": "QZFZ32054937",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "make-you-happy",
+      "title": "Make You Happy",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2022-05-05",
+      "isrc": "QZES92268056",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "daddy-cool",
+      "title": "Daddy Cool",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2021-07-29",
+      "isrc": "QZK6M2135351",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "they-are-not-your-friends",
+      "title": "They are not your Friends",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2021-04-15",
+      "isrc": "QZES62126790",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "kiss-my-taint-freestyle",
+      "title": "Kiss My Taint Freestyle",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2021-01-08",
+      "isrc": "QZFYW2144183",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "energy",
+      "title": "Energy",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-12-11",
+      "isrc": "QZNWS2085766",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "my-worst",
+      "title": "My Worst",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-10-23",
+      "isrc": "QZMEN2045642",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "if-it-comes-to-it",
+      "title": "If It Comes to It",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Che Noir",
+        "Mooch"
+      ],
+      "releaseDate": "2020-09-24",
+      "isrc": "QZK6L2039531",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "same-song-do-x6-feat-frei-nick-nigh",
+      "title": "Same Song (Do X6) [feat. Frei & Nick Nigh]",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-09-10",
+      "isrc": "QZK6L2033411",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "tempo-muffin-remix",
+      "title": "Tempo (Muffin Remix)",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Muffin"
+      ],
+      "releaseDate": "2020-08-27",
+      "isrc": "QZK6N2012942",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "finger-fuckin-fianc-s-all-2k20-remix",
+      "title": "Finger Fuckin' Fiancés All 2k20 (Remix)",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "BIGBABYGUCCI",
+        "Lil House Phone"
+      ],
+      "releaseDate": "2020-07-20",
+      "isrc": "QZHN92031342",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "purple-mattress",
+      "title": "Purple Mattress",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-06-29",
+      "isrc": "QZHN62085299",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "the-steez",
+      "title": "The Steez",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Vegas of the North",
+        "J. Knock"
+      ],
+      "releaseDate": "2020-05-29",
+      "isrc": "QZES92065928",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "excelente",
+      "title": "Excelente",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Daxsen",
+        "OG Maco"
+      ],
+      "releaseDate": "2020-05-22",
+      "isrc": "GBWUL2082052",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "who-is-i",
+      "title": "Who Is I",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-05-18",
+      "isrc": "QZES52039896",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "already-knew",
+      "title": "Already Knew",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-04-27",
+      "isrc": "QZFZ72089854",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "me-now",
+      "title": "Me Now",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "King Mizery"
+      ],
+      "releaseDate": "2020-03-30",
+      "isrc": "QZFZ72024233",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "hate-fuck",
+      "title": "Hate Fuck",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Project Pat"
+      ],
+      "releaseDate": "2020-03-09",
+      "isrc": "QZFZ32054937",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "love-pack",
+      "title": "Love Pack",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-02-10",
+      "isrc": "QZFYX2086060",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "gold-standard",
+      "title": "Gold Standard",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2020-01-24",
+      "isrc": "QZK6M1905114",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "next-man",
+      "title": "Next Man",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Muffin",
+        "Lucas Wolfe"
+      ],
+      "releaseDate": "2020-01-08",
+      "isrc": "QZK6P1963681",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "want-me-gone",
+      "title": "Want Me Gone",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Vegas of the North",
+        "Lucas Wolfe"
+      ],
+      "releaseDate": "2019-12-06",
+      "isrc": "QZK6Q1966090",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "back-on-my-95",
+      "title": "Back on My '95",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Vegas of the North"
+      ],
+      "releaseDate": "2019-11-25",
+      "isrc": "QZHNB1939500",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "finger-fuckin-fianc-s-all-2k20",
+      "title": "Finger Fuckin' Fiancés All 2k20",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2019-10-18",
+      "isrc": "QZHN61993554",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "fast-girls",
+      "title": "Fast Girls",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2019-08-05",
+      "isrc": "QZFZ21993353",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "fax",
+      "title": "Fax",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2019-06-24",
+      "isrc": "QZFYY1942327",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "quinceanera-fresh",
+      "title": "Quinceanera Fresh",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2019-05-24",
+      "isrc": "QZES81997297",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "i-can-t-control",
+      "title": "I Can't Control",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2019-05-10",
+      "isrc": "QZES81937689",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "ron-in-my-colada",
+      "title": "Ron in My Colada",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2019-03-08",
+      "isrc": "QZDA81963997",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "hustle-don-t-stop",
+      "title": "Hustle Don't Stop",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2018-08-21",
+      "isrc": "QZDA81869334",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "black-history-legend",
+      "title": "Black History Legend",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2018-02-28",
+      "isrc": "QZBRF1819251",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "coins",
+      "title": "Coins",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2018-02-12",
+      "isrc": "QZARB1843499",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "bodycon",
+      "title": "Bodycon",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2017-09-22",
+      "isrc": "QZ9JZ1757266",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "control-of-it-muffin-remix",
+      "title": "Control of It (Muffin Remix)",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [
+        "Muffin"
+      ],
+      "releaseDate": "2017-09-10",
+      "isrc": "QZ9JZ1734964",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "power-man-iron-fist",
+      "title": "Power Man & Iron Fist",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2017-08-18",
+      "isrc": "QZ8LD1752653",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "control-of-it",
+      "title": "Control of It",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2017-04-10",
+      "isrc": "QMPKX1703526",
+      "source": "Spotify",
+      "dsp_status": "live"
+    },
+    {
+      "slug": "just-got-paid",
+      "title": "Just Got Paid",
+      "type": "MusicRecording",
+      "role": "primary",
+      "featured": [],
+      "releaseDate": "2016-07-01",
+      "isrc": "TCACP1612860",
+      "source": "Spotify",
+      "dsp_status": "live"
     }
   ]
 }
