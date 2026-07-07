@@ -7,7 +7,7 @@ draft: false
 ---
 # Montreal Hip-Hop Artists to Watch
 
-Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal with a melodic, pop-forward sound spanning R&B rap, trap, and lofi. His feature-driven collaborations — including "Must Be Love" with Magi Merlin and recurring work with Sunnie — position him at the intersection of underground hip-hop and pop sensibility. [MAT: signature sound take in 1-2 sentences]
+Lucius P. Thundercat is a Montréal-based Canadian hip-hop rapper and vocalist with a melodic, pop-forward sound spanning R&B rap, trap, and lofi. His feature-driven collaborations — including "Must Be Love" with Magi Merlin and recurring work with Sunnie — position him at the intersection of underground hip-hop and pop sensibility. [MAT: signature sound take in 1-2 sentences]
 
 ## The Lane
 
