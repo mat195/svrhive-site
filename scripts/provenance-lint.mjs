@@ -17,24 +17,33 @@ const html = [];
 (function walk(d) { for (const e of readdirSync(d, { withFileTypes: true })) { const p = join(d, e.name); if (e.isDirectory()) walk(p); else if (extname(p) === '.html') html.push(p); } })(DIST);
 
 const drift = [];
-const PRODUCE = /produc(e|es|er|ers|ing|tion)/i;
-const ALLOW = /(not|never|n't)\s+produc/i; // e.g. "does not produce" (shouldn't be public, but don't false-flag)
-
-for (const f of html) {
-  const rel = f.slice(DIST.length);
-  const text = readFileSync(f, 'utf8');
-  // Producer language in the vicinity of the canonical name = identity drift.
+// Producer language is drift ONLY when attributed to LPT himself — not when it accurately
+// describes a collaborator near his name (e.g. "Nick Nigh (producer and vocalist)"). Kept in
+// sync with the publish-time gate (svrhive-parlor _shared/provenance.ts).
+const PRODUCE = /produc\w*/i;
+const NEGATED = /\b(not|never|no|isn'?t|aren'?t)\b|n'?t\b/i;
+const OTHER_BEFORE = /[A-Z][a-z]+\s+[A-Z][a-z]+|feat\.?|\bfeaturing\b|\(/;
+function attributedToLPT(text) {
   let i = 0;
   while ((i = text.indexOf(NAME, i)) !== -1) {
-    const win = text.slice(Math.max(0, i - 60), i + 200);
-    if (PRODUCE.test(win) && !ALLOW.test(win)) {
-      drift.push(`${rel}: producer language near "${NAME}" — identity drift`);
-      break;
+    const clause = text.slice(i + NAME.length).split(/[.!?\n;:]/)[0];
+    const p = clause.search(PRODUCE);
+    if (p !== -1) {
+      const before = clause.slice(0, p);
+      const afterWord = clause.slice(p).replace(PRODUCE, '');
+      const belongsToOther = OTHER_BEFORE.test(before) || /^\s+[A-Z][a-z]/.test(afterWord);
+      if (!NEGATED.test(before) && !belongsToOther) return true;
     }
     i += NAME.length;
   }
-  // The blanket red-flag phrase must never appear on our own site.
-  if (/hip[- ]hop producer/i.test(text)) drift.push(`${rel}: contains the phrase "hip-hop producer"`);
+  return false;
+}
+
+for (const f of html) {
+  const rel = f.slice(DIST.length);
+  // Strip tags → check visible text, aligning with the markdown gate.
+  const text = readFileSync(f, 'utf8').replace(/<[^>]+>/g, ' ');
+  if (attributedToLPT(text)) drift.push(`${rel}: producer language attributed to "${NAME}" — identity drift`);
 }
 
 // Positive check: the artist page must still assert the rapper/vocalist identity.
