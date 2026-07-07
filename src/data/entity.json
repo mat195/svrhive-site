@@ -178,8 +178,10 @@
       "title": "Love You/Leave You",
       "type": "MusicRecording",
       "role": "featured",
-      "primaryArtist": null,
-      "releaseDate": null
+      "primaryArtist": "Nick Nigh",
+      "releaseDate": "2023-04-07",
+      "source": "Spotify",
+      "dsp_status": "live"
     },
     {
       "slug": "forbidden-fruit",
