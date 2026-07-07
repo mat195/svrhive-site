@@ -22,6 +22,14 @@ Lucius P. Thundercat's approach is defined by:
 - **Pop-rap accessibility** — trap and lofi textures that play to a mainstream ear without sacrificing hip-hop credibility
 - **Collaborative breadth** — many co-artists across his catalog, including national names like Project Pat and OG Maco
 
+## Notable Collaborations
+
+**Montréal scene:** Magi Merlin (vocalist — "Must Be Love," 2022), Nick Nigh (recurring; appears as both beatmaker and vocalist), King Mizery (rapper — "Me Now," 2020).
+
+**Recurring collaborators:** Sunnie (vocalist — "Love Potion," "Tempo"), Mooch ("If It Comes to It," 2020).
+
+**Notable features:** Project Pat — Memphis rapper, Three 6 Mafia ("Hate Fuck"); OG Maco — Atlanta rapper ("Mind My Biz"); Che Noir — Buffalo rapper ("If It Comes to It"); Curtis Williams — vocalist ("Forbidden Fruit"); Skyzoo — Brooklyn rapper ("All of the Above"); Ransom and Add-2 ("Nocturnal Youth").
+
 ## Releases & Discography
 
 | Release | Year | Feature | Notes |
