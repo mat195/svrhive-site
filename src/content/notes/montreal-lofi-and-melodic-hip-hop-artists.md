@@ -32,7 +32,6 @@ Lucius P. Thundercat's discography reflects a conscious choice toward feature-dr
 ## Where to Find Him
 
 - **Spotify:** https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1
-- **Bandcamp:** https://luciuspthundercat.bandcamp.com
 - **YouTube:** https://www.youtube.com/channel/UCFLo4zgjKpAk1IZ4rCDdw5g
 - **SoundCloud:** https://soundcloud.com/lpthrilla
 
