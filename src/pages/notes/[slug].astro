@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
-import { LABEL_NAME, absolute, entity } from '../../lib/entity';
+import { LABEL_NAME, CANONICAL_NAME, absolute, entity } from '../../lib/entity';
 import { organizationLd, musicGroupLd, breadcrumbLd, clean, graph } from '../../lib/jsonld';
 
 export async function getStaticPaths() {
@@ -30,16 +30,16 @@ const jsonld = graph([
   musicGroupLd(),
   breadcrumbLd([
     { name: LABEL_NAME, path: '/' },
-    { name: 'Notes', path: '/notes/' },
+    { name: CANONICAL_NAME, path: '/lucius-p-thundercat/' },
     { name: note.data.title, path },
   ]),
 ]);
 ---
 
 <Base title={note.data.title} description={note.data.description} path={path} jsonld={jsonld} ogType="article">
-  <p class="eyebrow"><a href="/notes/">Notes</a> · {LABEL_NAME}</p>
+  <p class="eyebrow"><a href="/">{LABEL_NAME}</a></p>
   <article class="note">
     <Content />
   </article>
-  <p class="muted" style="margin-top:2rem"><small>Silk Velvet Records notes.</small></p>
+  <p class="muted" style="margin-top:2rem"><small>A note from <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> on <a href="/">{LABEL_NAME}</a>.</small></p>
 </Base>
