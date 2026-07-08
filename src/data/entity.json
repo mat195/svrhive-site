@@ -32,7 +32,7 @@
     "ambient interludes"
   ],
   "bio25": "Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal with a melodic, pop-forward sound spanning R&B rap, trap, and lofi.",
-  "bio100": "Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist based in Montréal, releasing through Silk Velvet Records. His sound is melodic and pop-forward — R&B-influenced rap that moves through trap and lofi, touching boom bap as texture. He works feature-first: a signature collaboration is \"Must Be Love\" with Magi Merlin. Active since 2016, his catalog is available across all major streaming platforms and Bandcamp.",
+  "bio100": "Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist based in Montréal, releasing through Silk Velvet Records. His sound is melodic and pop-forward — R&B-influenced rap that moves through trap and lofi, touching boom bap as texture. He works feature-first: a signature collaboration is \"Must Be Love\" with Magi Merlin. Active since 2016, his catalog is available across all major streaming platforms.",
   "bio300": null,
   "activeSince": "2016",
   "contactEmail": null,
@@ -61,11 +61,6 @@
     {
       "platform": "YouTube",
       "url": "https://www.youtube.com/channel/UCFLo4zgjKpAk1IZ4rCDdw5g",
-      "status": "live"
-    },
-    {
-      "platform": "Bandcamp",
-      "url": "https://luciuspthundercat.bandcamp.com",
       "status": "live"
     },
     {

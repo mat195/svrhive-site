@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import { LABEL_NAME, SITE, absolute, entity } from '../lib/entity';
-const streamLinks = (entity.links ?? []).filter((l: any) => /spotify|apple|bandcamp|soundcloud|youtube/i.test(l.url)).slice(0, 5);
+const streamLinks = (entity.links ?? []).filter((l: any) => /spotify|apple|soundcloud|youtube/i.test(l.url)).slice(0, 5);
 
 export interface Props {
   title: string;
