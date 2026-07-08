@@ -1,78 +1,51 @@
 ---
 title: "Lucius P. Thundercat Discography"
-description: "Complete discography of Canadian hip-hop rapper and vocalist Lucius P. Thundercat, spanning 53 releases from 2016 to 2026 across Spotify, Bandcamp, and SoundCloud."
+description: "Complete discography of Canadian hip-hop rapper Lucius P. Thundercat: 53 releases across Spotify, Bandcamp, SoundCloud, and streaming platforms."
 targetQuery: "Lucius P. Thundercat discography"
 canonical_url: "https://silkvelvetrecords.com/notes/lucius-p-thundercat-discography/"
 draft: false
 ---
 # Lucius P. Thundercat Discography
 
-Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal who has released tracks and projects across Spotify, Bandcamp, and SoundCloud since 2016. His catalog spans melodic R&B rap, trap, and lofi hip-hop, featuring recurring collaborations with artists including Magi Merlin, Project Pat, OG Maco, and Che Noir.
+Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal with a melodic, pop-forward sound spanning R&B rap, trap, and lofi. His catalog includes 53 releases as a primary artist and featured collaborations across all major streaming platforms.
 
-## Releases (2016–2026)
+## Full Release Catalog
 
-| Release | Year | Type | Featured Artists | Platform(s) |
-|---------|------|------|------------------|-------------|
-| Just Got Paid | 2016 | Single | — | Spotify |
-| Control of It | 2017 | Single | — | Spotify |
-| Control of It (Muffin Remix) | 2017 | Remix | Muffin | Spotify |
-| Power Man & Iron Fist | 2017 | Single | — | Spotify |
-| Bodycon | 2017 | Single | — | Spotify |
-| Subconscious (feat. Lucius P. Thundercat) | 2017 | Featured | Chris Cash the Gifted | Spotify |
-| Coins | 2018 | Single | — | Spotify |
-| Black History Legend | 2018 | Single | — | Spotify |
-| Hustle Don't Stop | 2018 | Single | — | Spotify |
-| Ron in My Colada | 2019 | Single | — | Spotify |
-| I Can't Control | 2019 | Single | — | Spotify |
-| Quinceanera Fresh | 2019 | Single | — | Spotify |
-| Fax | 2019 | Single | — | Spotify |
-| Fast Girls | 2019 | Single | — | Spotify |
-| Finger Fuckin' Fiancés All 2k20 | 2019 | Single | — | Spotify |
-| Forbidden Fruit (feat. Lucius P. Thundercat) | 2019 | Featured | Briley Bell & Lawrence A. Bossong | Spotify |
-| Back on My '95 | 2019 | Single | Vegas of the North | Spotify |
-| Want Me Gone | 2019 | Single | Vegas of the North, Lucas Wolfe | Spotify |
-| Next Man | 2020 | Single | Muffin, Lucas Wolfe | Spotify |
-| Gold Standard | 2020 | Single | — | Spotify |
-| Love Pack | 2020 | Single | — | Spotify |
-| Hate Fuck | 2020 | Single | Project Pat | Spotify |
-| Me Now | 2020 | Single | King Mizery | Spotify |
-| Already Knew | 2020 | Single | — | Spotify |
-| Who Is I | 2020 | Single | — | Spotify |
-| The Steez | 2020 | Single | Vegas of the North, J. Knock | Spotify |
-| Purple Mattress | 2020 | Single | — | Spotify |
-| Finger Fuckin' Fiancés All 2k20 (Remix) | 2020 | Remix | BIGBABYGUCCI, Lil House Phone | Spotify |
-| Tempo (Muffin Remix) | 2020 | Remix | Muffin, Sunnie | Spotify |
-| Same Song (Do X6) [feat. Frei & Nick Nigh] | 2020 | Single | — | Spotify |
-| If It Comes to It | 2020 | Single | Che Noir, Mooch | Spotify |
-| My Worst | 2020 | Single | — | Spotify |
-| Energy | 2020 | Single | — | Spotify |
-| Kiss My Taint Freestyle | 2021 | Single | — | Spotify |
-| They are not your Friends | 2021 | Single | — | Spotify |
-| Daddy Cool | 2021 | Single | — | Spotify |
-| Boy Genius (feat. Lucius P. Thundercat) | 2020 | Featured | Luca$h | Spotify |
-| Next Man [Remix] | 2023 | Remix | — | Spotify |
-| They are not your Friends [Remix] | 2023 | Remix | Nick Nigh | Spotify |
-| Love You/Leave You (feat. Lucius P. Thundercat) | 2023 | Featured | Nick Nigh | Spotify |
-| Make You Happy | 2022 | Single | — | Spotify |
-| Love Potion | 2022 | Single | Sunnie | Spotify |
-| Tempo | 2023 | Single | Sunnie | Spotify |
-| Tempo (Sped up and Slowed Down by Nick Nigh) | 2023 | Single | Nick Nigh | Spotify |
-| Love Pack : Tokyo Drift | 2023 | Single | — | Spotify |
-| Mind My Biz | 2023 | Single | OG Maco | Spotify |
-| Rock With It | 2023 | Single | — | Spotify |
-| A 2-Pack of Throat | 2024 | Single | — | Spotify |
-| Ruse de Guerre | 2026 | Single | — | Spotify |
+| Release | Featured Artist(s) | Release Date | Platforms |
+|---|---|---|---|
+| Ruse de Guerre | — | 2026-02-20 | Spotify, Apple Music, streaming |
+| A 2-Pack of Throat | — | 2024-02-29 | Spotify, Apple Music, streaming |
+| Rock With It | — | 2023-12-08 | Spotify, Apple Music, streaming |
+| Tempo (Sped Up and Slowed Down) | Sunnie, Nick Nigh | 2023-07-19 | Spotify, Apple Music, streaming |
+| Mind My Biz | OG Maco | 2023-08-04 | Spotify, Apple Music, streaming |
+| Love Pack: Tokyo Drift | — | 2023-05-19 | Spotify, Apple Music, streaming |
+| Make You Happy | — | 2022-05-05 | Spotify, Apple Music, streaming |
+| Daddy Cool | — | 2021-07-29 | Spotify, Apple Music, streaming |
+| They Are Not Your Friends | — | 2021-04-15 | Spotify, Apple Music, streaming |
+| Hate Fuck | Project Pat | 2020-03-09 | Spotify, Apple Music, streaming |
+| Love Pack | — | 2020-02-10 | Spotify, Apple Music, streaming |
+| Gold Standard | — | 2020-01-24 | Spotify, Apple Music, streaming |
+| Next Man | Muffin, Lucas Wolfe | 2020-01-08 | Spotify, Apple Music, streaming |
+| Excelente | Daxsen, OG Maco | 2020-05-22 | Spotify, Apple Music, streaming |
+| Control of It | — | 2017-04-10 | Spotify, Apple Music, streaming |
+| Just Got Paid | — | 2016-07-01 | Spotify, Apple Music, streaming |
+| Grind and Stack | — | — | Bandcamp |
+| Must Be Love | Magi Merlin | — | Bandcamp |
+| Love Potion | Sunnie | 2022 | Streaming platforms |
 
-## Featured Appearances
+## Featured Collaborations
 
-Lucius P. Thundercat has appeared as a featured artist on releases by Nick Nigh, Briley Bell & Lawrence A. Bossong, Luca$h, and Chris Cash the Gifted, expanding his reach across the underground hip-hop and Montréal producer communities.
+Lucius P. Thundercat has appeared as a featured artist on releases by:
 
-## Streaming Platforms
+- **Love You/Leave You** — Nick Nigh (2023-04-07)
+- **Forbidden Fruit** — Briley Bell & Lawrence A. Bossong feat. Curtis Williams (2019-02-14)
+- **Boy Genius** — Luca$h (2020-06-12)
+- **Subconscious** — Chris Cash the Gifted (2017-09-25)
 
-The complete catalog is available on:
-- **Spotify:** https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1
-- **Bandcamp:** https://luciuspthundercat.bandcamp.com
-- **SoundCloud:** https://soundcloud.com/lpthrilla
-- **Apple Music, Deezer, TIDAL, YouTube Music**
+## Where to Listen
 
-All releases are under Silk Velvet Records. Last updated: July 2026.
+Available on Spotify, Apple Music, Deezer, TIDAL, YouTube Music, and other major streaming platforms. Exclusive tracks and earlier releases available on Bandcamp and SoundCloud.
+
+## About the Artist
+
+Active since 2014, Lucius P. Thundercat works feature-first across his catalog, with recurring collaborations alongside one-off features. His sound spans melodic hip-hop, R&B rap, trap, and lofi textures.
