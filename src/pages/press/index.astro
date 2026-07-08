@@ -1,0 +1,101 @@
+---
+import Base from '../../layouts/Base.astro';
+import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
+import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
+import covers from '../../data/covers.json';
+
+const title = `Press Kit — ${CANONICAL_NAME}`;
+const description = `Approved press assets for ${CANONICAL_NAME}: bio, facts, cover art, and links. From ${LABEL_NAME}.`;
+const jsonld = graph([
+  musicGroupLd(),
+  organizationLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: 'Press Kit', path: '/press/' },
+  ]),
+]);
+
+const cov: Record<string, any> = covers as any;
+const coverList = Object.entries(cov)
+  .map(([slug, v]: any) => ({ slug, ...v }))
+  .filter((c) => c.cover)
+  .sort((a, b) => (b.streams ?? 0) - (a.streams ?? 0));
+
+// Verified facts only — nothing invented. 311K figure cited per Spotify for Artists.
+const collaborators = ['Project Pat', 'OG Maco', 'Che Noir', 'Skyzoo', 'Ransom', 'Add-2'];
+const facts: [string, string][] = [
+  ['Location', entity.location ?? 'Montréal, Québec, Canada'],
+  ['Label', LABEL_NAME],
+  ['Active since', String(entity.activeSince ?? '2014')],
+  ['Genre', entity.genresCore.slice(0, 4).join(', ')],
+  ['Flagship track', 'Hate Fuck (feat. Project Pat) — 311K+ streams, per Spotify for Artists'],
+  ['Notable collaborators', collaborators.join(', ')],
+];
+---
+
+<Base title={title} description={description} path="/press/" jsonld={jsonld} ogType="profile">
+  <p class="eyebrow">Electronic press kit · approved assets</p>
+  <h1>Press Kit — {CANONICAL_NAME}</h1>
+  <p class="lede">Everything a curator, blog, or journalist needs — approved bio, verified facts, cover art, and links. All assets free to use with credit to {LABEL_NAME}.</p>
+
+  <h2>Bio</h2>
+  <div class="copyrow">
+    <p class="mono" style="font-size:0.72rem;color:var(--silk);letter-spacing:0.06em;text-transform:uppercase;margin:0.6rem 0 0.3rem;">Short — 25 words</p>
+  </div>
+  <div class="copyrow">
+    <p style="margin:0;" id="bio25">{entity.bio25}</p>
+    <button class="copybtn" data-copy="#bio25">Copy</button>
+  </div>
+  <div class="copyrow">
+    <p class="mono" style="font-size:0.72rem;color:var(--silk);letter-spacing:0.06em;text-transform:uppercase;margin:1.2rem 0 0.3rem;">Standard — 100 words</p>
+  </div>
+  <div class="copyrow">
+    <p style="margin:0;" id="bio100">{entity.bio100}</p>
+    <button class="copybtn" data-copy="#bio100">Copy</button>
+  </div>
+
+  <h2>Fast facts</h2>
+  <ul class="facts">
+    {facts.map(([k, v]) => (
+      <li><span class="k">{k}</span><span>{v}</span></li>
+    ))}
+  </ul>
+
+  <h2>Cover art <span class="catno" style="margin-left:0.4rem;">{coverList.length} sleeves · full resolution</span></h2>
+  <ul class="sleeve-grid">
+    {coverList.map((c) => (
+      <li>
+        <a class="sleeve" href={c.cover} download={`${c.slug}.jpg`}>
+          <span class="art"><img src={c.cover} alt={`${c.title} cover art`} loading="lazy" width="300" height="300" /></span>
+          <span class="meta">
+            <span class="title">{c.title}</span>
+            <span class="sub">{c.catalog ?? ''}{c.catalog && c.year ? ' · ' : ''}{c.year ?? ''} · <span class="streams">Download ↓</span></span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Streaming &amp; social</h2>
+  <ul class="linklist">
+    {entity.links.map((l) => (
+      <li><a href={l.url} target="_blank" rel="me noopener">{l.platform}</a><span class="muted mono" style="font-size:0.72rem;">{l.status ?? ''}</span></li>
+    ))}
+  </ul>
+
+  <h2>Contact</h2>
+  <p class="muted">Press &amp; licensing: <a href="/contact/">contact {LABEL_NAME}</a>.</p>
+
+  <script is:inline>
+    document.querySelectorAll('.copybtn[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const el = document.querySelector(btn.getAttribute('data-copy'));
+        if (!el) return;
+        try {
+          await navigator.clipboard.writeText(el.textContent.trim());
+          const t = btn.textContent; btn.textContent = 'Copied'; setTimeout(() => (btn.textContent = t), 1400);
+        } catch { /* clipboard unavailable */ }
+      });
+    });
+  </script>
+</Base>
