@@ -7,7 +7,7 @@ draft: false
 ---
 # Lucius P. Thundercat Discography
 
-Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal who has released 53 tracks and projects across Spotify, Bandcamp, and SoundCloud since 2016. His catalog spans melodic R&B rap, trap, and lofi hip-hop, featuring recurring collaborations with artists including Sunnie, Nick Nigh, Magi Merlin, Project Pat, OG Maco, and Che Noir.
+Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal who has released tracks and projects across Spotify, Bandcamp, and SoundCloud since 2016. His catalog spans melodic R&B rap, trap, and lofi hip-hop, featuring recurring collaborations with artists including Magi Merlin, Project Pat, OG Maco, and Che Noir.
 
 ## Releases (2016–2026)
 
@@ -38,7 +38,6 @@ Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal wh
 | Me Now | 2020 | Single | King Mizery | Spotify |
 | Already Knew | 2020 | Single | — | Spotify |
 | Who Is I | 2020 | Single | — | Spotify |
-| Excelente | 2020 | Single | Daxsen, OG Maco | Spotify |
 | The Steez | 2020 | Single | Vegas of the North, J. Knock | Spotify |
 | Purple Mattress | 2020 | Single | — | Spotify |
 | Finger Fuckin' Fiancés All 2k20 (Remix) | 2020 | Remix | BIGBABYGUCCI, Lil House Phone | Spotify |
