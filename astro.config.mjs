@@ -13,8 +13,14 @@ export default defineConfig({
   // collective listing is hidden. /notes/ redirects to the homepage.
   // Public /notes/ index and the old public /press/ page are gone (redirect home). The
   // press kit now lives unlisted at /kit/ (internal tool, noindex, not in nav/sitemap).
-  redirects: { '/notes': '/', '/notes/': '/', '/press': '/', '/press/': '/' },
+  redirects: {
+    '/notes': '/', '/notes/': '/', '/press': '/', '/press/': '/',
+    // Canonicalized 2026-07-08: the study-playlist page has one canonical slug
+    // (list-10-…); the older duplicate slug redirects to it.
+    '/notes/10-underground-rappers-for-a-study-playlist': '/notes/list-10-underground-rappers-for-a-study-playlist/',
+    '/notes/10-underground-rappers-for-a-study-playlist/': '/notes/list-10-underground-rappers-for-a-study-playlist/',
+  },
   // Sitemap keeps every individual corpus page; excludes the /notes/ stub and the private /kit/.
-  integrations: [sitemap({ filter: (page) => page !== `${SITE}/notes/` && !page.startsWith(`${SITE}/kit`) })],
+  integrations: [sitemap({ filter: (page) => page !== `${SITE}/notes/` && !page.startsWith(`${SITE}/kit`) && page !== `${SITE}/notes/10-underground-rappers-for-a-study-playlist/` })],
   build: { format: 'directory' },
 });
