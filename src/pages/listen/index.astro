@@ -79,15 +79,22 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     </div>
   </div>
 
-  {/* Static fallback — full track list is in the HTML before any JS runs (crawlers + no-JS). */}
-  <noscript>
-    <p class="muted">Enable JavaScript for the interactive crate. The catalog:</p>
-  </noscript>
-  <ul class="linklist lr-fallback">
+  {/* Full list — rich rows (thumbnail + play), also the static fallback: every track is
+      in the HTML before any JS runs (crawlers + no-JS get titles + Spotify links). */}
+  <h2 class="mono" style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--static);border:0;">The full crate</h2>
+  <ul class="lr-list">
     {records.map((r) => (
-      <li>
-        <span><span class="catno">{r.catalog}</span> <a href={`https://open.spotify.com/album/${r.albumId}`} target="_blank" rel="noopener">{r.title}</a></span>
-        <span class="muted mono" style="font-size:0.72rem;">{r.year}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}</span>
+      <li class="lr-row" data-slug={r.slug}>
+        <span class="lr-thumb">
+          {r.cover
+            ? <img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="72" height="72" />
+            : <span class="lr-thumb-ph"><span class="catno">{r.catalog}</span></span>}
+        </span>
+        <span class="lr-row-main">
+          <a class="lr-row-title" href={`https://open.spotify.com/album/${r.albumId}`} target="_blank" rel="noopener">{r.title}</a>
+          <span class="lr-row-sub"><span class="catno lr-row-cat">{r.catalog}</span> · {r.year}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}{r.streams ? ` · ${fmt(r.streams)}` : ''}</span>
+        </span>
+        <button class="lr-row-play" data-slug={r.slug} aria-label={`Play ${r.title}`} title="Play preview">▶</button>
       </li>
     ))}
   </ul>
@@ -152,6 +159,10 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
         document.querySelectorAll('.lr-chip').forEach((c) => c.setAttribute('aria-pressed', 'false'));
         chip.setAttribute('aria-pressed', 'true'); stopIdle(); applyFilter(chip.dataset.mood); startIdle();
       }));
+      // Full-list rows: play button (or clicking the row) runs the same pull/spin/embed
+      // sequence and scrolls up to the deck — no need to hunt for the sleeve in the crate.
+      document.querySelectorAll('.lr-row-play').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); pull(b.dataset.slug); }));
+      document.querySelectorAll('.lr-row').forEach((row) => row.addEventListener('click', (e) => { if (e.target.closest('a')) return; pull(row.dataset.slug); }));
       ['pointermove', 'keydown', 'click'].forEach((ev) => document.querySelector('.lr').addEventListener(ev, () => { if (!shuffleTimer && stage.hidden) startIdle(); else if (shuffleTimer) { stopIdle(); startIdle(); } }, { passive: true }));
 
       fan(filtered);

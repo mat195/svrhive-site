@@ -70,11 +70,15 @@ a { color: var(--cream); text-decoration: none; }
 a:hover { color: var(--ribbon-lift); }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--silk); outline-offset: 3px; border-radius: 2px; }
 
-/* Type */
-h1, h2, h3 { font-family: var(--display); font-weight: 560; line-height: 1.08; letter-spacing: -0.01em; }
-h1 { font-size: clamp(2.4rem, 7vw, 4.2rem); margin: 0 0 0.3em; font-optical-sizing: auto; }
-h2 { font-size: clamp(1.5rem, 3.6vw, 2.1rem); margin: 2.6rem 0 0.7rem; }
-h3 { font-size: 1.2rem; margin: 1.5rem 0 0.4rem; }
+/* Type — Fraunces pushed HARD into its soft/wonk axes (its whole point; default axes
+   are what read generic). High optical size + wonk gives characterful, quirky terminals. */
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.02; letter-spacing: -0.022em; font-optical-sizing: auto; }
+h1 { font-size: clamp(2.6rem, 7.4vw, 4.6rem); margin: 0 0 0.3em; font-weight: 640;
+     font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; }
+h2 { font-size: clamp(1.55rem, 3.8vw, 2.2rem); margin: 2.6rem 0 0.7rem;
+     font-variation-settings: 'opsz' 96, 'SOFT' 80, 'WONK' 1; }
+h3 { font-size: 1.2rem; margin: 1.5rem 0 0.4rem; letter-spacing: -0.01em;
+     font-variation-settings: 'opsz' 40, 'SOFT' 40, 'WONK' 0; }
 p { margin: 0 0 1rem; max-width: var(--measure); }
 .lede { font-size: 1.2rem; line-height: 1.5; color: #e6dccb; max-width: 34rem; }
 .muted, small { color: var(--static); }
@@ -259,15 +263,33 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .lr-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .lr-fallback { margin-top: 2.4rem; }
 
+/* Full-crate list — rich rows with framed thumbnails + per-row play (Deep Velvet) */
+.lr-list { list-style: none; padding: 0; margin: 1rem 0 0; }
+.lr-row { display: grid; grid-template-columns: 72px 1fr auto; gap: 1.1rem; align-items: center; padding: 0.9rem 0.8rem; border-radius: 7px; border-bottom: 1px solid var(--edge); cursor: pointer; transition: background 0.2s; }
+.lr-row:last-child { border-bottom: 0; }
+.lr-row:hover { background: var(--underfelt); }
+.lr-thumb { width: 72px; height: 72px; border-radius: 3px; overflow: hidden; border: 1px solid var(--edge); box-shadow: var(--elev-1); position: relative; transition: transform 0.4s cubic-bezier(.2,.7,.2,1), box-shadow 0.4s; transform-style: preserve-3d; }
+.lr-thumb img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.8) contrast(1.03) brightness(0.96); display: block; }
+.lr-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(155deg, rgba(122,59,79,0.12), rgba(22,16,28,0.3)); mix-blend-mode: multiply; pointer-events: none; }
+.lr-thumb-ph { display: grid; place-items: center; width: 100%; height: 100%; background: var(--underfelt); text-align: center; }
+.lr-row:hover .lr-thumb { transform: rotateY(-11deg) rotateX(5deg) translateY(-2px); box-shadow: var(--elev-2); }
+.lr-row-main { min-width: 0; }
+.lr-row-title { font-family: var(--display); font-size: 1.18rem; color: var(--cream); display: block; }
+.lr-row:hover .lr-row-title { color: var(--cream); }
+.lr-row-sub { font-family: var(--mono); font-size: 0.72rem; color: var(--static); }
+.lr-row:hover .lr-row-cat { color: var(--ribbon-lift); }
+.lr-row-play { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--silk); background: transparent; color: var(--silk); font-size: 0.78rem; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s; flex: 0 0 auto; }
+.lr-row-play:hover { background: var(--iris); border-color: var(--iris); color: var(--velvet); transform: scale(1.08); }
+
 /* ── Deep Velvet: iridescence + mouse sheen + teal accent ── */
-/* Hero gets a soft gold sheen that follows the cursor (set via JS --mx/--my). */
-.hero { position: relative; }
-.hero::before {
-  content: ''; position: absolute; inset: -40px; z-index: 0; pointer-events: none;
-  background: radial-gradient(420px circle at var(--mx, 72%) var(--my, 34%), rgba(201,168,106,0.10), rgba(63,143,140,0.05) 30%, transparent 62%);
-  transition: background 0.2s ease;
+/* Sheen follows the cursor across the WHOLE viewport (fixed, full-bleed) so there is no
+   bounded edge — the falloff is huge (60vw) and blends into the velvet everywhere. */
+#sheen {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(60vw 60vw at var(--mx, 72%) var(--my, 28%), rgba(201,168,106,0.11), rgba(63,143,140,0.045) 34%, transparent 70%);
+  transition: background 0.12s ease-out; will-change: background;
 }
-.hero > * { position: relative; z-index: 1; }
+.hero { position: relative; }
 /* Iridescent center label on the spinning disc — oil-on-vinyl sheen. */
 .lr-disc-label { position: relative; overflow: hidden; }
 .lr-disc-label::after {

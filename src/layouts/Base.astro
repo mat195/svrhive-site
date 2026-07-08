@@ -46,10 +46,11 @@ const isCurrent = (href: string) => href === path;
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..650,0..100,0..1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     {jsonld && <script type="application/ld+json" set:html={jsonld} />}
   </head>
   <body>
+    <div id="sheen" aria-hidden="true"></div>
     <header class="site-header">
       <div class="wrap">
         <a class="brand" href="/"><span class="mark" aria-hidden="true"></span>{LABEL_NAME}</a>
@@ -91,21 +92,17 @@ const isCurrent = (href: string) => href === path;
     </footer>
 
     <script is:inline>
-      // Hero mouse-reactive sheen (Deep Velvet). Progressive: no JS = static sheen.
-      // Re-binds on each view-transition navigation. Off under reduced-motion.
-      const bindSheen = () => {
-        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const hero = document.querySelector('.hero');
-        if (!hero || hero.dataset.sheen) return;
-        hero.dataset.sheen = '1';
-        hero.addEventListener('pointermove', (e) => {
-          const r = hero.getBoundingClientRect();
-          hero.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
-          hero.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
-        });
-      };
-      bindSheen();
-      document.addEventListener('astro:page-load', bindSheen);
+      // Full-viewport mouse-reactive sheen (Deep Velvet). The #sheen layer is fixed and
+      // full-bleed; we set --mx/--my in viewport % on the document root, so the glow
+      // follows the cursor everywhere with no bounded edge. Bound once (survives view
+      // transitions). Off under reduced-motion.
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !window.__sheen) {
+        window.__sheen = 1;
+        addEventListener('pointermove', (e) => {
+          document.documentElement.style.setProperty('--mx', `${(e.clientX / innerWidth) * 100}%`);
+          document.documentElement.style.setProperty('--my', `${(e.clientY / innerHeight) * 100}%`);
+        }, { passive: true });
+      }
     </script>
   </body>
 </html>
