@@ -3,17 +3,21 @@ import Base from '../../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
 import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
 import covers from '../../data/covers.json';
+import featuredSet from '../../data/featured.json';
 
 const title = `${CANONICAL_NAME} — ${entity.identityUmbrella} on ${LABEL_NAME}`;
 const description = entity.bio100 ?? `${entity.primaryDescriptor}. Releases on ${LABEL_NAME}. ${entity.disambiguation}`;
 
 const cov: Record<string, any> = covers as any;
-// Merge cover art + catalog number + streams onto each release; releases WITH a cover
-// (harvested from Spotify) lead, sorted by real stream count.
+// featured: mat-confirmed-current (source: Mat, 2026-07-07) — a direct editorial pick of
+// currently-active tracks, promoted to the top. NOT a streams/date ranking (chosen over
+// higher-lifetime-stream tracks like Bodycon / Control of It on purpose).
+const featuredTop = featuredSet as any[];
+// Full discography grid — every release with cover art, in catalog order (chronological).
 const primary = entity.releases
   .filter((r) => (r.role ?? 'primary') === 'primary')
   .map((r) => ({ ...r, ...(cov[r.slug] ?? {}) }))
-  .sort((a, b) => (b.streams ?? -1) - (a.streams ?? -1));
+  .sort((a, b) => (a.catalog ?? 'zzz').localeCompare(b.catalog ?? 'zzz'));
 const featured = entity.releases.filter((r) => r.role === 'featured');
 const fmt = (n?: number) => (n == null ? null : n >= 1000 ? `${(n / 1000).toFixed(n >= 100000 ? 0 : 1)}K streams` : `${n} streams`);
 // Verified collaborators (per Spotify for Artists / entity master §6–§7) — liner-note run-in.
@@ -58,9 +62,29 @@ const jsonld = graph([
     ))}.
   </p>
 
+  {/* Featured — mat-confirmed-current (source: Mat, 2026-07-07). Editorial pick, not a
+      streams ranking. Full discography follows below. */}
+  <h2>Featured <span class="catno" style="margin-left:0.4rem;">current</span></h2>
+  <ul class="sleeve-grid">
+    {featuredTop.map((r) => (
+      <li>
+        <a class="sleeve" href={`/lucius-p-thundercat/releases/${r.slug}/`}>
+          {r.cover
+            ? <span class="art"><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
+            : <span class="art placeholder"><span class="catno">{r.catalog}</span></span>}
+          <span class="meta">
+            <span class="title">{r.title}</span>
+            <span class="sub">{r.catalog}{r.year ? ` · ${r.year}` : ''}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}</span>
+          </span>
+        </a>
+        <a class="sleeve-play" href={`/listen/#${r.slug}`}>▶ Play preview</a>
+      </li>
+    ))}
+  </ul>
+
   {primary.length > 0 && (
     <>
-      <h2>Releases <span class="catno" style="margin-left:0.4rem;">by streams</span></h2>
+      <h2>Discography <span class="catno" style="margin-left:0.4rem;">SVR-001 → SVR-072</span></h2>
       <ul class="sleeve-grid">
         {primary.map((r) => (
           <li>

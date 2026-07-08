@@ -1,0 +1,73 @@
+[
+ {
+  "slug": "hate-fuck",
+  "title": "Hate Fuck",
+  "catalog": "SVR-040",
+  "year": "2020",
+  "streams": 311282,
+  "cover": "/assets/cover-art/hate-fuck.jpg",
+  "albumId": "2dD9eFNVNAtk9qOH37lCfm",
+  "featured": [
+   "Project Pat"
+  ]
+ },
+ {
+  "slug": "if-it-comes-to-it",
+  "title": "If It Comes to It",
+  "catalog": "SVR-050",
+  "year": "2020",
+  "streams": 13300,
+  "cover": "/assets/cover-art/if-it-comes-to-it.jpg",
+  "albumId": "2VZedDUaSImM1urmhvILTA",
+  "featured": [
+   "Che Noir",
+   "Mooch"
+  ]
+ },
+ {
+  "slug": "tempo",
+  "title": "Tempo",
+  "catalog": "SVR-031",
+  "year": "2019",
+  "streams": 40274,
+  "cover": "/assets/cover-art/tempo.jpg",
+  "albumId": "3DsQXZHCdCXxnDLiOD39EI",
+  "featured": [
+   "Sunnie"
+  ]
+ },
+ {
+  "slug": "mind-my-biz",
+  "title": "Mind My Biz",
+  "catalog": "SVR-067",
+  "year": "2023",
+  "streams": 8185,
+  "cover": "/assets/cover-art/mind-my-biz.jpg",
+  "albumId": "1VCyFoOq3wkXII2wCyPqTW",
+  "featured": [
+   "OG Maco"
+  ]
+ },
+ {
+  "slug": "they-are-not-your-friends-remix",
+  "title": "They are not your Friends - Remix",
+  "catalog": "SVR-059",
+  "year": "2023",
+  "streams": 6983,
+  "cover": "/assets/cover-art/they-are-not-your-friends-remix.jpg",
+  "albumId": "3Phvnv6NUGftBKg7ZN8Nru",
+  "featured": [
+   "Nick Nigh"
+  ]
+ },
+ {
+  "slug": "excelente-2018",
+  "title": "Excelente",
+  "catalog": "SVR-020",
+  "year": "2018",
+  "streams": 59381,
+  "cover": "/assets/cover-art/excelente-2018.jpg",
+  "albumId": "5BgkAlPrRyrzD4rJQVrYQb",
+  "featured": []
+ }
+]

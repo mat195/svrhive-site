@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
 import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
 import covers from '../../data/covers.json';
+import featuredSet from '../../data/featured.json';
+const featuredTop = featuredSet as any[]; // mat-confirmed-current (source: Mat, 2026-07-07)
 
 const title = `Press Kit — ${CANONICAL_NAME}`;
 const description = `Approved press assets for ${CANONICAL_NAME}: bio, facts, cover art, and links. From ${LABEL_NAME}.`;
@@ -61,7 +63,19 @@ const facts: [string, string][] = [
     ))}
   </ul>
 
-  <h2>Cover art <span class="catno" style="margin-left:0.4rem;">{coverList.length} sleeves · full resolution</span></h2>
+  <h2>Featured tracks <span class="catno" style="margin-left:0.4rem;">current</span></h2>
+  <ul class="sleeve-grid">
+    {featuredTop.filter((c) => c.cover).map((c) => (
+      <li>
+        <a class="sleeve" href={c.cover} download={`${c.slug}.jpg`}>
+          <span class="art"><img src={c.cover} alt={`${c.title} cover art`} loading="lazy" width="300" height="300" /></span>
+          <span class="meta"><span class="title">{c.title}</span><span class="sub">{c.catalog}{c.year ? ` · ${c.year}` : ''} · <span class="streams">Download ↓</span></span></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Full catalog cover art <span class="catno" style="margin-left:0.4rem;">{coverList.length} sleeves · full resolution</span></h2>
   <ul class="sleeve-grid">
     {coverList.map((c) => (
       <li>

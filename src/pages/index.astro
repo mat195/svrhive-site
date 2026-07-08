@@ -2,17 +2,16 @@
 import Base from '../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../lib/entity';
 import { organizationLd, websiteLd, musicGroupLd, breadcrumbLd, graph } from '../lib/jsonld';
-import covers from '../data/covers.json';
+import featured from '../data/featured.json';
 
-const cov: Record<string, any> = covers as any;
-const withArt = Object.entries(cov).map(([slug, v]: any) => ({ slug, ...v })).filter((r) => r.cover);
-const byStreams = [...withArt].sort((a, b) => (b.streams ?? 0) - (a.streams ?? 0));
-const crate = byStreams.slice(0, 5);
-const hero = cov['hate-fuck'] ?? byStreams[0];
-const releaseCount = entity.releases.length;
+// featured: mat-confirmed-current (source: Mat, 2026-07-07) — a direct editorial pick of
+// currently-active tracks, NOT a streams/date ranking. Full catalog lives on the artist page.
+const crate = (featured as any[]).filter((r) => r.cover);
+const hero = (featured as any[]).find((r) => r.slug === 'hate-fuck') ?? crate[0];
+const releaseCount = 72;
 const lean = [
-  { r: -3, x: 0, y: 6 }, { r: -1.5, x: 12, y: 2 }, { r: 0, x: 24, y: 0 },
-  { r: 2, x: 36, y: 3 }, { r: 3, x: 48, y: 8 },
+  { r: -3.5, x: -6, y: 8 }, { r: -2, x: 6, y: 3 }, { r: -0.5, x: 18, y: 0 },
+  { r: 1, x: 30, y: 1 }, { r: 2.5, x: 42, y: 4 }, { r: 3.5, x: 54, y: 9 },
 ];
 
 const title = `${LABEL_NAME} — independent record label`;
@@ -32,7 +31,7 @@ const jsonld = graph([
       <p class="eyebrow anim-up" style="animation-delay:0ms;">Independent record label · Montréal, Québec</p>
       <h1 class="anim-up" style="animation-delay:60ms;">{LABEL_NAME}</h1>
       <p class="lede anim-up" style="animation-delay:140ms;">
-        A sample-based hip-hop label. Home of <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> — {releaseCount}+ releases, catalogued SVR-001 onward.
+        Independent Canadian record label. Home of <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> — {releaseCount} releases, catalogued SVR-001 onward.
       </p>
     </div>
     <div class="crate" aria-hidden="true">

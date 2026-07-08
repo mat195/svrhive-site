@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
 import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
 import covers from '../../data/covers.json';
+import featuredSet from '../../data/featured.json';
 
 const title = `The Listening Room — ${CANONICAL_NAME}`;
 const description = `Dig through the ${LABEL_NAME} catalog: pull a record, drop the needle, hear it. Interactive crate of ${CANONICAL_NAME} releases.`;
@@ -12,22 +13,22 @@ const jsonld = graph([musicGroupLd(), organizationLd(), breadcrumbLd([
 ])]);
 
 const cov: Record<string, any> = covers as any;
-const all = Object.entries(cov).map(([slug, v]: any) => ({ slug, ...v })).filter((r) => r.cover && r.albumId);
-all.sort((a, b) => (b.streams ?? 0) - (a.streams ?? 0));
-// median streams → deep-cut / essential split
-const streamsSorted = all.map((r) => r.streams ?? 0).sort((a, b) => a - b);
+const featCats = new Set((featuredSet as any[]).map((f) => f.catalog));
+// Featured (mat-confirmed-current, source: Mat 2026-07-07) leads; then the rest of the
+// catalog, for the mood chips to dig through. Default crate view = the featured set.
+const rest = Object.entries(cov).map(([slug, v]: any) => ({ slug, ...v }))
+  .filter((r) => r.cover && r.albumId && !featCats.has(r.catalog));
+const streamsSorted = rest.map((r) => r.streams ?? 0).concat((featuredSet as any[]).map((f) => f.streams ?? 0)).sort((a, b) => a - b);
 const median = streamsSorted[Math.floor(streamsSorted.length / 2)] ?? 0;
-const records = all.slice(0, 20).map((r) => ({
-  ...r,
-  moods: [
-    'melodic',
-    (r.featured?.length ? 'feature' : 'solo'),
-    ((r.streams ?? 0) <= median ? 'deep' : 'essential'),
-  ],
-}));
+const tag = (r: any, feat: boolean) => ({ ...r, feat, moods: [
+  feat ? 'featured' : null,
+  r.featured?.length ? 'feature' : null,
+  (r.streams ?? 0) <= median ? 'deep' : 'essential',
+].filter(Boolean) });
+const records = [...(featuredSet as any[]).map((r) => tag(r, true)), ...rest.map((r) => tag(r, false))];
 const CHIPS = [
+  { id: 'featured', label: 'Featured' },
   { id: 'all', label: 'Everything' },
-  { id: 'essential', label: 'Essentials' },
   { id: 'feature', label: 'Feature-heavy' },
   { id: 'deep', label: 'Deep cuts' },
 ];
@@ -37,7 +38,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
 <Base title={title} description={description} path="/listen/" jsonld={jsonld}>
   <p class="eyebrow">The Listening Room</p>
   <h1>Dig through the crate</h1>
-  <p class="lede">Twenty records from the {LABEL_NAME} catalog, leaned in a crate. Pull one, drop the needle, hear the real thing.</p>
+  <p class="lede">The current featured cuts, leaned in a crate. Pull one, drop the needle, hear the real thing — or hit <strong>Everything</strong> to dig the full catalog.</p>
 
   <div class="lr" data-reduced-safe>
     <div class="lr-chips" role="tablist" aria-label="Filter the crate">
@@ -99,7 +100,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       const stage = document.getElementById('lr-stage');
       const crateWrap = document.querySelector('.lr-crate-wrap');
       const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let filtered = data.slice();
+      let filtered = data.filter((r) => r.moods.includes('featured')); // default = mat-confirmed featured
       let idleTimer = null, shuffleTimer = null;
 
       const fan = (list) => {
