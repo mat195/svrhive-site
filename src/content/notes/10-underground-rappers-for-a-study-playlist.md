@@ -30,7 +30,7 @@ Underground rap thrives in the space between mainstream trap's hi-def maximalism
 
 When scouting study-rap, look for: conversational flow (not aggressive delivery), production that sits behind the vocals (not on top), and artists who value repetition and space over constant novelty. Lucius P. Thundercat's catalog, particularly his feature-driven releases, sits squarely in this lane.
 
-Find Lucius P. Thundercat on [Spotify](https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1), [Apple Music](https://music.apple.com/us/artist/lucius-p-thundercat/958381434), [Bandcamp](https://luciuspthundercat.bandcamp.com), and [SoundCloud](https://soundcloud.com/lpthrilla).
+Find Lucius P. Thundercat on [Spotify](https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1), [Apple Music](https://music.apple.com/us/artist/lucius-p-thundercat/958381434), and [SoundCloud](https://soundcloud.com/lpthrilla).
 
 ---
 
