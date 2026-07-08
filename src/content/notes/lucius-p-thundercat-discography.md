@@ -1,13 +1,13 @@
 ---
 title: "Lucius P. Thundercat Discography"
-description: "Complete discography of Canadian hip-hop rapper Lucius P. Thundercat: 53 releases across Spotify, Bandcamp, SoundCloud, and streaming platforms."
+description: "Complete discography of Canadian hip-hop rapper Lucius P. Thundercat: releases across Spotify, SoundCloud, and streaming platforms."
 targetQuery: "Lucius P. Thundercat discography"
 canonical_url: "https://silkvelvetrecords.com/notes/lucius-p-thundercat-discography/"
 draft: false
 ---
 # Lucius P. Thundercat Discography
 
-Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal with a melodic, pop-forward sound spanning R&B rap, trap, and lofi. His catalog includes 53 releases as a primary artist and featured collaborations across all major streaming platforms.
+Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal with a melodic, pop-forward sound spanning R&B rap, trap, and lofi. His catalog includes releases as a primary artist and featured collaborations across all major streaming platforms.
 
 ## Full Release Catalog
 
@@ -26,11 +26,10 @@ Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist from Montréal wi
 | Love Pack | — | 2020-02-10 | Spotify, Apple Music, streaming |
 | Gold Standard | — | 2020-01-24 | Spotify, Apple Music, streaming |
 | Next Man | Muffin, Lucas Wolfe | 2020-01-08 | Spotify, Apple Music, streaming |
-| Excelente | Daxsen, OG Maco | 2020-05-22 | Spotify, Apple Music, streaming |
 | Control of It | — | 2017-04-10 | Spotify, Apple Music, streaming |
 | Just Got Paid | — | 2016-07-01 | Spotify, Apple Music, streaming |
-| Grind and Stack | — | — | Bandcamp |
-| Must Be Love | Magi Merlin | — | Bandcamp |
+| Grind and Stack | — | — | Streaming platforms |
+| Must Be Love | Magi Merlin | — | Streaming platforms |
 | Love Potion | Sunnie | 2022 | Streaming platforms |
 
 ## Featured Collaborations
@@ -44,8 +43,8 @@ Lucius P. Thundercat has appeared as a featured artist on releases by:
 
 ## Where to Listen
 
-Available on Spotify, Apple Music, Deezer, TIDAL, YouTube Music, and other major streaming platforms. Exclusive tracks and earlier releases available on Bandcamp and SoundCloud.
+Available on Spotify, Apple Music, Deezer, TIDAL, YouTube Music, and other major streaming platforms. Exclusive tracks and earlier releases available on SoundCloud.
 
 ## About the Artist
 
-Active since 2014, Lucius P. Thundercat works feature-first across his catalog, with recurring collaborations alongside one-off features. His sound spans melodic hip-hop, R&B rap, trap, and lofi textures.
+Active since 2016, Lucius P. Thundercat works feature-first across his catalog, with recurring collaborations alongside one-off features. His sound spans melodic hip-hop, R&B rap, trap, and lofi textures.
