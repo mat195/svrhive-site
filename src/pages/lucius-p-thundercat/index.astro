@@ -111,19 +111,7 @@ const jsonld = graph([
     </>
   )}
 
-  {featured.length > 0 && (
-    <>
-      <h2>Featured appearances</h2>
-      <ul class="linklist">
-        {featured.map((r) => (
-          <li>
-            <a href={`/lucius-p-thundercat/releases/${r.slug}/`}>{r.title}</a>
-            <span class="muted">{r.primaryArtist ?? 'guest feature'}</span>
-          </li>
-        ))}
-      </ul>
-    </>
-  )}
+  {/* Featured-appearances section removed per Mat (2026-07-08): no notable songs there. */}
 
   {entity.links.length > 0 && (
     <>
