@@ -70,14 +70,13 @@ const jsonld = graph([
       <li>
         <a class="sleeve" href={`/lucius-p-thundercat/releases/${r.slug}/`}>
           {r.cover
-            ? <span class="art"><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
+            ? <span class="art" data-album={r.albumId || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
             : <span class="art placeholder"><span class="catno">{r.catalog}</span></span>}
           <span class="meta">
             <span class="title">{r.title}</span>
             <span class="sub">{r.catalog}{r.year ? ` · ${r.year}` : ''}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}</span>
           </span>
         </a>
-        <a class="sleeve-play" href={`/listen/#${r.slug}`}>▶ Play preview</a>
       </li>
     ))}
   </ul>
@@ -90,7 +89,7 @@ const jsonld = graph([
           <li>
             <a class="sleeve" href={`/lucius-p-thundercat/releases/${r.slug}/`}>
               {r.cover ? (
-                <span class="art"><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
+                <span class="art" data-album={r.albumId || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
               ) : (
                 <span class="art placeholder"><span class="catno">{r.catalog ?? 'SVR'}</span></span>
               )}
@@ -102,9 +101,6 @@ const jsonld = graph([
                 </span>
               </span>
             </a>
-            {r.cover && r.streams != null && (
-              <a class="sleeve-play" href={`/listen/#${r.slug}`}>▶ Play preview</a>
-            )}
           </li>
         ))}
       </ul>

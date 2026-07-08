@@ -311,3 +311,28 @@ main { flex: 1; padding: 3rem 0 4rem; }
   .anim-up, .crate .rec { opacity: 1 !important; transform: none !important; }
   .lr-disc { opacity: 1 !important; transform: none !important; }
 }
+
+/* ── Inline cover-play (homepage crate + artist grid; NOT /listen/) ─────────── */
+.sleeve .art[data-album], .crate .rec[data-album] { cursor: pointer; }
+/* Hover ▶ affordance so a cover reads as "tap to play" (::after is already the sleeve overlay). */
+.sleeve .art[data-album]::before, .crate .rec[data-album]::before {
+  content: '▶'; position: absolute; z-index: 3; left: 50%; top: 50%;
+  transform: translate(-50%, -50%) scale(0.85); width: 46px; height: 46px; padding-left: 3px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(22,16,28,0.66); color: var(--cream); border: 1px solid var(--edge);
+  border-radius: 999px; opacity: 0; transition: opacity 0.18s, transform 0.18s; pointer-events: none;
+}
+.sleeve .art[data-album]:hover::before, .sleeve:hover .art[data-album]::before,
+.crate .rec[data-album]:hover::before { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.sleeve .art.playing::before, .crate .rec.playing::before { display: none; }
+
+/* The compact player fills the cover footprint in place — no reflow. */
+.inline-player { position: absolute; inset: 0; z-index: 5; display: flex; background: var(--velvet); }
+.inline-player iframe, .inline-player > div { width: 100% !important; height: 100% !important; border: 0; }
+.inline-player .ip-close {
+  position: absolute; top: 5px; right: 6px; z-index: 6; width: 24px; height: 24px; border-radius: 999px;
+  border: 1px solid var(--edge); background: rgba(0,0,0,0.6); color: var(--cream); cursor: pointer; font-size: 0.8rem; line-height: 1;
+}
+/* While playing, kill the 3D sleeve tilt / crate rotation so the player sits square + on top. */
+.sleeve .art.playing { transform: none !important; }
+.crate .rec.playing { transform: rotate(0deg) scale(1.04) !important; z-index: 300 !important; box-shadow: var(--elev-3); }

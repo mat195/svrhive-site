@@ -48,6 +48,65 @@ const isCurrent = (href: string) => href === path;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     {jsonld && <script type="application/ld+json" set:html={jsonld} />}
+
+    {/* Inline cover-play: outside /listen/, clicking a [data-album] cover expands a compact
+        Spotify player in place and plays on the click gesture (official IFrame API, with a
+        plain-embed fallback). The full vinyl pull/spin/needle ceremony stays exclusive to
+        /listen/, which this script deliberately no-ops on. */}
+    <script is:inline>
+      (function () {
+        window.onSpotifyIframeApiReady = function (API) { window.__spotifyApi = API; };
+        if (window.__inlinePlayBound) return;
+        window.__inlinePlayBound = true;
+        var active = null; // { host, controller, trigger }
+        var onListen = function () { return location.pathname.indexOf('/listen') === 0; };
+        function close() {
+          if (!active) return;
+          try { active.controller && active.controller.destroy && active.controller.destroy(); } catch (e) {}
+          if (active.host && active.host.parentNode) active.host.parentNode.removeChild(active.host);
+          if (active.trigger) active.trigger.classList.remove('playing');
+          active = null;
+        }
+        function open(trigger, albumId) {
+          if (active && active.trigger === trigger) { close(); return; } // toggle off
+          close();
+          var host = document.createElement('div');
+          host.className = 'inline-player';
+          var x = document.createElement('button');
+          x.type = 'button'; x.className = 'ip-close'; x.setAttribute('aria-label', 'Close player'); x.textContent = '✕';
+          x.addEventListener('click', function (ev) { ev.stopPropagation(); close(); });
+          var mount = document.createElement('div');
+          host.appendChild(x); host.appendChild(mount);
+          trigger.appendChild(host);
+          trigger.classList.add('playing');
+          var uri = 'spotify:album:' + albumId;
+          if (window.__spotifyApi) {
+            window.__spotifyApi.createController(mount, { uri: uri, width: '100%', height: '100%' }, function (controller) {
+              active = { host: host, controller: controller, trigger: trigger };
+              try { controller.play(); } catch (e) {} // click gesture → autoplays
+            });
+          } else {
+            mount.outerHTML = '<iframe src="https://open.spotify.com/embed/album/' + albumId + '?theme=0" width="100%" height="100%" style="border:0" allow="autoplay; encrypted-media; clipboard-write" loading="lazy" title="Spotify preview"></iframe>';
+            active = { host: host, controller: null, trigger: trigger };
+          }
+        }
+        document.addEventListener('click', function (e) {
+          if (onListen()) return;
+          var t = e.target.closest ? e.target.closest('[data-album]') : null;
+          if (t && t.getAttribute('data-album')) { e.preventDefault(); e.stopPropagation(); open(t, t.getAttribute('data-album')); return; }
+          if (active && !(e.target.closest && e.target.closest('.inline-player'))) close();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { close(); return; }
+          if (onListen()) return;
+          if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.matches && e.target.matches('[data-album]')) {
+            e.preventDefault(); open(e.target, e.target.getAttribute('data-album'));
+          }
+        });
+        document.addEventListener('astro:before-swap', close); // tear down on view transition
+      })();
+    </script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async is:inline></script>
   </head>
   <body>
     <div id="sheen" aria-hidden="true"></div>

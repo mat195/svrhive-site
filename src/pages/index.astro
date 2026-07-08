@@ -34,11 +34,11 @@ const jsonld = graph([
         Independent Canadian record label. Home of <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> — {releaseCount} releases, catalogued SVR-001 onward.
       </p>
     </div>
-    <div class="crate" aria-hidden="true">
+    <div class="crate">
       <div class="stack">
         {crate.map((c, i) => (
-          <div class="rec" style={`left:${lean[i].x}%; top:${lean[i].y}%; transform:rotate(${lean[i].r}deg); z-index:${i}; animation-delay:${260 + i * 150}ms;`}>
-            <img src={c.cover} alt="" width="200" height="200" loading="eager" />
+          <div class="rec" data-album={c.albumId || undefined} role={c.albumId ? 'button' : undefined} tabindex={c.albumId ? 0 : undefined} aria-label={c.albumId ? `Play ${c.title}` : undefined} style={`left:${lean[i].x}%; top:${lean[i].y}%; transform:rotate(${lean[i].r}deg); z-index:${i}; animation-delay:${260 + i * 150}ms;`}>
+            <img src={c.cover} alt={c.albumId ? `${c.title} cover art` : ''} width="200" height="200" loading="eager" />
           </div>
         ))}
       </div>
