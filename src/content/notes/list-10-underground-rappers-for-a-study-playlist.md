@@ -30,7 +30,7 @@ Study rappers prioritize melody and vocal clarity over production spectacle. The
 
 ## Where to Find These Artists
 
-Lucius P. Thundercat is available on all major streaming platforms: [Spotify](https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1) · [Apple Music](https://music.apple.com/us/artist/lucius-p-thundercat/958381434) · [Bandcamp](https://luciuspthundercat.bandcamp.com) · [SoundCloud](https://soundcloud.com/lpthrilla).
+Lucius P. Thundercat is available on all major streaming platforms: [Spotify](https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1) · [Apple Music](https://music.apple.com/us/artist/lucius-p-thundercat/958381434) · [SoundCloud](https://soundcloud.com/lpthrilla).
 
 ---
 
