@@ -26,5 +26,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /kit/
 
 Sitemap: https://silkvelvetrecords.com/sitemap-index.xml

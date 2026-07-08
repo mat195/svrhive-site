@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import { LABEL_NAME, SITE, absolute, entity } from '../lib/entity';
 const streamLinks = (entity.links ?? []).filter((l: any) => /spotify|apple|bandcamp|soundcloud|youtube/i.test(l.url)).slice(0, 5);
 
@@ -9,9 +10,10 @@ export interface Props {
   path: string; // e.g. "/lucius-p-thundercat/"
   jsonld?: string; // serialized @graph
   ogType?: string;
+  noindex?: boolean; // private/unlisted pages (e.g. the internal press kit)
 }
 
-const { title, description, path, jsonld, ogType = 'website' } = Astro.props;
+const { title, description, path, jsonld, ogType = 'website', noindex = false } = Astro.props;
 const canonical = absolute(path);
 const nav = [
   { href: '/', label: 'Label' },
@@ -27,9 +29,10 @@ const isCurrent = (href: string) => href === path;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ClientRouter />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={canonical} />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={LABEL_NAME} />
@@ -86,5 +89,23 @@ const isCurrent = (href: string) => href === path;
         <p class="copy">© {new Date().getFullYear()} {LABEL_NAME}. All rights reserved.</p>
       </div>
     </footer>
+
+    <script is:inline>
+      // Hero mouse-reactive sheen (Deep Velvet). Progressive: no JS = static sheen.
+      // Re-binds on each view-transition navigation. Off under reduced-motion.
+      const bindSheen = () => {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const hero = document.querySelector('.hero');
+        if (!hero || hero.dataset.sheen) return;
+        hero.dataset.sheen = '1';
+        hero.addEventListener('pointermove', (e) => {
+          const r = hero.getBoundingClientRect();
+          hero.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
+          hero.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
+        });
+      };
+      bindSheen();
+      document.addEventListener('astro:page-load', bindSheen);
+    </script>
   </body>
 </html>

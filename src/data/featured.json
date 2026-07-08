@@ -12,17 +12,14 @@
   ]
  },
  {
-  "slug": "if-it-comes-to-it",
-  "title": "If It Comes to It",
-  "catalog": "SVR-050",
-  "year": "2020",
-  "streams": 13300,
-  "cover": "/assets/cover-art/if-it-comes-to-it.jpg",
-  "albumId": "2VZedDUaSImM1urmhvILTA",
-  "featured": [
-   "Che Noir",
-   "Mooch"
-  ]
+  "slug": "excelente-2018",
+  "title": "Excelente",
+  "catalog": "SVR-020",
+  "year": "2018",
+  "streams": 59381,
+  "cover": "/assets/cover-art/excelente-2018.jpg",
+  "albumId": "5BgkAlPrRyrzD4rJQVrYQb",
+  "featured": []
  },
  {
   "slug": "tempo",
@@ -34,6 +31,19 @@
   "albumId": "3DsQXZHCdCXxnDLiOD39EI",
   "featured": [
    "Sunnie"
+  ]
+ },
+ {
+  "slug": "if-it-comes-to-it",
+  "title": "If It Comes to It",
+  "catalog": "SVR-050",
+  "year": "2020",
+  "streams": 13300,
+  "cover": "/assets/cover-art/if-it-comes-to-it.jpg",
+  "albumId": "2VZedDUaSImM1urmhvILTA",
+  "featured": [
+   "Che Noir",
+   "Mooch"
   ]
  },
  {
@@ -59,15 +69,5 @@
   "featured": [
    "Nick Nigh"
   ]
- },
- {
-  "slug": "excelente-2018",
-  "title": "Excelente",
-  "catalog": "SVR-020",
-  "year": "2018",
-  "streams": 59381,
-  "cover": "/assets/cover-art/excelente-2018.jpg",
-  "albumId": "5BgkAlPrRyrzD4rJQVrYQb",
-  "featured": []
  }
 ]

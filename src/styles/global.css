@@ -14,8 +14,13 @@
   --ribbon:    #7a3b4f; /* burgundy secondary — hovers, active nav, hype sticker */
   --ribbon-lift:#9a4f66;
   --static:    #8d8496; /* muted metadata: dates, roles */
+  --iris:      #3f8f8c; /* teal counter-accent (Iris) — used very sparingly: now-playing, focus sheen */
   --hairline:  rgba(201,168,106,0.22);
-  --edge:      rgba(239,230,216,0.10);
+  --edge:      rgba(201,168,106,0.28);   /* silk-tinted cover frame — ties disparate art together */
+  /* Elevation scale (Deep Velvet depth pass) */
+  --elev-1: 0 4px 12px -6px rgba(0,0,0,0.6);
+  --elev-2: 0 14px 32px -14px rgba(0,0,0,0.82);
+  --elev-3: 0 30px 66px -22px rgba(0,0,0,0.92), 0 4px 10px -6px rgba(0,0,0,0.6);
 
   --display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -37,18 +42,25 @@ html {
   text-rendering: optimizeLegibility;
 }
 
-/* Velvet grain — the "silk velvet" made literal. SVG feTurbulence, ~3.5% opacity,
-   static (never animated), fixed so it reads as fabric under everything. */
+/* Velvet grain — the "silk velvet" made literal. Two layers: a coarse fabric weave and a
+   fine film grain, both static, fixed so they read as texture under everything. Boosted to
+   be genuinely perceptible against JPEG covers, not a theoretical 3%. */
 body {
   margin: 0; min-height: 100vh; display: flex; flex-direction: column; position: relative;
   background:
-    radial-gradient(1100px 520px at 78% -8%, rgba(122,59,79,0.16), transparent 62%),
-    radial-gradient(900px 500px at 12% 108%, rgba(201,168,106,0.06), transparent 60%),
+    radial-gradient(1100px 520px at 78% -8%, rgba(122,59,79,0.20), transparent 62%),
+    radial-gradient(900px 500px at 12% 108%, rgba(201,168,106,0.07), transparent 60%),
     var(--velvet);
 }
 body::before {
-  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.4;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.9; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.18; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
 }
 body > * { position: relative; z-index: 1; }
 
@@ -100,7 +112,28 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .sleeve .art.placeholder { display: grid; place-items: center; text-align: center; padding: 0.8rem; }
 .sleeve .art.placeholder .catno { font-size: 0.8rem; }
 .sleeve-play { display: inline-block; margin-top: 0.35rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--static); }
-.sleeve-play:hover { color: var(--ribbon-lift); }
+.sleeve-play:hover { color: var(--iris); }
+
+/* ── Crate cohesion (Deep Velvet) — unify wildly different cover art into one crate ──
+   Every cover, wherever it appears, gets: a silk-tinted frame, a slight desaturation +
+   violet color-grade so bright/busy art doesn't fight the velvet, and the elevation
+   scale. 3D tilt + lift on hover. */
+.sleeve .art, .cr-sleeve, .crate .rec, .roster-card .art, .lr-stage-sleeve {
+  border: 1px solid var(--edge); box-shadow: var(--elev-2); overflow: hidden; position: relative;
+}
+.sleeve .art img, .cr-sleeve img, .crate .rec img, .roster-card .art img, .lr-stage-sleeve img {
+  filter: saturate(0.8) contrast(1.03) brightness(0.96);
+}
+.sleeve .art::after, .cr-sleeve::after, .crate .rec::after, .roster-card .art::after, .lr-stage-sleeve::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(155deg, rgba(122,59,79,0.12) 0%, rgba(22,16,28,0.06) 42%, rgba(22,16,28,0.34) 100%);
+  mix-blend-mode: multiply; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+/* 3D hover — sleeves lift + tilt toward the light */
+.sleeve-grid { perspective: 1000px; }
+.sleeve .art { transition: transform 0.45s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s; transform-style: preserve-3d; will-change: transform; }
+.sleeve:hover .art { transform: translateY(-6px) rotateX(7deg) rotateY(-7deg) scale(1.02); box-shadow: var(--elev-3); }
+.sleeve:hover .art img { transform: none; filter: saturate(0.92) contrast(1.03); }
 
 /* Sticker sound tags — square-ish, 1px silk border, transparent, mono. Sticker-on-a-sleeve. */
 .stickers { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0; padding: 0; list-style: none; }
@@ -225,6 +258,28 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .lr-embed iframe { animation: fadeUp 0.5s ease-out; }
 .lr-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .lr-fallback { margin-top: 2.4rem; }
+
+/* ── Deep Velvet: iridescence + mouse sheen + teal accent ── */
+/* Hero gets a soft gold sheen that follows the cursor (set via JS --mx/--my). */
+.hero { position: relative; }
+.hero::before {
+  content: ''; position: absolute; inset: -40px; z-index: 0; pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 72%) var(--my, 34%), rgba(201,168,106,0.10), rgba(63,143,140,0.05) 30%, transparent 62%);
+  transition: background 0.2s ease;
+}
+.hero > * { position: relative; z-index: 1; }
+/* Iridescent center label on the spinning disc — oil-on-vinyl sheen. */
+.lr-disc-label { position: relative; overflow: hidden; }
+.lr-disc-label::after {
+  content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(from 210deg, rgba(63,143,140,0.55), rgba(201,168,106,0.25), rgba(122,59,79,0.5), rgba(63,143,140,0.55));
+  mix-blend-mode: overlay; opacity: 0.65;
+}
+/* Iris teal — the "live" now-playing accent, used only here. */
+.lr-deck.spun .lr-disc-label { box-shadow: 0 0 0 4px #17121c, 0 0 14px -2px var(--iris); }
+.lr-chip[aria-pressed='true'][data-mood='featured'] { border-color: var(--iris); background: rgba(63,143,140,0.14); color: var(--cream); }
+/* Iridescent hairline under section headers on the hero */
+.hero-copy h1 { position: relative; }
 
 @media (max-width: 720px) {
   .lr-deck { grid-template-columns: 1fr; justify-items: center; gap: 1.2rem; }

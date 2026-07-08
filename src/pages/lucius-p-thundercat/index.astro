@@ -21,7 +21,7 @@ const primary = entity.releases
 const featured = entity.releases.filter((r) => r.role === 'featured');
 const fmt = (n?: number) => (n == null ? null : n >= 1000 ? `${(n / 1000).toFixed(n >= 100000 ? 0 : 1)}K streams` : `${n} streams`);
 // Verified collaborators (per Spotify for Artists / entity master §6–§7) — liner-note run-in.
-const collaborators = ['Project Pat', 'OG Maco', 'Che Noir', 'Skyzoo', 'Ransom', 'Add-2', 'Curtis Williams', 'Magi Merlin', 'Nick Nigh', 'King Mizery', 'Sunnie'];
+const collaborators = ['Project Pat', 'OG Maco', 'Che Noir', 'Skyzoo', 'Ransom', 'Add-2', 'Curtis Williams', 'Magi Merlin'];
 
 const jsonld = graph([
   musicGroupLd(),

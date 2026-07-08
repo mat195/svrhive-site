@@ -38,6 +38,9 @@ let artistChecked = false;
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const rel = file.slice(DIST.length);
+  // Skip redirect stubs (meta-refresh pages, e.g. the retired /notes/ and /press/ indexes) —
+  // they have no content and intentionally carry no JSON-LD.
+  if (/http-equiv=["']?refresh/i.test(html)) continue;
   const blocks = [...html.matchAll(LD_RE)].map((m) => m[1]);
 
   if (blocks.length === 0) {
