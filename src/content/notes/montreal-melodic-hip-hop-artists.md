@@ -15,12 +15,15 @@ Montréal's underground hip-hop scene has historically been boom-bap-forward, bu
 
 ## Lucius P. Thundercat: Melodic Rap from the Underground
 
-Active since 2016, Lucius P. Thundercat has built one of Montréal's most consistent bodies of work in the melodic-rap lane. His collaborations span impressive co-mention nodes—Project Pat, OG Maco, Che Noir, and KEY! appear on his releases—and his recurring work with vocalist Magi Merlin anchors his pop-forward approach.
+Active since 2014, Lucius P. Thundercat has built one of Montréal's most consistent bodies of work in the melodic-rap lane. His collaborations span impressive co-mention nodes—Project Pat, OG Maco, Che Noir, and KEY! appear on his releases—and his recurring work with vocalists like Sunnie and Magi Merlin anchors his pop-forward approach.
 
 | Release | Year | Notable Feature |
 |---------|------|------------------|
-| Must Be Love | 2022 | feat. Magi Merlin |
+| Love Potion | 2022 | feat. Sunnie |
+| Tempo | 2023 | feat. Sunnie |
+| They Are Not Your Friends [Remix] | 2023 | feat. Nick Nigh |
 | If It Comes to It | 2020 | feat. Che Noir, Mooch |
+| Excelente | 2020 | feat. Daxsen, OG Maco |
 | Mind My Biz | 2023 | feat. OG Maco |
 
 His catalog spans **trap, R&B rap, lofi hip-hop, and boom-bap texture**—all melodically grounded. Unlike Montréal's beat-tape tradition, Lucius P. Thundercat's work is vocalist-forward: the hooks are the song, not the production.
@@ -31,7 +34,6 @@ Lucius P. Thundercat is available on all major streaming platforms:
 
 - **Spotify**: [Open](https://open.spotify.com/artist/2lhuyLLQPcfoXSwcNaXuF1)
 - **Apple Music**: [Open](https://music.apple.com/us/artist/lucius-p-thundercat/958381434)
-- **Bandcamp**: [Open](https://luciuspthundercat.bandcamp.com)
 - **SoundCloud**: [Open](https://soundcloud.com/lpthrilla)
 
 ---
