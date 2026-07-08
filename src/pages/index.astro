@@ -2,6 +2,18 @@
 import Base from '../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../lib/entity';
 import { organizationLd, websiteLd, musicGroupLd, breadcrumbLd, graph } from '../lib/jsonld';
+import covers from '../data/covers.json';
+
+const cov: Record<string, any> = covers as any;
+const withArt = Object.entries(cov).map(([slug, v]: any) => ({ slug, ...v })).filter((r) => r.cover);
+const byStreams = [...withArt].sort((a, b) => (b.streams ?? 0) - (a.streams ?? 0));
+const crate = byStreams.slice(0, 5);
+const hero = cov['hate-fuck'] ?? byStreams[0];
+const releaseCount = entity.releases.length;
+const lean = [
+  { r: -3, x: 0, y: 6 }, { r: -1.5, x: 12, y: 2 }, { r: 0, x: 24, y: 0 },
+  { r: 2, x: 36, y: 3 }, { r: 3, x: 48, y: 8 },
+];
 
 const title = `${LABEL_NAME} — independent record label`;
 const description = `${LABEL_NAME} is an independent Canadian record label, home of ${CANONICAL_NAME}.`;
@@ -15,18 +27,32 @@ const jsonld = graph([
 ---
 
 <Base title={title} description={description} path="/" jsonld={jsonld}>
-  <p class="eyebrow">Independent record label · Montréal, Québec</p>
-  <h1>{LABEL_NAME}</h1>
-  <p class="lede">
-    Independent Canadian record label. Home of
-    <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a>.
-  </p>
+  <div class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow anim-up" style="animation-delay:0ms;">Independent record label · Montréal, Québec</p>
+      <h1 class="anim-up" style="animation-delay:60ms;">{LABEL_NAME}</h1>
+      <p class="lede anim-up" style="animation-delay:140ms;">
+        A sample-based hip-hop label. Home of <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> — {releaseCount}+ releases, catalogued SVR-001 onward.
+      </p>
+    </div>
+    <div class="crate" aria-hidden="true">
+      <div class="stack">
+        {crate.map((c, i) => (
+          <div class="rec" style={`left:${lean[i].x}%; top:${lean[i].y}%; transform:rotate(${lean[i].r}deg); z-index:${i}; animation-delay:${260 + i * 150}ms;`}>
+            <img src={c.cover} alt="" width="200" height="200" loading="eager" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 
   <h2>Roster</h2>
-  <ul class="linklist">
-    <li>
-      <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a>
-      <span class="muted">{entity.identityUmbrella}</span>
-    </li>
-  </ul>
+  <a class="roster-card" href="/lucius-p-thundercat/">
+    {hero?.cover && <span class="art"><img src={hero.cover} alt={`${CANONICAL_NAME} — ${hero.title} cover art`} width="128" height="128" /></span>}
+    <span>
+      <span class="r-name">{CANONICAL_NAME}</span>
+      <span class="r-meta">{entity.identityUmbrella} · active since 2016 · {releaseCount} releases</span>
+      <span class="r-link">View artist →</span>
+    </span>
+  </a>
 </Base>

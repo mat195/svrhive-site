@@ -1,0 +1,324 @@
+{
+ "they-are-not-your-friends": {
+  "title": "They are not your Friends",
+  "catalog": "SVR-054",
+  "year": "2021",
+  "streams": 2594,
+  "cover": "/assets/cover-art/they-are-not-your-friends.jpg"
+ },
+ "grind-and-stack": {
+  "title": "Grind and Stack",
+  "catalog": "SVR-019",
+  "year": "2018",
+  "streams": 9867,
+  "cover": "/assets/cover-art/grind-and-stack.jpg"
+ },
+ "breathe-on-it": {
+  "title": "Breathe on It",
+  "catalog": "SVR-013",
+  "year": "2018",
+  "streams": 6155,
+  "cover": "/assets/cover-art/breathe-on-it.jpg"
+ },
+ "coins": {
+  "title": "Coins",
+  "catalog": "SVR-008",
+  "year": "2018",
+  "streams": 6324,
+  "cover": "/assets/cover-art/coins.jpg"
+ },
+ "ron-in-my-colada": {
+  "title": "Ron in My Colada",
+  "catalog": "SVR-021",
+  "year": "2019",
+  "streams": 3722,
+  "cover": "/assets/cover-art/ron-in-my-colada.jpg"
+ },
+ "back-on-my-95": {
+  "title": "Back on My '95",
+  "catalog": "SVR-033",
+  "year": "2019",
+  "streams": 4391,
+  "cover": "/assets/cover-art/back-on-my-95.jpg"
+ },
+ "bodycon": {
+  "title": "Bodycon",
+  "catalog": "SVR-007",
+  "year": "2017",
+  "streams": 90924,
+  "cover": "/assets/cover-art/bodycon.jpg"
+ },
+ "already-knew": {
+  "title": "Already Knew",
+  "catalog": "SVR-042",
+  "year": "2020",
+  "streams": 5024,
+  "cover": "/assets/cover-art/already-knew.jpg"
+ },
+ "quinceanera-fresh": {
+  "title": "Quinceanera Fresh",
+  "catalog": "SVR-028",
+  "year": "2019",
+  "streams": 8177,
+  "cover": "/assets/cover-art/quinceanera-fresh.jpg"
+ },
+ "gold-standard": {
+  "title": "Gold Standard",
+  "catalog": "SVR-036",
+  "year": "2020",
+  "streams": 688,
+  "cover": "/assets/cover-art/gold-standard.jpg"
+ },
+ "control-of-it-muffin-remix": {
+  "title": "Control of It (Muffin Remix)",
+  "catalog": "SVR-006",
+  "year": "2017",
+  "streams": 16355,
+  "cover": "/assets/cover-art/control-of-it-muffin-remix.jpg"
+ },
+ "excelente": {
+  "title": "Excelente",
+  "catalog": "SVR-044",
+  "year": "2020",
+  "streams": 3164,
+  "cover": "/assets/cover-art/excelente.jpg"
+ },
+ "who-is-i": {
+  "title": "Who Is I",
+  "catalog": "SVR-043",
+  "year": "2020",
+  "streams": 393,
+  "cover": "/assets/cover-art/who-is-i.jpg"
+ },
+ "want-me-gone": {
+  "title": "Want Me Gone",
+  "catalog": "SVR-034",
+  "year": "2019",
+  "streams": 12965,
+  "cover": "/assets/cover-art/want-me-gone.jpg"
+ },
+ "i-can-t-control": {
+  "title": "I Can't Control",
+  "catalog": "SVR-022",
+  "year": "2019",
+  "streams": 1923,
+  "cover": "/assets/cover-art/i-can-t-control.jpg"
+ },
+ "hustle-don-t-stop": {
+  "title": "Hustle Don't Stop",
+  "catalog": "SVR-018",
+  "year": "2018",
+  "streams": 6457,
+  "cover": "/assets/cover-art/hustle-don-t-stop.jpg"
+ },
+ "must-be-love": {
+  "title": "Must Be Love",
+  "catalog": "SVR-055",
+  "year": "2021",
+  "streams": 1215,
+  "cover": "/assets/cover-art/must-be-love.jpg"
+ },
+ "i-just-want-the-neck": {
+  "title": "I Just Want The Neck",
+  "catalog": "SVR-069",
+  "year": "2024",
+  "streams": 71,
+  "cover": "/assets/cover-art/i-just-want-the-neck.jpg"
+ },
+ "daddy-cool": {
+  "title": "Daddy Cool",
+  "catalog": "SVR-056",
+  "year": "2021",
+  "streams": 527,
+  "cover": "/assets/cover-art/daddy-cool.jpg"
+ },
+ "tempo-sped-up-and-slowed-down-by-nick-nigh": {
+  "title": "Tempo (Sped up and Slowed Down by Nick Nigh)",
+  "catalog": "SVR-066",
+  "year": "2023",
+  "streams": null,
+  "cover": "/assets/cover-art/tempo-sped-up-and-slowed-down-by-nick-nigh.jpg"
+ },
+ "love-eachother": {
+  "title": "Love Eachother",
+  "catalog": "SVR-039",
+  "year": "2020",
+  "streams": 15228,
+  "cover": "/assets/cover-art/love-eachother.jpg"
+ },
+ "make-you-happy": {
+  "title": "Make You Happy",
+  "catalog": "SVR-057",
+  "year": "2022",
+  "streams": 159,
+  "cover": "/assets/cover-art/make-you-happy.jpg"
+ },
+ "kiss-my-taint-freestyle": {
+  "title": "Kiss My Taint Freestyle",
+  "catalog": "SVR-053",
+  "year": "2021",
+  "streams": 7354,
+  "cover": "/assets/cover-art/kiss-my-taint-freestyle.jpg"
+ },
+ "love-potion": {
+  "title": "Love Potion",
+  "catalog": "SVR-058",
+  "year": "2022",
+  "streams": 6114,
+  "cover": "/assets/cover-art/love-potion.jpg"
+ },
+ "power-man-iron-fist": {
+  "title": "Power Man & Iron Fist",
+  "catalog": "SVR-005",
+  "year": "2017",
+  "streams": 12226,
+  "cover": "/assets/cover-art/power-man-iron-fist.jpg"
+ },
+ "me-now": {
+  "title": "Me Now",
+  "catalog": "SVR-041",
+  "year": "2020",
+  "streams": 15821,
+  "cover": "/assets/cover-art/me-now.jpg"
+ },
+ "all-grown": {
+  "title": "All Grown",
+  "catalog": "SVR-062",
+  "year": "2023",
+  "streams": 298,
+  "cover": "/assets/cover-art/all-grown.jpg"
+ },
+ "energy": {
+  "title": "Energy",
+  "catalog": "SVR-052",
+  "year": "2020",
+  "streams": 606,
+  "cover": "/assets/cover-art/energy.jpg"
+ },
+ "tempo-slowed-down": {
+  "title": "Tempo - Slowed Down",
+  "catalog": "SVR-065",
+  "year": "2023",
+  "streams": 75,
+  "cover": "/assets/cover-art/tempo-slowed-down.jpg"
+ },
+ "rock-with-it": {
+  "title": "Rock With It",
+  "catalog": "SVR-068",
+  "year": "2023",
+  "streams": 372,
+  "cover": "/assets/cover-art/rock-with-it.jpg"
+ },
+ "my-worst": {
+  "title": "My Worst",
+  "catalog": "SVR-051",
+  "year": "2020",
+  "streams": 292,
+  "cover": "/assets/cover-art/my-worst.jpg"
+ },
+ "just-got-paid": {
+  "title": "Just Got Paid",
+  "catalog": "SVR-001",
+  "year": "2016",
+  "streams": 11532,
+  "cover": "/assets/cover-art/just-got-paid.jpg"
+ },
+ "control-of-it": {
+  "title": "Control of It",
+  "catalog": "SVR-002",
+  "year": "2017",
+  "streams": 40520,
+  "cover": "/assets/cover-art/control-of-it.jpg"
+ },
+ "fax": {
+  "title": "Fax",
+  "catalog": "SVR-029",
+  "year": "2019",
+  "streams": 1841,
+  "cover": "/assets/cover-art/fax.jpg"
+ },
+ "fast-girls": {
+  "title": "Fast Girls",
+  "catalog": "SVR-030",
+  "year": "2019",
+  "streams": 11094,
+  "cover": "/assets/cover-art/fast-girls.jpg"
+ },
+ "finger-fuckin-fianc-s-all-2k20": {
+  "title": "Finger Fuckin' Fiancés All 2k20",
+  "catalog": "SVR-032",
+  "year": "2019",
+  "streams": 2313,
+  "cover": "/assets/cover-art/finger-fuckin-fianc-s-all-2k20.jpg"
+ },
+ "next-man": {
+  "title": "Next Man",
+  "catalog": "SVR-035",
+  "year": "2020",
+  "streams": 30082,
+  "cover": "/assets/cover-art/next-man.jpg"
+ },
+ "hate-fuck": {
+  "title": "Hate Fuck",
+  "catalog": "SVR-040",
+  "year": "2020",
+  "streams": 311282,
+  "cover": "/assets/cover-art/hate-fuck.jpg"
+ },
+ "the-steez": {
+  "title": "The Steez",
+  "catalog": "SVR-045",
+  "year": "2020",
+  "streams": 1997,
+  "cover": "/assets/cover-art/the-steez.jpg"
+ },
+ "purple-mattress": {
+  "title": "Purple Mattress",
+  "catalog": "SVR-046",
+  "year": "2020",
+  "streams": 2629,
+  "cover": "/assets/cover-art/purple-mattress.jpg"
+ },
+ "tempo-muffin-remix": {
+  "title": "Tempo (Muffin Remix)",
+  "catalog": "SVR-048",
+  "year": "2020",
+  "streams": 869,
+  "cover": "/assets/cover-art/tempo-muffin-remix.jpg"
+ },
+ "same-song-do-x6-feat-frei-nick-nigh": {
+  "title": "Same Song (Do X6) [feat. Frei & Nick Nigh]",
+  "catalog": "SVR-049",
+  "year": "2020",
+  "streams": 13672,
+  "cover": "/assets/cover-art/same-song-do-x6-feat-frei-nick-nigh.jpg"
+ },
+ "if-it-comes-to-it": {
+  "title": "If It Comes to It",
+  "catalog": "SVR-050",
+  "year": "2020",
+  "streams": 13300,
+  "cover": "/assets/cover-art/if-it-comes-to-it.jpg"
+ },
+ "they-are-not-your-friends-remix": {
+  "title": "They are not your Friends - Remix",
+  "catalog": "SVR-059",
+  "year": "2023",
+  "streams": 6983,
+  "cover": "/assets/cover-art/they-are-not-your-friends-remix.jpg"
+ },
+ "mind-my-biz": {
+  "title": "Mind My Biz",
+  "catalog": "SVR-067",
+  "year": "2023",
+  "streams": 8185,
+  "cover": "/assets/cover-art/mind-my-biz.jpg"
+ },
+ "ruse-de-guerre": {
+  "title": "Ruse de Guerre",
+  "catalog": "SVR-072",
+  "year": "2026",
+  "streams": 533,
+  "cover": "/assets/cover-art/ruse-de-guerre.jpg"
+ }
+}

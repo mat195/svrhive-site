@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { LABEL_NAME, SITE, absolute } from '../lib/entity';
+import { LABEL_NAME, SITE, absolute, entity } from '../lib/entity';
+const streamLinks = (entity.links ?? []).filter((l: any) => /spotify|apple|bandcamp|soundcloud|youtube/i.test(l.url)).slice(0, 5);
 
 export interface Props {
   title: string;
@@ -40,12 +41,15 @@ const isCurrent = (href: string) => href === path;
     <meta name="twitter:description" content={description} />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     {jsonld && <script type="application/ld+json" set:html={jsonld} />}
   </head>
   <body>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="/">{LABEL_NAME}</a>
+        <a class="brand" href="/"><span class="mark" aria-hidden="true"></span>{LABEL_NAME}</a>
         <nav class="primary" aria-label="Primary">
           {nav.map((n) => (
             <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
@@ -65,10 +69,21 @@ const isCurrent = (href: string) => href === path;
 
     <footer class="site-footer">
       <div class="wrap">
-        <p>
-          {LABEL_NAME} — independent record label. Home of Lucius P. Thundercat.<br />
-          <span class="muted">Montréal, Québec, Canada · <a href={SITE}>silkvelvetrecords.com</a></span>
-        </p>
+        <div class="foot-grid">
+          <div>
+            <span class="f-brand"><span class="mark" aria-hidden="true"></span>{LABEL_NAME}</span>
+            <p class="muted" style="margin:0.6rem 0 0;">Independent record label · home of Lucius P. Thundercat<br />Montréal, Québec, Canada</p>
+          </div>
+          <div>
+            {streamLinks.length > 0 && (
+              <div class="f-links">
+                {streamLinks.map((l: any) => <a href={l.url} target="_blank" rel="noopener">{l.label ?? 'Listen'}</a>)}
+              </div>
+            )}
+            <p class="muted" style="margin:0.7rem 0 0;"><a href="/contact/">Contact</a> · <a href={SITE}>silkvelvetrecords.com</a></p>
+          </div>
+        </div>
+        <p class="copy">© {new Date().getFullYear()} {LABEL_NAME}. All rights reserved.</p>
       </div>
     </footer>
   </body>

@@ -24,11 +24,13 @@ const jsonld = graph([
   {notes.length === 0 ? (
     <p class="muted">No notes yet.</p>
   ) : (
-    <ul class="linklist">
+    <ul class="notes-index">
       {notes.map((n) => (
         <li>
-          <a href={`/notes/${n.slug}/`}>{n.data.title}</a>
-          <span class="muted">{n.data.pubDate?.toISOString().slice(0, 10)}</span>
+          <span class="date">{n.data.pubDate ? n.data.pubDate.toISOString().slice(0, 10).replace(/-/g, '.') : '—'}</span>
+          <a class="n-title" href={`/notes/${n.slug}/`}>{n.data.title}</a>
+          {n.data.description && <span class="dek">{n.data.description}</span>}
+          <a class="readmore" href={`/notes/${n.slug}/`}>Read →</a>
         </li>
       ))}
     </ul>
