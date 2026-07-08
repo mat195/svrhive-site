@@ -1,0 +1,159 @@
+---
+import Base from '../../layouts/Base.astro';
+import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
+import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
+import covers from '../../data/covers.json';
+
+const title = `The Listening Room — ${CANONICAL_NAME}`;
+const description = `Dig through the ${LABEL_NAME} catalog: pull a record, drop the needle, hear it. Interactive crate of ${CANONICAL_NAME} releases.`;
+const jsonld = graph([musicGroupLd(), organizationLd(), breadcrumbLd([
+  { name: LABEL_NAME, path: '/' },
+  { name: 'Listen', path: '/listen/' },
+])]);
+
+const cov: Record<string, any> = covers as any;
+const all = Object.entries(cov).map(([slug, v]: any) => ({ slug, ...v })).filter((r) => r.cover && r.albumId);
+all.sort((a, b) => (b.streams ?? 0) - (a.streams ?? 0));
+// median streams → deep-cut / essential split
+const streamsSorted = all.map((r) => r.streams ?? 0).sort((a, b) => a - b);
+const median = streamsSorted[Math.floor(streamsSorted.length / 2)] ?? 0;
+const records = all.slice(0, 20).map((r) => ({
+  ...r,
+  moods: [
+    'melodic',
+    (r.featured?.length ? 'feature' : 'solo'),
+    ((r.streams ?? 0) <= median ? 'deep' : 'essential'),
+  ],
+}));
+const CHIPS = [
+  { id: 'all', label: 'Everything' },
+  { id: 'essential', label: 'Essentials' },
+  { id: 'feature', label: 'Feature-heavy' },
+  { id: 'deep', label: 'Deep cuts' },
+];
+const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(n >= 100000 ? 0 : 1)}K streams` : `${n} streams`);
+---
+
+<Base title={title} description={description} path="/listen/" jsonld={jsonld}>
+  <p class="eyebrow">The Listening Room</p>
+  <h1>Dig through the crate</h1>
+  <p class="lede">Twenty records from the {LABEL_NAME} catalog, leaned in a crate. Pull one, drop the needle, hear the real thing.</p>
+
+  <div class="lr" data-reduced-safe>
+    <div class="lr-chips" role="tablist" aria-label="Filter the crate">
+      {CHIPS.map((c, i) => (
+        <button class="lr-chip" data-mood={c.id} aria-pressed={i === 0 ? 'true' : 'false'}>{c.label}</button>
+      ))}
+    </div>
+
+    <div class="lr-crate-wrap">
+      <div id="lr-crate" class="lr-crate" aria-label="Record crate"></div>
+      <button id="lr-pull" class="lr-pullbtn">Pull a record</button>
+    </div>
+
+    <div id="lr-stage" class="lr-stage" hidden>
+      <div class="lr-deck">
+        <div class="lr-turntable">
+          <div id="lr-disc" class="lr-disc"><span id="lr-disc-label" class="lr-disc-label"></span></div>
+          <div id="lr-sleeve" class="lr-stage-sleeve"><img id="lr-sleeve-img" src="" alt="" /></div>
+          <svg class="lr-tonearm" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="98" cy="22" r="9" fill="#201826" stroke="#c9a86a" stroke-width="1.5"/>
+            <g id="lr-arm" transform="rotate(-28 98 22)">
+              <line x1="98" y1="22" x2="52" y2="72" stroke="#8d8496" stroke-width="3.2" stroke-linecap="round"/>
+              <rect x="46" y="70" width="12" height="8" rx="1.5" fill="#c9a86a"/>
+            </g>
+          </svg>
+        </div>
+        <div class="lr-card">
+          <span id="lr-catno" class="catno"></span>
+          <h2 id="lr-title" style="margin:0.2rem 0 0.3rem;"></h2>
+          <p id="lr-meta" class="mono" style="color:var(--static);font-size:0.8rem;margin:0 0 0.9rem;"></p>
+          <div id="lr-embed" class="lr-embed"></div>
+          <div class="lr-actions">
+            <button id="lr-another" class="lr-pullbtn sm">Pull another</button>
+            <button id="lr-back" class="lr-textbtn">← Back to the crate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Static fallback — full track list is in the HTML before any JS runs (crawlers + no-JS). */}
+  <noscript>
+    <p class="muted">Enable JavaScript for the interactive crate. The catalog:</p>
+  </noscript>
+  <ul class="linklist lr-fallback">
+    {records.map((r) => (
+      <li>
+        <span><span class="catno">{r.catalog}</span> <a href={`https://open.spotify.com/album/${r.albumId}`} target="_blank" rel="noopener">{r.title}</a></span>
+        <span class="muted mono" style="font-size:0.72rem;">{r.year}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}</span>
+      </li>
+    ))}
+  </ul>
+
+  <script type="application/json" id="lr-data" set:html={JSON.stringify(records)}></script>
+  <script is:inline define:vars={{ recordsCount: records.length }}>
+    (() => {
+      const data = JSON.parse(document.getElementById('lr-data').textContent);
+      const crate = document.getElementById('lr-crate');
+      const stage = document.getElementById('lr-stage');
+      const crateWrap = document.querySelector('.lr-crate-wrap');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let filtered = data.slice();
+      let idleTimer = null, shuffleTimer = null;
+
+      const fan = (list) => {
+        const n = list.length;
+        crate.innerHTML = list.map((r, i) => {
+          const spread = Math.min(52, Math.max(18, n * 3));
+          const rot = n > 1 ? (-spread / 2 + (i / (n - 1)) * spread) : 0;
+          const x = (i - (n - 1) / 2) * (n > 10 ? 22 : 34);
+          const y = Math.abs(i - (n - 1) / 2) * 2;
+          return `<button class="cr-sleeve" data-slug="${r.slug}" style="--rot:${rot.toFixed(1)}deg;--x:${x.toFixed(0)}px;--y:${y}px;z-index:${i}" aria-label="Pull ${r.title.replace(/"/g, '')}"><img src="${r.cover}" alt="${r.title.replace(/"/g, '')} cover art" loading="lazy"></button>`;
+        }).join('');
+      };
+
+      const pull = (slug) => {
+        const r = (slug ? data.find((x) => x.slug === slug) : filtered[Math.floor(Math.random() * filtered.length)]);
+        if (!r) return;
+        stopIdle();
+        document.getElementById('lr-catno').textContent = r.catalog || '';
+        document.getElementById('lr-title').textContent = r.title;
+        document.getElementById('lr-meta').textContent = [r.year, r.featured?.length ? 'feat. ' + r.featured.join(', ') : null, r.streams ? (r.streams >= 1000 ? (r.streams / 1000).toFixed(r.streams >= 1e5 ? 0 : 1) + 'K streams' : r.streams + ' streams') : null].filter(Boolean).join(' · ');
+        document.getElementById('lr-disc-label').textContent = r.catalog || 'SVR';
+        document.getElementById('lr-sleeve-img').src = r.cover;
+        document.getElementById('lr-sleeve-img').alt = r.title + ' cover art';
+        document.getElementById('lr-embed').innerHTML = `<iframe title="Spotify player — ${r.title.replace(/"/g, '')}" style="border-radius:8px" src="https://open.spotify.com/embed/album/${r.albumId}?theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" loading="lazy"></iframe>`;
+        crateWrap.hidden = true; stage.hidden = false;
+        stage.querySelector('.lr-deck').classList.remove('spun'); void stage.offsetWidth; stage.querySelector('.lr-deck').classList.add('spun');
+        stage.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+      };
+
+      const reset = () => { stage.hidden = true; crateWrap.hidden = false; document.getElementById('lr-embed').innerHTML = ''; startIdle(); };
+
+      const applyFilter = (mood) => {
+        filtered = mood === 'all' ? data.slice() : data.filter((r) => r.moods.includes(mood));
+        fan(filtered);
+      };
+
+      // idle "digging" auto-shuffle — off entirely under reduced-motion
+      const startIdle = () => { if (reduced) return; stopIdle(); idleTimer = setTimeout(() => { shuffleTimer = setInterval(() => { filtered = filtered.slice().sort(() => Math.random() - 0.5); fan(filtered); }, 2600); }, 10000); };
+      const stopIdle = () => { clearTimeout(idleTimer); clearInterval(shuffleTimer); idleTimer = shuffleTimer = null; };
+
+      crate.addEventListener('click', (e) => { const b = e.target.closest('.cr-sleeve'); if (b) pull(b.dataset.slug); });
+      document.getElementById('lr-pull').addEventListener('click', () => pull());
+      document.getElementById('lr-another').addEventListener('click', () => pull());
+      document.getElementById('lr-back').addEventListener('click', reset);
+      document.querySelectorAll('.lr-chip').forEach((chip) => chip.addEventListener('click', () => {
+        document.querySelectorAll('.lr-chip').forEach((c) => c.setAttribute('aria-pressed', 'false'));
+        chip.setAttribute('aria-pressed', 'true'); stopIdle(); applyFilter(chip.dataset.mood); startIdle();
+      }));
+      ['pointermove', 'keydown', 'click'].forEach((ev) => document.querySelector('.lr').addEventListener(ev, () => { if (!shuffleTimer && stage.hidden) startIdle(); else if (shuffleTimer) { stopIdle(); startIdle(); } }, { passive: true }));
+
+      fan(filtered);
+      startIdle();
+      // deep link: /listen/#slug auto-pulls that record (from artist-page "play preview")
+      if (location.hash.length > 1) { const s = decodeURIComponent(location.hash.slice(1)); if (data.some((r) => r.slug === s)) pull(s); }
+    })();
+  </script>
+</Base>

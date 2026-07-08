@@ -78,6 +78,9 @@ const jsonld = graph([
                 </span>
               </span>
             </a>
+            {r.cover && r.streams != null && (
+              <a class="sleeve-play" href={`/listen/#${r.slug}`}>▶ Play preview</a>
+            )}
           </li>
         ))}
       </ul>
