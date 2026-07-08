@@ -11,7 +11,7 @@ Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist based in Montréa
 
 ## The Sound
 
-Lucius P. Thundercat's lane is melodic hip-hop with a pop sensibility. Where much lofi and instrumental hip-hop defaults to sample-heavy production and laid-back tempos, LPT's approach is vocalist-forward: clean, rhythmic flows over produced beats that sit somewhere between trap's precision and lofi's warmth. His releases span from the lo-tempo introspection of "Love Pack" (2020) to the upbeat collaborative energy of "Make You Happy" (2022) with Sunnie.
+Lucius P. Thundercat's lane is melodic hip-hop with a pop sensibility. Where much lofi and instrumental hip-hop defaults to sample-heavy production and laid-back tempos, LPT's approach is vocalist-forward: clean, rhythmic flows over produced beats that sit somewhere between trap's precision and lofi's warmth. His releases span from the lo-tempo introspection of "Love Pack" (2020) to the upbeat collaborative energy of "Make You Happy" (2022).
 
 ## Montréal's Melodic Rap Lineage
 
@@ -21,13 +21,11 @@ Montréal has long produced rappers and vocalists who prioritize melody over agg
 
 | Release | Year | Collaborators | Character |
 |---|---|---|---|
-| Love Potion (feat. Sunnie) | 2022 | Sunnie | Melodic, intimate R&B-rap |
-| Tempo (feat. Sunnie) | 2023 | Sunnie | Pop-forward trap-rap hybrid |
 | Hate Fuck (feat. Project Pat) | 2020 | Project Pat | Harder edge, still melodic |
 | If It Comes to It (feat. Che Noir, Mooch) | 2020 | Che Noir, Mooch | Collaborative boom-bap texture |
 | Love Pack: Tokyo Drift | 2023 | — | Lofi-leaning solo work |
 
-Lucius P. Thundercat's discography reflects a conscious choice toward feature-driven singles rather than album-length projects — a format well-suited to streaming discovery and collaborative breadth. His recurring work with Sunnie and occasional features from producers like Muffin and Nick Nigh place him in an ecosystem of Montréal underground artists prioritizing production clarity and vocal melody.
+Lucius P. Thundercat's discography reflects a conscious choice toward feature-driven singles rather than album-length projects — a format well-suited to streaming discovery and collaborative breadth. His feature-driven singles place him in an ecosystem of Montréal underground artists prioritizing production clarity and vocal melody.
 
 ## Where to Find Him
 
