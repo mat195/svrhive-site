@@ -30,52 +30,32 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
 
 <section class="velvet-stage">
   <div class="velvet-stage-inner">
-<div class="lr" data-reduced-safe>
-  <div class="lr-chips" role="tablist" aria-label="Filter the crate">
-    {CHIPS.map((c) => (
-      <button class="lr-chip" data-mood={c.id} aria-pressed={c.id === 'all' ? 'true' : 'false'}>{c.label}</button>
-    ))}
-  </div>
-
-  <div class="lr-crate-wrap">
-    {/* FAN — filtered subsets (Featured / Feature-heavy / Deep cuts), small numbers, capped. */}
-    <div id="lr-crate" class="lr-crate" aria-label="Record crate"></div>
-    {/* WHEEL — the 360° round-spin selector for the full catalogue (Everything): a coverflow you
-        drag/swipe through; the front cover is selected; tap it to drop the needle. */}
-    <div id="lr-wheel" class="lr-wheel" hidden tabindex="0" aria-label="Spin through the full catalogue — drag to rotate, arrow keys to step" aria-roledescription="carousel">
-      <button class="lr-wheel-arrow prev" type="button" aria-label="Previous record">‹</button>
-      <div class="lr-wheel-track"></div>
-      <button class="lr-wheel-arrow next" type="button" aria-label="Next record">›</button>
+<div class="lr lr-unified" data-reduced-safe>
+  <div class="lr-main">
+    {/* Filter tabs as a vertical side rail. Every tab drives the SAME wheel — only the subset changes. */}
+    <div class="lr-rail" role="tablist" aria-label="Filter the records">
+      {CHIPS.map((c) => (
+        <button class="lr-chip" role="tab" data-mood={c.id} aria-pressed={c.id === 'all' ? 'true' : 'false'}>{c.label}</button>
+      ))}
     </div>
-    <div id="lr-wheel-label" class="lr-wheel-label" hidden><strong id="lr-wheel-title"></strong><span class="muted" id="lr-wheel-sub"></span></div>
-    <button id="lr-pull" class="lr-pullbtn">Pull a record</button>
-  </div>
-
-  <div id="lr-stage" class="lr-stage" hidden>
-    <div class="lr-deck">
-      <div class="lr-turntable">
-        <div id="lr-disc" class="lr-disc"><span id="lr-disc-label" class="lr-disc-label"></span></div>
-        <div id="lr-sleeve" class="lr-stage-sleeve"><img id="lr-sleeve-img" src="" alt="" /></div>
-        <svg class="lr-tonearm" viewBox="0 0 120 120" aria-hidden="true">
-          <circle cx="98" cy="22" r="9" fill="#201826" stroke="#c9a86a" stroke-width="1.5"/>
-          <g id="lr-arm" transform="rotate(-28 98 22)">
-            <line x1="98" y1="22" x2="52" y2="72" stroke="#8d8496" stroke-width="3.2" stroke-linecap="round"/>
-            <rect x="46" y="70" width="12" height="8" rx="1.5" fill="#c9a86a"/>
-          </g>
-        </svg>
+    <div class="lr-wheelcol">
+      {/* The rotary wheel — drag/swipe to spin, tap the front cover to play instantly (no button). */}
+      <div id="lr-wheel" class="lr-wheel" tabindex="0" aria-label="Spin the records — drag to rotate, arrow keys to step, tap the front cover to play" aria-roledescription="carousel">
+        <button class="lr-wheel-arrow prev" type="button" aria-label="Previous record">‹</button>
+        <div class="lr-wheel-track"></div>
+        <button class="lr-wheel-arrow next" type="button" aria-label="Next record">›</button>
       </div>
-      <div class="lr-card">
-        <span id="lr-catno" class="catno"></span>
-        <h2 id="lr-title" style="margin:0.2rem 0 0.3rem;"></h2>
-        <p id="lr-meta" class="mono" style="color:var(--static);font-size:0.8rem;margin:0 0 0.9rem;"></p>
-        <div class="lr-actions">
-          <button id="lr-another" class="lr-pullbtn sm">Pull another</button>
-          <button id="lr-back" class="lr-textbtn">← Back to the crate</button>
+      {/* Player sits DIRECTLY beneath the wheel, in place — never a page swap. Track info lives in
+          its header and tracks the front cover; the embed fills in when a cover is tapped. */}
+      <div id="lr-player" class="lr-player">
+        <div class="lr-player-info">
+          <span id="lr-catno" class="catno"></span>
+          <strong id="lr-title" class="lr-player-title"></strong>
+          <span id="lr-meta" class="muted mono"></span>
         </div>
+        <div id="lr-embed" class="lr-embed"></div>
       </div>
     </div>
-    {/* Embed fades in BELOW the vinyl (the platform's own track player). */}
-    <div id="lr-embed" class="lr-embed"></div>
   </div>
 </div>
   </div>
@@ -104,36 +84,11 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
 <script type="application/json" id="lr-data" set:html={JSON.stringify(records)}></script>
 <script is:inline>
   const initListeningRoom = () => {
-    const crateEl0 = document.getElementById('lr-crate');
-    if (!crateEl0 || crateEl0.dataset.init) return; // not on this page, or already bound
-    crateEl0.dataset.init = '1';
+    const wheelEl0 = document.getElementById('lr-wheel');
+    if (!wheelEl0 || wheelEl0.dataset.init) return; // not on this page, or already bound
+    wheelEl0.dataset.init = '1';
     const data = JSON.parse(document.getElementById('lr-data').textContent);
-    const crate = document.getElementById('lr-crate');
-    const stage = document.getElementById('lr-stage');
-    const crateWrap = document.querySelector('.lr-crate-wrap');
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let filtered = data.slice(); // front door opens on the FULL crate (Everything)
-    let idleTimer = null, shuffleTimer = null;
-
-    // Fan a SMALL, curated set (capped at 10 — anything larger uses the wheel). Spacing adapts to
-    // the container so the fan always fits the viewport, never cut off on mobile.
-    const FAN_CAP = 10;
-    const fan = (list) => {
-      list = list.slice(0, FAN_CAP);
-      const n = list.length;
-      const narrow = window.innerWidth < 560;
-      const sleeveW = narrow ? 104 : 150;
-      const cw = crate.clientWidth || (narrow ? window.innerWidth - 40 : 560);
-      const fit = n > 1 ? (cw - sleeveW) / (n - 1) : 0;          // step that keeps the fan inside the box
-      const step = Math.max(12, Math.min(narrow ? 30 : 40, fit)); // never wider than the container
-      crate.innerHTML = list.map((r, i) => {
-        const spread = Math.min(44, Math.max(12, n * 4));
-        const rot = n > 1 ? (-spread / 2 + (i / (n - 1)) * spread) : 0;
-        const x = (i - (n - 1) / 2) * step;
-        const y = Math.abs(i - (n - 1) / 2) * 2;
-        return `<button class="cr-sleeve" data-slug="${r.slug}" style="--rot:${rot.toFixed(1)}deg;--x:${x.toFixed(0)}px;--y:${y}px;z-index:${i}" aria-label="Pull ${r.title.replace(/"/g, '')}"><img src="${r.cover}" alt="${r.title.replace(/"/g, '')} cover art" loading="lazy"></button>`;
-      }).join('');
-    };
+    let filtered = data.slice();
 
     // ── Rotary drag-to-spin wheel — live 1:1 drag, seamless 360° wrap, momentum ────
     // `pos` is a continuous position in cover-units (fractional, unbounded); covers sit on a ring
@@ -142,7 +97,6 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     // release flings with velocity, decays with friction, then springs to the nearest cover.
     const wheel = document.getElementById('lr-wheel');
     const wheelTrack = wheel.querySelector('.lr-wheel-track');
-    const wheelLabel = document.getElementById('lr-wheel-label');
     let wheelList = [], pos = 0, vel = 0, wheelRaf = 0;
     const N = () => wheelList.length;
     const ANGLE = 22;                                            // degrees between adjacent covers
@@ -166,11 +120,14 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
         el.classList.toggle('front', Math.round(off) === 0);
       });
     };
-    const updateWheelLabel = () => {
-      const rec = wheelList[frontIdx()]; if (!rec) return;
-      document.getElementById('lr-wheel-title').textContent = rec.title;
-      document.getElementById('lr-wheel-sub').textContent = ' · ' + [rec.catalog, rec.year].filter(Boolean).join(' · ');
+    const fmtStreams = (n) => n ? (n >= 1000 ? (n / 1000).toFixed(n >= 1e5 ? 0 : 1) + 'K streams' : n + ' streams') : '';
+    const setInfo = (rec) => {                                  // fill the player header for a record
+      if (!rec) return;
+      document.getElementById('lr-catno').textContent = rec.catalog || '';
+      document.getElementById('lr-title').textContent = rec.title;
+      document.getElementById('lr-meta').textContent = [rec.year, fmtStreams(rec.streams)].filter(Boolean).join(' · ');
     };
+    const updateWheelLabel = () => setInfo(wheelList[frontIdx()]); // header tracks the front cover as you spin
     const renderWheel = (list) => {
       wheelList = list; pos = 0; vel = 0;
       wheelTrack.innerHTML = list.map((rec, i) => `<button class="lr-wheel-cover" type="button" data-slug="${rec.slug}" data-idx="${i}" aria-label="${rec.title.replace(/"/g, '')}"><img src="${rec.cover}" alt="${rec.title.replace(/"/g, '')} cover art" loading="lazy"></button>`).join('');
@@ -214,7 +171,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     // Tap a cover (not a drag): front → play; a side cover glides to the front.
     wheelTrack.addEventListener('click', (e) => {
       const b = e.target.closest('.lr-wheel-cover'); if (!b || moved > 6) return;
-      if (Math.round(wrapOff(+b.dataset.idx)) === 0) pull(b.dataset.slug);
+      if (Math.round(wrapOff(+b.dataset.idx)) === 0) playRecord(wheelList[+b.dataset.idx]); // front → play in place
       else { if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; } pos += wrapOff(+b.dataset.idx); wheel.classList.remove('dragging'); positionWheel(); updateWheelLabel(); }
     });
     // Arrows — secondary/accessible fallback: one smooth CSS-eased step (still wraps).
@@ -224,9 +181,9 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     wheel.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') { e.preventDefault(); stepBy(-1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); stepBy(1); }
-      else if ((e.key === 'Enter' || e.key === ' ') && wheelList[frontIdx()]) { e.preventDefault(); pull(wheelList[frontIdx()].slug); }
+      else if ((e.key === 'Enter' || e.key === ' ') && wheelList[frontIdx()]) { e.preventDefault(); playRecord(wheelList[frontIdx()]); }
     });
-    window.addEventListener('resize', () => { if (!wheel.hidden) positionWheel(); else if (!crate.hidden) fan(filtered.slice(0, FAN_CAP)); }, { passive: true });
+    window.addEventListener('resize', () => positionWheel(), { passive: true });
 
     // Pull → the platform's OWN track player FADES IN below the vinyl (the Spotify iframe is the
     // audio; no Web Audio, no native taste). Track-level (embed/track/<id>) so a logged-in play
@@ -247,77 +204,46 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       toggle += `</div>`;
       embed.innerHTML = toggle + platformIframe(r, plat);
     };
-    const mountDeckPlayer = (r) => {
-      currentRec = r;
-      if (window.SVR) window.SVR.stop(); // the embed is the audio here — silence the native taste bar
-      renderEmbed(r, 'spotify'); // auto-load Spotify (fades in); toggle switches platform
-    };
     embed.addEventListener('click', (e) => {
       const btn = e.target.closest('.lr-lo-btn');
       if (!btn || !currentRec) return;
       renderEmbed(currentRec, btn.dataset.plat);
     });
 
-    const pull = (slug) => {
-      const r = (slug ? data.find((x) => x.slug === slug) : filtered[Math.floor(Math.random() * filtered.length)]);
+    // Click a cover → play IN PLACE beneath the wheel (no page swap). The played cover keeps a
+    // 'playing' ring until another is chosen. Every tab drives the same wheel — only the set changes.
+    const playRecord = (r) => {
       if (!r) return;
-      stopIdle();
-      document.getElementById('lr-catno').textContent = r.catalog || '';
-      document.getElementById('lr-title').textContent = r.title;
-      document.getElementById('lr-meta').textContent = [r.year, r.featured?.length ? 'feat. ' + r.featured.join(', ') : null, r.streams ? (r.streams >= 1000 ? (r.streams / 1000).toFixed(r.streams >= 1e5 ? 0 : 1) + 'K streams' : r.streams + ' streams') : null].filter(Boolean).join(' · ');
-      document.getElementById('lr-disc-label').textContent = r.catalog || 'SVR';
-      document.getElementById('lr-sleeve-img').src = r.cover;
-      document.getElementById('lr-sleeve-img').alt = r.title + ' cover art';
-      mountDeckPlayer(r);
-      crateWrap.hidden = true; stage.hidden = false;
-      stage.querySelector('.lr-deck').classList.remove('spun'); void stage.offsetWidth; stage.querySelector('.lr-deck').classList.add('spun');
-      stage.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+      currentRec = r; setInfo(r);
+      if (window.SVR) window.SVR.stop();
+      renderEmbed(r, 'spotify');
+      document.getElementById('lr-player').classList.add('has-embed');
+      wheelTrack.querySelectorAll('.lr-wheel-cover').forEach((el) => el.classList.toggle('playing', el.dataset.slug === r.slug));
     };
-
-    const reset = () => { stage.hidden = true; crateWrap.hidden = false; if (window.SVR) window.SVR.stop(); embed.innerHTML = ''; startIdle(); };
-
-    // Everything → the round-spin wheel; the named subsets → the small fan. Both feed pull().
+    const spinToSlug = (slug) => {                              // bring a record to the front (list / deep-link)
+      const idx = wheelList.findIndex((x) => x.slug === slug);
+      if (idx < 0) return null;
+      if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; }
+      pos += wrapOff(idx); wheel.classList.remove('dragging'); positionWheel(); updateWheelLabel();
+      return wheelList[idx];
+    };
     const applyFilter = (mood) => {
-      const isAll = mood === 'all';
-      crate.hidden = isAll; wheel.hidden = !isAll; wheelLabel.hidden = !isAll;
-      const pullBtn = document.getElementById('lr-pull');
-      if (isAll) {
-        filtered = data.slice();
-        renderWheel(filtered);
-        pullBtn.textContent = 'Play this record';
-        stopIdle();
-      } else {
-        filtered = data.filter((r) => r.moods.includes(mood));
-        fan(filtered);
-        pullBtn.textContent = 'Pull a record';
-        startIdle();
-      }
+      filtered = mood === 'all' ? data.slice() : data.filter((r) => r.moods.includes(mood));
+      if (!filtered.length) filtered = data.slice();
+      renderWheel(filtered);                                    // same wheel, different subset
     };
-
-    // idle "digging" auto-shuffle — fan mode only (off under reduced-motion or when the wheel is up)
-    const startIdle = () => { if (reduced || !wheel.hidden) return; stopIdle(); idleTimer = setTimeout(() => { shuffleTimer = setInterval(() => { filtered = filtered.slice().sort(() => Math.random() - 0.5); fan(filtered); }, 2600); }, 10000); };
-    const stopIdle = () => { clearTimeout(idleTimer); clearInterval(shuffleTimer); idleTimer = shuffleTimer = null; };
-
-    crate.addEventListener('click', (e) => { const b = e.target.closest('.cr-sleeve'); if (b) pull(b.dataset.slug); });
-    document.getElementById('lr-pull').addEventListener('click', () => {
-      if (!wheel.hidden) { const r = wheelList[frontIdx()]; if (r) pull(r.slug); } // wheel: the front one
-      else pull(); // fan: a random dig
-    });
-    document.getElementById('lr-another').addEventListener('click', () => pull());
-    document.getElementById('lr-back').addEventListener('click', reset);
     document.querySelectorAll('.lr-chip').forEach((chip) => chip.addEventListener('click', () => {
       document.querySelectorAll('.lr-chip').forEach((c) => c.setAttribute('aria-pressed', 'false'));
-      chip.setAttribute('aria-pressed', 'true'); stopIdle(); applyFilter(chip.dataset.mood); startIdle();
+      chip.setAttribute('aria-pressed', 'true'); applyFilter(chip.dataset.mood);
     }));
-    // Full-list rows: play button (or clicking the row) runs the same pull/spin/embed
-    // sequence and scrolls up to the deck — no need to hunt for the sleeve in the crate.
-    document.querySelectorAll('.lr-row-play').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); pull(b.dataset.slug); }));
-    document.querySelectorAll('.lr-row').forEach((row) => row.addEventListener('click', (e) => { if (e.target.closest('a')) return; pull(row.dataset.slug); }));
-    ['pointermove', 'keydown', 'click'].forEach((ev) => document.querySelector('.lr').addEventListener(ev, () => { if (!shuffleTimer && stage.hidden) startIdle(); else if (shuffleTimer) { stopIdle(); startIdle(); } }, { passive: true }));
+    // Full-list rows also play in place — spin the wheel to that record if it's in the set, then play.
+    const playFromList = (slug) => playRecord(spinToSlug(slug) || data.find((x) => x.slug === slug));
+    document.querySelectorAll('.lr-row-play').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); playFromList(b.dataset.slug); }));
+    document.querySelectorAll('.lr-row').forEach((row) => row.addEventListener('click', (e) => { if (e.target.closest('a')) return; playFromList(row.dataset.slug); }));
 
-    applyFilter('all'); // front door opens on the round-spin wheel (the full catalogue)
-    // deep link: /#slug (or /listen/#slug) auto-pulls that record (from artist-page "play preview")
-    if (location.hash.length > 1) { const s = decodeURIComponent(location.hash.slice(1)); if (data.some((r) => r.slug === s)) pull(s); }
+    applyFilter('all'); // opens on Everything — all tabs use this same wheel
+    // deep link: /#slug brings that record to the front + plays it
+    if (location.hash.length > 1) { const s = decodeURIComponent(location.hash.slice(1)); if (data.some((r) => r.slug === s)) playFromList(s); }
   };
   initListeningRoom();
   document.addEventListener('astro:page-load', initListeningRoom);

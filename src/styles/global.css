@@ -490,3 +490,33 @@ main { flex: 1; padding: 3rem 0 4rem; }
 }
 /* The full-crate heading — a quiet selvedge label, not a headline. */
 .lr-fulltitle { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--static); border: 0; margin-top: 2.6rem; }
+
+/* ── Unified Listening Room: side rail + one wheel + in-place player beneath it ──── */
+.lr-main { display: flex; gap: 1.6rem; align-items: flex-start; }
+.lr-rail { display: flex; flex-direction: column; gap: 0.5rem; flex: 0 0 auto; padding-top: 0.3rem; }
+.lr-rail .lr-chip { width: 100%; text-align: left; white-space: nowrap; }
+.lr-rail .lr-chip[aria-pressed='true'] { background: var(--silk); color: var(--velvet); border-color: var(--silk); } /* gold fill — matches nav-active */
+.lr-wheelcol { flex: 1 1 auto; min-width: 0; }
+/* Player sits directly beneath the wheel and stays put — no page swap. Info tracks the front cover. */
+.lr-player { max-width: 560px; margin: 0.3rem auto 0; }
+.lr-player-info { text-align: center; margin-bottom: 0.4rem; min-height: 1.5rem; }
+.lr-player-title { font-family: var(--display); font-size: 1.4rem; color: var(--cream); margin: 0 0.45rem; vertical-align: middle; }
+.lr-player-info .catno, .lr-player-info .mono { vertical-align: middle; }
+.lr-player .lr-embed { margin: 0.2rem 0 0; }
+.lr-player .lr-embed:empty { display: none; }
+/* Playing cover — a brighter, persistent gold ring (distinct from the front-highlight). */
+.lr-wheel-cover.playing img { border-color: var(--silk); box-shadow: 0 0 0 2px var(--silk), 0 18px 44px -10px rgba(0,0,0,0.92); }
+
+/* Wheel moves UP: compact the intro + trim the stage's top space. */
+.room-home { padding-top: 0.5rem; }
+.room-intro { max-width: 44rem; margin: 0 auto 1rem; }
+.room-intro h1 { font-size: clamp(1.55rem, 3.4vw, 2.15rem); margin: 0.1rem 0 0.35rem; }
+.room-intro .lede { font-size: 0.95rem; line-height: 1.5; }
+.velvet-stage { margin-top: 0.8rem; padding-top: 1.8rem; }
+
+@media (max-width: 700px) {
+  .lr-main { gap: 0.7rem; }
+  .lr-rail { gap: 0.35rem; padding-top: 0.1rem; }
+  .lr-rail .lr-chip { font-size: 0.62rem; padding: 0.32rem 0.45rem; letter-spacing: 0.02em; }
+  .lr-player-title { font-size: 1.12rem; }
+}
