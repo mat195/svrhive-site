@@ -87,6 +87,9 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-size: 1.05rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cream); }
 .brand:hover { color: var(--cream); }
 .brand .mark { width: 15px; height: 15px; transform: rotate(45deg); border: 1.5px solid var(--silk); background: linear-gradient(135deg, transparent 45%, rgba(201,168,106,0.35)); flex: 0 0 auto; }
+/* Glass-plate wordmark replaces the old .mark + text brand in the nav. */
+.brand-logo { height: 48px; width: auto; display: block; }
+@media (max-width: 560px) { .brand-logo { height: 40px; } }
 nav.primary { display: flex; gap: 1.3rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
 nav.primary a { color: var(--static); padding-bottom: 2px; border-bottom: 1px solid transparent; }
 nav.primary a:hover { color: var(--cream); }
@@ -296,7 +299,7 @@ main { flex: 1; padding: 3rem 0 4rem; }
   width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   margin-top: 1.4rem; margin-bottom: 2.2rem; padding: 2.4rem 0 2.8rem;
   background-image: url('/assets/silk-ribbon-tile-1400x700.jpg');
-  background-size: cover; background-position: center; background-attachment: fixed;
+  background-size: 100% auto; background-position: center; background-repeat: repeat-y; background-attachment: fixed;
   border-top: 1.5px solid var(--silk); border-bottom: 1.5px solid var(--silk);
 }
 /* A soft scrim so the crate + deck text read on the busy velvet — texture stays visible. */
@@ -471,6 +474,9 @@ main { flex: 1; padding: 3rem 0 4rem; }
 /* Homepage intro — the folded-in label framing above the crate. Tight, so the crate stays high. */
 .room-intro { text-align: center; max-width: 46rem; margin: 0.2rem auto 1.7rem; }
 .room-intro h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); margin: 0.15rem 0 0.5rem; }
+/* Glass-plate wordmark replaces the hero heading text. */
+.room-intro h1.hero-logo-h { margin: 0.1rem 0 0.5rem; line-height: 0; }
+.room-intro .hero-logo { display: inline-block; width: min(300px, 66vw); height: auto; }
 .room-intro .lede { color: var(--static); margin: 0 auto; }
 .room-intro .eyebrow { margin-bottom: 0.5rem; }
 
