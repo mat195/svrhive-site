@@ -83,7 +83,7 @@ const isCurrent = (href: string) => href === path;
           <div class="svr-p-scrub" id="svr-p-scrub" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><div class="svr-p-fill" id="svr-p-fill"></div></div>
           <span class="svr-p-time" id="svr-p-dur">0:30</span>
         </div>
-        <div class="svr-p-note" id="svr-p-note">Preview unavailable</div>
+        <div class="svr-p-note" id="svr-p-note">Hear the full track on Spotify</div>
       </div>
       <a class="svr-p-spotify" id="svr-p-spotify" href="#" target="_blank" rel="noopener">Listen on Spotify →</a>
       <button id="svr-p-close" class="svr-p-close" type="button" aria-label="Close player">✕</button>
@@ -121,8 +121,8 @@ const isCurrent = (href: string) => href === path;
             var cover = $('svr-p-cover'); if (c.cover) { cover.src = c.cover; cover.style.display = ''; } else { cover.style.display = 'none'; }
             var sp = $('svr-p-spotify'); if (c.spotify) { sp.href = c.spotify; sp.style.display = ''; } else { sp.style.display = 'none'; }
             bar.classList.toggle('no-preview', !c.src);
-            if (onListen()) { bar.hidden = true; return; } // /listen/ has its own deck transport
-            bar.hidden = false;
+            bar.hidden = false; // the floating bottom bar is the transport everywhere, room included
+
           }
         };
         window.SVR = SVR;
