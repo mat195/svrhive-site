@@ -198,8 +198,8 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       if (moved < 6 && downCover) {                             // a tap, not a drag
         wheel.classList.remove('dragging', 'fast');
         const idx = +downCover.dataset.idx; downCover = null;
-        if (Math.round(wrapOff(idx)) === 0) playPreview(wheelList[idx]);     // front cover → play instantly
-        else { pos += wrapOff(idx); positionWheel(); updateWheelLabel(); }   // side cover → glide to front
+        pos += wrapOff(idx); positionWheel();                   // glide the tapped cover to the front…
+        playPreview(wheelList[idx]);                            // …and play it — any cover, not just the middle one
         return;
       }
       downCover = null;
