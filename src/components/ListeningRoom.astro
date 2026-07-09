@@ -42,7 +42,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     <div id="lr-crate" class="lr-crate" aria-label="Record crate"></div>
     {/* WHEEL — the 360° round-spin selector for the full catalogue (Everything): a coverflow you
         drag/swipe through; the front cover is selected; tap it to drop the needle. */}
-    <div id="lr-wheel" class="lr-wheel" hidden aria-label="Spin through the full catalogue" aria-roledescription="carousel">
+    <div id="lr-wheel" class="lr-wheel" hidden tabindex="0" aria-label="Spin through the full catalogue — drag to rotate, arrow keys to step" aria-roledescription="carousel">
       <button class="lr-wheel-arrow prev" type="button" aria-label="Previous record">‹</button>
       <div class="lr-wheel-track"></div>
       <button class="lr-wheel-arrow next" type="button" aria-label="Next record">›</button>
@@ -135,51 +135,97 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       }).join('');
     };
 
-    // ── Round-spin wheel (coverflow) for the full catalogue ──────────────────────
+    // ── Rotary drag-to-spin wheel — live 1:1 drag, seamless 360° wrap, momentum ────
+    // `pos` is a continuous position in cover-units (fractional, unbounded); covers sit on a ring
+    // and each one's on-screen offset is the SHORTEST signed distance to `pos` (wrap-aware), so
+    // there is no first/last edge — spinning one way loops forever. Drag tracks the pointer 1:1;
+    // release flings with velocity, decays with friction, then springs to the nearest cover.
     const wheel = document.getElementById('lr-wheel');
     const wheelTrack = wheel.querySelector('.lr-wheel-track');
     const wheelLabel = document.getElementById('lr-wheel-label');
-    let wheelList = [], wheelIndex = 0;
-    const clampW = (i) => Math.max(0, Math.min(wheelList.length - 1, i));
-    const stepPx = () => (window.innerWidth < 560 ? 82 : 128);
+    let wheelList = [], pos = 0, vel = 0, wheelRaf = 0;
+    const N = () => wheelList.length;
+    const ANGLE = 22;                                            // degrees between adjacent covers
+    const radius = () => (window.innerWidth < 560 ? 230 : 340);
+    const stepPx = () => (window.innerWidth < 560 ? 74 : 104);  // drag px per one cover
+    const wrapOff = (idx) => { const n = N(); if (!n) return 99; let d = (((idx - pos) % n) + n) % n; if (d > n / 2) d -= n; return d; };
+    const frontIdx = () => { const n = N(); return n ? (((Math.round(pos) % n) + n) % n) : 0; };
     const positionWheel = () => {
-      const narrow = window.innerWidth < 560;
+      const r = radius(), narrow = window.innerWidth < 560;
       wheelTrack.querySelectorAll('.lr-wheel-cover').forEach((el) => {
-        const off = (+el.dataset.idx) - wheelIndex, abs = Math.abs(off);
-        if (abs > 3.2) { el.style.display = 'none'; return; }
+        const off = wrapOff(+el.dataset.idx), abs = Math.abs(off);
+        if (abs > 3.4) { el.style.display = 'none'; return; }
         el.style.display = '';
-        const scale = off === 0 ? (narrow ? 1.06 : 1.18) : Math.max(0.5, 1 - abs * 0.17);
-        const rotY = Math.max(-58, Math.min(58, -off * 44));
-        el.style.transform = `translateX(${(off * stepPx()).toFixed(1)}px) translateZ(${(-abs * 70).toFixed(0)}px) rotateY(${rotY.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
-        el.style.zIndex = String(100 - Math.round(abs * 10));
-        el.style.opacity = String(abs > 2.4 ? 0.28 : 1);
+        const th = off * ANGLE * Math.PI / 180;                 // this cover's angle on the ring
+        const x = Math.sin(th) * r;
+        const z = (Math.cos(th) - 1) * r;                       // front at 0, sides curve away/back
+        const scale = Math.max(0.42, (narrow ? 1.05 : 1.16) - Math.min(abs, 4) * 0.145);
+        el.style.transform = `translateX(${x.toFixed(1)}px) translateZ(${z.toFixed(1)}px) rotateY(${(-off * ANGLE).toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+        el.style.zIndex = String(200 - Math.round(abs * 12));
+        el.style.opacity = String(abs > 2.6 ? 0.25 : 1);
         el.classList.toggle('front', Math.round(off) === 0);
       });
     };
     const updateWheelLabel = () => {
-      const r = wheelList[Math.round(wheelIndex)]; if (!r) return;
-      document.getElementById('lr-wheel-title').textContent = r.title;
-      document.getElementById('lr-wheel-sub').textContent = ' · ' + [r.catalog, r.year].filter(Boolean).join(' · ');
+      const rec = wheelList[frontIdx()]; if (!rec) return;
+      document.getElementById('lr-wheel-title').textContent = rec.title;
+      document.getElementById('lr-wheel-sub').textContent = ' · ' + [rec.catalog, rec.year].filter(Boolean).join(' · ');
     };
     const renderWheel = (list) => {
-      wheelList = list; wheelIndex = 0;
-      wheelTrack.innerHTML = list.map((r, i) => `<button class="lr-wheel-cover" type="button" data-slug="${r.slug}" data-idx="${i}" aria-label="${r.title.replace(/"/g, '')}"><img src="${r.cover}" alt="${r.title.replace(/"/g, '')} cover art" loading="lazy"></button>`).join('');
+      wheelList = list; pos = 0; vel = 0;
+      wheelTrack.innerHTML = list.map((rec, i) => `<button class="lr-wheel-cover" type="button" data-slug="${rec.slug}" data-idx="${i}" aria-label="${rec.title.replace(/"/g, '')}"><img src="${rec.cover}" alt="${rec.title.replace(/"/g, '')} cover art" loading="lazy"></button>`).join('');
       positionWheel(); updateWheelLabel();
     };
-    let dragX = null, dragStart = 0, moved = 0;
-    wheel.addEventListener('pointerdown', (e) => { if (e.target.closest('.lr-wheel-arrow')) return; dragX = e.clientX; dragStart = wheelIndex; moved = 0; wheel.classList.add('dragging'); try { wheel.setPointerCapture(e.pointerId); } catch (_) {} });
-    wheel.addEventListener('pointermove', (e) => { if (dragX == null) return; const dx = e.clientX - dragX; moved = Math.max(moved, Math.abs(dx)); wheelIndex = clampW(dragStart - dx / stepPx()); positionWheel(); });
-    const endDrag = () => { if (dragX == null) return; dragX = null; wheel.classList.remove('dragging'); wheelIndex = clampW(Math.round(wheelIndex)); positionWheel(); updateWheelLabel(); };
-    wheel.addEventListener('pointerup', endDrag);
-    wheel.addEventListener('pointercancel', endDrag);
-    wheelTrack.addEventListener('click', (e) => {
-      const b = e.target.closest('.lr-wheel-cover'); if (!b || moved > 6) return; // a tap, not a drag
-      const idx = +b.dataset.idx;
-      if (idx === Math.round(wheelIndex)) pull(b.dataset.slug);       // front cover → drop the needle
-      else { wheelIndex = idx; positionWheel(); updateWheelLabel(); } // side cover → bring it to front
+    // Momentum + settle. Kept in the 'dragging' state (CSS transition off) so it's rAF-driven.
+    const spin = () => {
+      pos += vel; vel *= 0.94;
+      if (Math.abs(vel) < 0.015) {                              // slow → spring to the nearest cover
+        const target = Math.round(pos);
+        pos += (target - pos) * 0.22;
+        if (Math.abs(target - pos) < 0.002) { pos = target; wheel.classList.remove('dragging', 'fast'); positionWheel(); updateWheelLabel(); wheelRaf = 0; return; }
+      }
+      wheel.classList.toggle('fast', Math.abs(vel) > 0.3);      // motion-blur cue while spinning fast
+      positionWheel();
+      if (Math.abs(vel) > 0.3) updateWheelLabel();
+      wheelRaf = requestAnimationFrame(spin);
+    };
+    let dragX = null, startPos = 0, lastPos = 0, moved = 0;
+    wheel.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.lr-wheel-arrow')) return;
+      if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; }
+      dragX = e.clientX; startPos = pos; lastPos = pos; vel = 0; moved = 0;
+      wheel.classList.add('dragging'); try { wheel.setPointerCapture(e.pointerId); } catch (_) {}
     });
-    wheel.querySelector('.prev').addEventListener('click', () => { wheelIndex = clampW(Math.round(wheelIndex) - 1); positionWheel(); updateWheelLabel(); });
-    wheel.querySelector('.next').addEventListener('click', () => { wheelIndex = clampW(Math.round(wheelIndex) + 1); positionWheel(); updateWheelLabel(); });
+    wheel.addEventListener('pointermove', (e) => {
+      if (dragX == null) return;
+      const dx = e.clientX - dragX; moved = Math.max(moved, Math.abs(dx));
+      pos = startPos - dx / stepPx();                           // 1:1 live tracking
+      vel = pos - lastPos; lastPos = pos;                       // instantaneous flick velocity
+      wheel.classList.toggle('fast', Math.abs(vel) > 0.3);
+      positionWheel();
+    });
+    const release = () => {
+      if (dragX == null) return; dragX = null;
+      vel = Math.max(-1.5, Math.min(1.5, vel));                 // cap the fling
+      if (!wheelRaf) wheelRaf = requestAnimationFrame(spin);
+    };
+    wheel.addEventListener('pointerup', release);
+    wheel.addEventListener('pointercancel', release);
+    // Tap a cover (not a drag): front → play; a side cover glides to the front.
+    wheelTrack.addEventListener('click', (e) => {
+      const b = e.target.closest('.lr-wheel-cover'); if (!b || moved > 6) return;
+      if (Math.round(wrapOff(+b.dataset.idx)) === 0) pull(b.dataset.slug);
+      else { if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; } pos += wrapOff(+b.dataset.idx); wheel.classList.remove('dragging'); positionWheel(); updateWheelLabel(); }
+    });
+    // Arrows — secondary/accessible fallback: one smooth CSS-eased step (still wraps).
+    const stepBy = (d) => { if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; } wheel.classList.remove('dragging', 'fast'); pos = Math.round(pos) + d; positionWheel(); updateWheelLabel(); };
+    wheel.querySelector('.prev').addEventListener('click', () => stepBy(-1));
+    wheel.querySelector('.next').addEventListener('click', () => stepBy(1));
+    wheel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); stepBy(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); stepBy(1); }
+      else if ((e.key === 'Enter' || e.key === ' ') && wheelList[frontIdx()]) { e.preventDefault(); pull(wheelList[frontIdx()].slug); }
+    });
     window.addEventListener('resize', () => { if (!wheel.hidden) positionWheel(); else if (!crate.hidden) fan(filtered.slice(0, FAN_CAP)); }, { passive: true });
 
     // Pull → the platform's OWN track player FADES IN below the vinyl (the Spotify iframe is the
@@ -254,7 +300,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
 
     crate.addEventListener('click', (e) => { const b = e.target.closest('.cr-sleeve'); if (b) pull(b.dataset.slug); });
     document.getElementById('lr-pull').addEventListener('click', () => {
-      if (!wheel.hidden) { const r = wheelList[Math.round(wheelIndex)]; if (r) pull(r.slug); } // wheel: the front one
+      if (!wheel.hidden) { const r = wheelList[frontIdx()]; if (r) pull(r.slug); } // wheel: the front one
       else pull(); // fan: a random dig
     });
     document.getElementById('lr-another').addEventListener('click', () => pull());
