@@ -113,25 +113,33 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     };
 
     // Two-tier listening: the floating bottom bar (Base.astro) plays our native 30s taste —
-    // instant, on-brand, working progress. The deck offers the FULL track through Spotify's own
-    // embed; for a listener logged into Spotify that play counts as a real stream (our own audio
-    // never can). No-preview tracks skip the taste and go straight to the Spotify option.
+    // instant, on-brand, working progress. The deck offers the FULL track through the platform's
+    // OWN embed — Spotify and (where available) Apple Music — each track-level, so a logged-in
+    // play counts as a real stream (our own audio never can). No-preview tracks skip the taste.
     const embed = document.getElementById('lr-embed');
     const mountDeckPlayer = (r) => {
       // Track-level: the specific track plays (and counts) — not the whole album from track 1.
       const spotify = r.trackId ? ('https://open.spotify.com/track/' + r.trackId) : ('https://open.spotify.com/album/' + r.albumId);
-      embed.innerHTML = `<button class="lr-spotify-full" type="button" data-track="${r.trackId || ''}" data-album="${r.albumId}">Play full on Spotify</button>`
-        + `<a class="lr-full-link" href="${spotify}" target="_blank" rel="noopener">open in the app ↗</a>`;
+      let html = `<div class="lr-play-row">`
+        + `<button class="lr-spotify-full" type="button" data-track="${r.trackId || ''}" data-album="${r.albumId}">Play full on Spotify</button>`;
+      if (r.appleTrackId && r.appleAlbumId) html += `<button class="lr-apple-full" type="button" data-atrack="${r.appleTrackId}" data-aalbum="${r.appleAlbumId}">Play on Apple Music</button>`;
+      html += `</div>`;
+      embed.innerHTML = html;
       if (r.previewUrl && window.SVR) window.SVR.play({ src: r.previewUrl, title: r.title, cover: r.cover, spotify: spotify, trigger: null });
-      else if (window.SVR) window.SVR.stop(); // no taste → no floating bar; the Spotify option is the action
+      else if (window.SVR) window.SVR.stop(); // no taste → no floating bar; the platform options are the action
     };
-    // Expand Spotify's embed inline on request — the specific TRACK, so a logged-in play counts.
+    // Expand the chosen platform's own embed inline — the specific TRACK, so a logged-in play counts.
     embed.addEventListener('click', (e) => {
-      const btn = e.target.closest('.lr-spotify-full');
-      if (!btn) return;
+      const sp = e.target.closest('.lr-spotify-full');
+      const ap = e.target.closest('.lr-apple-full');
+      if (!sp && !ap) return;
       if (window.SVR) window.SVR.stop(); // one player at a time — stop the native taste
-      const src = btn.dataset.track ? `https://open.spotify.com/embed/track/${btn.dataset.track}` : `https://open.spotify.com/embed/album/${btn.dataset.album}`;
-      embed.innerHTML = `<iframe class="lr-spotify-embed" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; encrypted-media; clipboard-write; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>`;
+      if (sp) {
+        const src = sp.dataset.track ? `https://open.spotify.com/embed/track/${sp.dataset.track}` : `https://open.spotify.com/embed/album/${sp.dataset.album}`;
+        embed.innerHTML = `<iframe class="lr-spotify-embed" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; encrypted-media; clipboard-write; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>`;
+      } else {
+        embed.innerHTML = `<iframe class="lr-apple-embed" src="https://embed.music.apple.com/us/album/${ap.dataset.aalbum}?i=${ap.dataset.atrack}" height="175" frameborder="0" allow="autoplay *; encrypted-media *; clipboard-write" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" loading="lazy" title="Apple Music player"></iframe>`;
+      }
     });
 
     const pull = (slug) => {

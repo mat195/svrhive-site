@@ -11,7 +11,9 @@
       "Project Pat"
     ],
     "previewUrl": null,
-    "trackId": "4Kp5EilxWm9lk7iWd63f3A"
+    "trackId": "4Kp5EilxWm9lk7iWd63f3A",
+    "appleAlbumId": "1499395759",
+    "appleTrackId": "1499395760"
   },
   {
     "slug": "excelente-2018",
@@ -23,7 +25,9 @@
     "albumId": "5BgkAlPrRyrzD4rJQVrYQb",
     "featured": [],
     "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/61/f1/4f/61f14f5d-0b52-50f4-0996-986a1ce3e91b/mzaf_2709092185917594039.plus.aac.p.m4a",
-    "trackId": "2Lk0qh5EWckWXmipBPzTuU"
+    "trackId": "2Lk0qh5EWckWXmipBPzTuU",
+    "appleAlbumId": "1443412918",
+    "appleTrackId": "1443412919"
   },
   {
     "slug": "tempo",
@@ -37,7 +41,9 @@
       "Sunnie"
     ],
     "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/39/f4/b7/39f4b74d-8370-d93f-7945-d4b4f5c4f6c4/mzaf_653325682016981369.plus.aac.p.m4a",
-    "trackId": "0z44h77DVTAbWYclLfsjCZ"
+    "trackId": "0z44h77DVTAbWYclLfsjCZ",
+    "appleAlbumId": "1477923265",
+    "appleTrackId": "1477923386"
   },
   {
     "slug": "if-it-comes-to-it",
@@ -52,7 +58,9 @@
       "Mooch"
     ],
     "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/7d/ec/66/7dec666f-e381-783c-ac80-35c92eefdd01/mzaf_15546325329494094629.plus.aac.p.m4a",
-    "trackId": "4T4BG5pnxESH2doxWEvvmZ"
+    "trackId": "4T4BG5pnxESH2doxWEvvmZ",
+    "appleAlbumId": "1617461389",
+    "appleTrackId": "1617461390"
   },
   {
     "slug": "mind-my-biz",
@@ -66,7 +74,9 @@
       "OG Maco"
     ],
     "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/b1/d5/f9/b1d5f953-a5e3-caa2-fb8d-410a6c75b3ed/mzaf_2937352336454152823.plus.aac.p.m4a",
-    "trackId": "1cI7IOL96dmfwksDgcp5s7"
+    "trackId": "1cI7IOL96dmfwksDgcp5s7",
+    "appleAlbumId": "1697075508",
+    "appleTrackId": "1697075509"
   },
   {
     "slug": "they-are-not-your-friends-remix",
@@ -80,6 +90,8 @@
       "Nick Nigh"
     ],
     "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9c/23/af/9c23aff7-008e-e6c8-717d-156ab74f3a02/mzaf_8875671228655385869.plus.aac.p.m4a",
-    "trackId": "4ZICmTIecFhMLD940G5p46"
+    "trackId": "4ZICmTIecFhMLD940G5p46",
+    "appleAlbumId": "1686294538",
+    "appleTrackId": "1686294543"
   }
 ]
