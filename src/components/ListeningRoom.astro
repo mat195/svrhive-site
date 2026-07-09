@@ -56,7 +56,6 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
           </button>
           <div class="lr-player-main">
             <div class="lr-player-info">
-              <span id="lr-catno" class="catno"></span>
               <strong id="lr-title" class="lr-player-title"></strong>
               <span id="lr-meta" class="muted mono"></span>
             </div>
@@ -86,11 +85,11 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       <span class="lr-thumb">
         {r.cover
           ? <img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="72" height="72" />
-          : <span class="lr-thumb-ph"><span class="catno">{r.catalog}</span></span>}
+          : <span class="lr-thumb-ph"><span class="lr-thumb-note">♪</span></span>}
       </span>
       <span class="lr-row-main">
         <a class="lr-row-title" href={r.trackId ? `https://open.spotify.com/track/${r.trackId}` : `https://open.spotify.com/album/${r.albumId}`} target="_blank" rel="noopener">{r.title}</a>
-        <span class="lr-row-sub"><span class="catno lr-row-cat">{r.catalog}</span> · {r.year}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}{r.streams ? ` · ${fmt(r.streams)}` : ''}</span>
+        <span class="lr-row-sub">{r.year}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}{r.streams ? ` · ${fmt(r.streams)}` : ''}</span>
       </span>
       <button class="lr-row-play" data-slug={r.slug} aria-label={`Play ${r.title}`} title="Play preview">▶</button>
     </li>
@@ -147,7 +146,6 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     const setInfo = (rec) => {
       if (!rec) return;
       currentRec = rec;
-      document.getElementById('lr-catno').textContent = rec.catalog || '';
       document.getElementById('lr-title').textContent = rec.title;
       document.getElementById('lr-meta').textContent = [rec.year, fmtStreams(rec.streams)].filter(Boolean).join(' · ');
       const vc = document.getElementById('lr-vinyl-cover'); if (vc) { vc.src = rec.cover; vc.alt = rec.title + ' cover art'; }
@@ -195,7 +193,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     const release = (e) => {
       if (dragX == null) return; dragX = null;
       try { if (e && e.pointerId != null) wheel.releasePointerCapture(e.pointerId); } catch (_) {}
-      if (moved < 6 && downCover) {                             // a tap, not a drag
+      if (moved < 14 && downCover) {                            // a tap, not a drag — real mouse/trackpad clicks drift a few px
         wheel.classList.remove('dragging', 'fast');
         const idx = +downCover.dataset.idx; downCover = null;
         pos += wrapOff(idx); positionWheel();                   // glide the tapped cover to the front…
