@@ -512,13 +512,19 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .lr-scrub { flex: 1 1 auto; height: 5px; border-radius: 999px; background: var(--underfelt-2); cursor: pointer; overflow: hidden; }
 .lr-scrub-fill { height: 100%; width: 0; background: var(--silk); border-radius: 999px; }
 /* Full-track row — loads the Spotify/Apple embed on demand (counts a stream). */
-.lr-full { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; position: relative; }
-.lr-full-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; margin-right: 0.15rem; }
-.lr-full-btn { font-family: var(--mono); font-size: 0.72rem; color: var(--static); background: transparent; border: 1px solid var(--edge); border-radius: 3px; padding: 0.24rem 0.6rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
-.lr-full-btn:hover { color: var(--silk); border-color: var(--silk); }
-.lr-full .lr-spotify-embed, .lr-full .lr-apple-embed { display: block; width: 100%; border: 0; border-radius: 10px; }
-.lr-full-close { position: absolute; top: -0.3rem; right: 0; width: 22px; height: 22px; border-radius: 999px; border: 1px solid var(--edge); background: rgba(22,16,28,0.72); color: var(--static); cursor: pointer; font-size: 0.7rem; z-index: 2; }
-.lr-full-close:hover { color: var(--cream); }
+.lr-full { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; position: relative; }
+/* Smart-link: one "Streaming" pill that unfolds a themed menu of every platform. */
+.lr-stream-toggle { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--velvet); background: var(--silk); border: 1px solid var(--silk); border-radius: 999px; padding: 0.34rem 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; transition: filter 0.2s; }
+.lr-stream-toggle:hover { filter: brightness(1.08); }
+.lr-stream-caret { font-size: 0.62rem; transition: transform 0.2s; }
+.lr-stream-toggle[aria-expanded='true'] .lr-stream-caret { transform: rotate(180deg); }
+.lr-stream-menu { display: grid; grid-template-columns: repeat(2, minmax(9.5rem, 1fr)); gap: 0.3rem; width: 100%; margin-top: 0.15rem; animation: fadeUp 0.28s ease-out; }
+.lr-stream-menu[hidden] { display: none; }
+.lr-stream-link { font-family: var(--mono); font-size: 0.74rem; color: var(--cream); background: rgba(22,16,28,0.55); border: 1px solid var(--edge); border-radius: 5px; padding: 0.4rem 0.6rem; text-decoration: none; display: flex; align-items: center; justify-content: space-between; transition: color 0.18s, border-color 0.18s, background 0.18s; }
+.lr-stream-link::after { content: '↗'; opacity: 0.45; font-size: 0.7rem; }
+.lr-stream-link:hover { color: var(--velvet); background: var(--silk); border-color: var(--silk); }
+.lr-stream-link:hover::after { opacity: 0.8; }
+@media (max-width: 480px) { .lr-stream-menu { grid-template-columns: 1fr 1fr; } }
 /* Playing cover — a brighter, persistent gold ring (distinct from the front-highlight). */
 .lr-wheel-cover.playing img { border-color: var(--silk); box-shadow: 0 0 0 2px var(--silk), 0 18px 44px -10px rgba(0,0,0,0.92); }
 
