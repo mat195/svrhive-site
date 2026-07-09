@@ -255,8 +255,19 @@ main { flex: 1; padding: 3rem 0 4rem; }
 @keyframes vinyl-spin { to { transform: rotate(360deg); } }
 
 .lr-card .catno { display: block; }
-.lr-embed { margin: 0.4rem 0 1rem; min-height: 80px; }
-.lr-embed iframe { animation: fadeUp 0.5s ease-out; }
+.lr-embed { margin: 0.4rem 0 1rem; min-height: 56px; }
+/* Native deck transport (replaces the old Spotify iframe in the Listening Room). */
+.lr-native { display: flex; align-items: center; gap: 0.7rem; background: var(--velvet); border: 1px solid var(--edge); border-radius: 8px; padding: 0.55rem 0.7rem; animation: fadeUp 0.5s ease-out; }
+.lr-native .lr-np-toggle { flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--silk); background: transparent; color: var(--silk); font-size: 0.9rem; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: background 0.2s, color 0.2s; }
+.lr-native .lr-np-toggle:hover { background: var(--silk); color: var(--velvet); }
+.lr-native .lr-np-time { font-family: var(--mono); font-size: 0.72rem; color: var(--static); flex: 0 0 auto; min-width: 2.4em; text-align: center; }
+.lr-native .lr-np-scrub { flex: 1 1 auto; height: 4px; border-radius: 999px; background: var(--underfelt-2); cursor: pointer; overflow: hidden; }
+.lr-native .lr-np-fill { height: 100%; width: 0; background: var(--silk); border-radius: 999px; }
+.lr-native .lr-np-spotify { flex: 0 0 auto; font-family: var(--mono); font-size: 0.8rem; color: var(--static); text-decoration: none; padding: 0 0.2rem; }
+.lr-native .lr-np-spotify:hover { color: var(--silk); }
+.lr-native.no-preview { justify-content: space-between; }
+.lr-native .lr-np-msg { font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.03em; color: var(--static); }
+.lr-native.no-preview .lr-np-spotify { color: var(--silk); }
 .lr-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .lr-fallback { margin-top: 2.4rem; }
 
@@ -326,13 +337,35 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .crate .rec[data-album]:hover::before { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 .sleeve .art.playing::before, .crate .rec.playing::before { display: none; }
 
-/* The compact player fills the cover footprint in place — no reflow. */
-.inline-player { position: absolute; inset: 0; z-index: 5; display: flex; background: var(--velvet); }
-.inline-player iframe, .inline-player > div { width: 100% !important; height: 100% !important; border: 0; }
-.inline-player .ip-close {
-  position: absolute; top: 5px; right: 6px; z-index: 6; width: 24px; height: 24px; border-radius: 999px;
-  border: 1px solid var(--edge); background: rgba(0,0,0,0.6); color: var(--cream); cursor: pointer; font-size: 0.8rem; line-height: 1;
-}
-/* While playing, kill the 3D sleeve tilt / crate rotation so the player sits square + on top. */
+/* ── Native floating player bar — our own tokens, no Spotify iframe ──────────── */
+.svr-player { position: fixed; z-index: 80; left: 50%; bottom: 1.1rem; transform: translateX(-50%);
+  width: min(560px, calc(100vw - 2rem)); display: flex; align-items: center; gap: 0.8rem;
+  background: linear-gradient(180deg, var(--underfelt), var(--velvet)); border: 1px solid var(--edge);
+  border-radius: 10px; padding: 0.6rem 0.8rem; box-shadow: 0 18px 48px -20px rgba(0,0,0,0.9);
+  animation: fadeUp 0.35s ease-out; }
+.svr-player[hidden] { display: none; }
+.svr-p-cover { width: 44px; height: 44px; border-radius: 4px; object-fit: cover; flex: 0 0 auto; border: 1px solid var(--edge); }
+.svr-p-toggle { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--silk); background: transparent; color: var(--silk); cursor: pointer; font-size: 0.95rem; line-height: 1; display: grid; place-items: center; transition: background 0.2s, color 0.2s; }
+.svr-p-toggle:hover { background: var(--silk); color: var(--velvet); }
+.svr-p-main { flex: 1 1 auto; min-width: 0; }
+.svr-p-title { font-family: var(--display); font-size: 1.05rem; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+.svr-p-transport { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; }
+.svr-p-time { font-family: var(--mono); font-size: 0.7rem; color: var(--static); flex: 0 0 auto; min-width: 2.4em; }
+.svr-p-time#svr-p-dur { text-align: right; }
+.svr-p-scrub { flex: 1 1 auto; height: 4px; border-radius: 999px; background: var(--underfelt-2); cursor: pointer; overflow: hidden; }
+.svr-p-fill { height: 100%; width: 0; background: var(--silk); border-radius: 999px; transition: width 0.15s linear; }
+.svr-p-spotify { flex: 0 0 auto; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--static); text-decoration: none; white-space: nowrap; }
+.svr-p-spotify:hover { color: var(--silk); }
+.svr-p-close { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 999px; border: 1px solid var(--edge); background: transparent; color: var(--static); cursor: pointer; font-size: 0.75rem; line-height: 1; }
+.svr-p-close:hover { color: var(--cream); }
+.svr-p-note { display: none; font-family: var(--mono); font-size: 0.74rem; color: var(--static); margin-top: 0.25rem; }
+/* No-preview: hide the transport, show the note + a gold "Listen on Spotify →" CTA. */
+.svr-player.no-preview .svr-p-transport, .svr-player.no-preview .svr-p-toggle { display: none; }
+.svr-player.no-preview .svr-p-note { display: block; }
+.svr-player.no-preview .svr-p-spotify { color: var(--silk); }
+@media (max-width: 560px) { .svr-player { bottom: 0.6rem; } .svr-p-title { font-size: 0.95rem; } }
+
+/* Playing → gold ring on the cover + kill the 3D tilt so it sits square. */
+.sleeve .art.playing, .crate .rec.playing { box-shadow: 0 0 0 2px var(--silk), var(--elev-3); }
 .sleeve .art.playing { transform: none !important; }
-.crate .rec.playing { transform: rotate(0deg) scale(1.04) !important; z-index: 300 !important; box-shadow: var(--elev-3); }
+.crate .rec.playing { transform: rotate(0deg) scale(1.04) !important; z-index: 300 !important; }

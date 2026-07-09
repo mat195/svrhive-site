@@ -37,7 +37,7 @@ const jsonld = graph([
     <div class="crate">
       <div class="stack">
         {crate.map((c, i) => (
-          <div class="rec" data-album={c.albumId || undefined} role={c.albumId ? 'button' : undefined} tabindex={c.albumId ? 0 : undefined} aria-label={c.albumId ? `Play ${c.title}` : undefined} style={`left:${lean[i].x}%; top:${lean[i].y}%; transform:rotate(${lean[i].r}deg); z-index:${i}; animation-delay:${260 + i * 150}ms;`}>
+          <div class="rec" data-album={c.albumId || undefined} data-preview={c.previewUrl || undefined} role={c.albumId ? 'button' : undefined} tabindex={c.albumId ? 0 : undefined} aria-label={c.albumId ? `Play ${c.title}` : undefined} style={`left:${lean[i].x}%; top:${lean[i].y}%; transform:rotate(${lean[i].r}deg); z-index:${i}; animation-delay:${260 + i * 150}ms;`}>
             <img src={c.cover} alt={c.albumId ? `${c.title} cover art` : ''} width="200" height="200" loading="eager" />
           </div>
         ))}

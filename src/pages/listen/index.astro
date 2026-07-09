@@ -124,6 +124,46 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
         }).join('');
       };
 
+      // Needle-drop → native preview. Renders an in-theme transport in the deck card and
+      // drives the shared <audio> (Base.astro). No Spotify iframe. Null-preview → a graceful
+      // "Listen on Spotify" state (never an embed).
+      const embed = document.getElementById('lr-embed');
+      const fmtT = (t) => { if (!isFinite(t) || t < 0) t = 0; const m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; };
+      const mountDeckPlayer = (r) => {
+        const spotify = 'https://open.spotify.com/album/' + r.albumId;
+        if (!r.previewUrl) {
+          embed.innerHTML = `<div class="lr-native no-preview"><span class="lr-np-msg">Preview unavailable</span><a class="lr-np-spotify" href="${spotify}" target="_blank" rel="noopener">Listen on Spotify →</a></div>`;
+          if (window.SVR) window.SVR.stop();
+          return;
+        }
+        embed.innerHTML = `<div class="lr-native">`
+          + `<button class="lr-np-toggle" type="button" aria-label="Pause">‖</button>`
+          + `<span class="lr-np-time lr-np-cur">0:00</span>`
+          + `<div class="lr-np-scrub" role="slider" aria-label="Seek" tabindex="0"><div class="lr-np-fill"></div></div>`
+          + `<span class="lr-np-time lr-np-dur">0:30</span>`
+          + `<a class="lr-np-spotify" href="${spotify}" target="_blank" rel="noopener" title="Open in Spotify">↗</a>`
+          + `</div>`;
+        if (window.SVR) window.SVR.play({ src: r.previewUrl, title: r.title, cover: r.cover, spotify: spotify, trigger: null });
+      };
+      // One updater bound to the shared <audio>: reflects state into whatever deck transport
+      // is currently mounted. Bound once; survives re-renders of #lr-embed.
+      const svrAudio = document.getElementById('svr-audio');
+      if (svrAudio && !svrAudio.__lrBound) {
+        svrAudio.__lrBound = 1;
+        const setFill = () => { const f = embed.querySelector('.lr-np-fill'), cur = embed.querySelector('.lr-np-cur'); const pct = svrAudio.duration ? (svrAudio.currentTime / svrAudio.duration * 100) : 0; if (f) f.style.width = pct + '%'; if (cur) cur.textContent = fmtT(svrAudio.currentTime); };
+        svrAudio.addEventListener('timeupdate', setFill);
+        svrAudio.addEventListener('loadedmetadata', () => { const d = embed.querySelector('.lr-np-dur'); if (d) d.textContent = fmtT(svrAudio.duration); });
+        svrAudio.addEventListener('play', () => { const t = embed.querySelector('.lr-np-toggle'); if (t) { t.textContent = '‖'; t.setAttribute('aria-label', 'Pause'); } });
+        svrAudio.addEventListener('pause', () => { const t = embed.querySelector('.lr-np-toggle'); if (t) { t.textContent = '▶'; t.setAttribute('aria-label', 'Play'); } });
+        svrAudio.addEventListener('ended', () => { const t = embed.querySelector('.lr-np-toggle'); if (t) { t.textContent = '▶'; t.setAttribute('aria-label', 'Play'); } });
+      }
+      // Deck transport controls (delegated; #lr-embed re-renders each pull).
+      embed.addEventListener('click', (e) => {
+        if (e.target.closest('.lr-np-toggle')) { e.preventDefault(); if (window.SVR) window.SVR.toggle(); return; }
+        const scrub = e.target.closest('.lr-np-scrub');
+        if (scrub && svrAudio && svrAudio.duration) { const rect = scrub.getBoundingClientRect(); svrAudio.currentTime = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * svrAudio.duration; }
+      });
+
       const pull = (slug) => {
         const r = (slug ? data.find((x) => x.slug === slug) : filtered[Math.floor(Math.random() * filtered.length)]);
         if (!r) return;
@@ -134,13 +174,13 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
         document.getElementById('lr-disc-label').textContent = r.catalog || 'SVR';
         document.getElementById('lr-sleeve-img').src = r.cover;
         document.getElementById('lr-sleeve-img').alt = r.title + ' cover art';
-        document.getElementById('lr-embed').innerHTML = `<iframe title="Spotify player — ${r.title.replace(/"/g, '')}" style="border-radius:8px" src="https://open.spotify.com/embed/album/${r.albumId}?theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" loading="lazy"></iframe>`;
+        mountDeckPlayer(r);
         crateWrap.hidden = true; stage.hidden = false;
         stage.querySelector('.lr-deck').classList.remove('spun'); void stage.offsetWidth; stage.querySelector('.lr-deck').classList.add('spun');
         stage.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
       };
 
-      const reset = () => { stage.hidden = true; crateWrap.hidden = false; document.getElementById('lr-embed').innerHTML = ''; startIdle(); };
+      const reset = () => { stage.hidden = true; crateWrap.hidden = false; if (window.SVR) window.SVR.stop(); embed.innerHTML = ''; startIdle(); };
 
       const applyFilter = (mood) => {
         filtered = mood === 'all' ? data.slice() : data.filter((r) => r.moods.includes(mood));

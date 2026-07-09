@@ -48,65 +48,6 @@ const isCurrent = (href: string) => href === path;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     {jsonld && <script type="application/ld+json" set:html={jsonld} />}
-
-    {/* Inline cover-play: outside /listen/, clicking a [data-album] cover expands a compact
-        Spotify player in place and plays on the click gesture (official IFrame API, with a
-        plain-embed fallback). The full vinyl pull/spin/needle ceremony stays exclusive to
-        /listen/, which this script deliberately no-ops on. */}
-    <script is:inline>
-      (function () {
-        window.onSpotifyIframeApiReady = function (API) { window.__spotifyApi = API; };
-        if (window.__inlinePlayBound) return;
-        window.__inlinePlayBound = true;
-        var active = null; // { host, controller, trigger }
-        var onListen = function () { return location.pathname.indexOf('/listen') === 0; };
-        function close() {
-          if (!active) return;
-          try { active.controller && active.controller.destroy && active.controller.destroy(); } catch (e) {}
-          if (active.host && active.host.parentNode) active.host.parentNode.removeChild(active.host);
-          if (active.trigger) active.trigger.classList.remove('playing');
-          active = null;
-        }
-        function open(trigger, albumId) {
-          if (active && active.trigger === trigger) { close(); return; } // toggle off
-          close();
-          var host = document.createElement('div');
-          host.className = 'inline-player';
-          var x = document.createElement('button');
-          x.type = 'button'; x.className = 'ip-close'; x.setAttribute('aria-label', 'Close player'); x.textContent = '✕';
-          x.addEventListener('click', function (ev) { ev.stopPropagation(); close(); });
-          var mount = document.createElement('div');
-          host.appendChild(x); host.appendChild(mount);
-          trigger.appendChild(host);
-          trigger.classList.add('playing');
-          var uri = 'spotify:album:' + albumId;
-          if (window.__spotifyApi) {
-            window.__spotifyApi.createController(mount, { uri: uri, width: '100%', height: '100%' }, function (controller) {
-              active = { host: host, controller: controller, trigger: trigger };
-              try { controller.play(); } catch (e) {} // click gesture → autoplays
-            });
-          } else {
-            mount.outerHTML = '<iframe src="https://open.spotify.com/embed/album/' + albumId + '?theme=0" width="100%" height="100%" style="border:0" allow="autoplay; encrypted-media; clipboard-write" loading="lazy" title="Spotify preview"></iframe>';
-            active = { host: host, controller: null, trigger: trigger };
-          }
-        }
-        document.addEventListener('click', function (e) {
-          if (onListen()) return;
-          var t = e.target.closest ? e.target.closest('[data-album]') : null;
-          if (t && t.getAttribute('data-album')) { e.preventDefault(); e.stopPropagation(); open(t, t.getAttribute('data-album')); return; }
-          if (active && !(e.target.closest && e.target.closest('.inline-player'))) close();
-        });
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') { close(); return; }
-          if (onListen()) return;
-          if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.matches && e.target.matches('[data-album]')) {
-            e.preventDefault(); open(e.target, e.target.getAttribute('data-album'));
-          }
-        });
-        document.addEventListener('astro:before-swap', close); // tear down on view transition
-      })();
-    </script>
-    <script src="https://open.spotify.com/embed/iframe-api/v1" async is:inline></script>
   </head>
   <body>
     <div id="sheen" aria-hidden="true"></div>
@@ -126,6 +67,107 @@ const isCurrent = (href: string) => href === path;
         <slot />
       </div>
     </main>
+
+    {/* Native audio player — one shared <audio> + a floating transport bar in our own
+        design language (Velvet/Underfelt surface, Silk-gold progress, mono timestamps,
+        Instrument Serif title). Clicking any [data-preview] cover site-wide plays its 30s
+        preview instantly; covers with no preview show an in-theme "Listen on Spotify" state.
+        No Spotify iframe anywhere. Persists across view transitions so playback survives nav. */}
+    <div id="svr-player" class="svr-player" hidden transition:persist>
+      <img id="svr-p-cover" class="svr-p-cover" alt="" />
+      <button id="svr-p-toggle" class="svr-p-toggle" type="button" aria-label="Pause">‖</button>
+      <div class="svr-p-main">
+        <div class="svr-p-title" id="svr-p-title"></div>
+        <div class="svr-p-transport">
+          <span class="svr-p-time" id="svr-p-cur">0:00</span>
+          <div class="svr-p-scrub" id="svr-p-scrub" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><div class="svr-p-fill" id="svr-p-fill"></div></div>
+          <span class="svr-p-time" id="svr-p-dur">0:30</span>
+        </div>
+        <div class="svr-p-note" id="svr-p-note">Preview unavailable</div>
+      </div>
+      <a class="svr-p-spotify" id="svr-p-spotify" href="#" target="_blank" rel="noopener">Listen on Spotify →</a>
+      <button id="svr-p-close" class="svr-p-close" type="button" aria-label="Close player">✕</button>
+    </div>
+    <audio id="svr-audio" preload="none" transition:persist></audio>
+    <script is:inline>
+      (function () {
+        if (window.SVR) return;
+        var onListen = function () { return location.pathname.indexOf('/listen') === 0; };
+        var fmt = function (t) { if (!isFinite(t) || t < 0) t = 0; var m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; };
+        var $ = function (id) { return document.getElementById(id); };
+        var SVR = {
+          current: null, _trigger: null,
+          audio: function () { return $('svr-audio'); },
+          // opts: { src, title, cover, spotify, trigger }. No src → in-theme "Listen on Spotify".
+          play: function (opts) {
+            var a = this.audio(); if (!a) return;
+            if (this.current && opts.src && this.current.src === opts.src && !a.paused) { a.pause(); return; } // toggle same track
+            if (this._trigger && this._trigger !== opts.trigger) this._trigger.classList.remove('playing');
+            this._trigger = opts.trigger || null;
+            this.current = opts;
+            if (opts.src) { if (a.getAttribute('src') !== opts.src) { a.setAttribute('src', opts.src); } a.currentTime = 0; a.play().catch(function () {}); }
+            else { a.pause(); a.removeAttribute('src'); }
+            this._render();
+            document.dispatchEvent(new CustomEvent('svr:change', { detail: opts }));
+          },
+          toggle: function () { var a = this.audio(); if (!a || !this.current || !this.current.src) return; if (a.paused) a.play().catch(function () {}); else a.pause(); },
+          stop: function () { var a = this.audio(); if (a) a.pause(); if (this._trigger) this._trigger.classList.remove('playing'); this._trigger = null; this.current = null; var bar = $('svr-player'); if (bar) bar.hidden = true; },
+          _render: function () {
+            var bar = $('svr-player'); if (!bar) return;
+            var c = this.current || {};
+            $('svr-p-title').textContent = c.title || '';
+            var cover = $('svr-p-cover'); if (c.cover) { cover.src = c.cover; cover.style.display = ''; } else { cover.style.display = 'none'; }
+            var sp = $('svr-p-spotify'); if (c.spotify) { sp.href = c.spotify; sp.style.display = ''; } else { sp.style.display = 'none'; }
+            bar.classList.toggle('no-preview', !c.src);
+            if (onListen()) { bar.hidden = true; return; } // /listen/ has its own deck transport
+            bar.hidden = false;
+          }
+        };
+        window.SVR = SVR;
+
+        function bindAudio() {
+          var a = SVR.audio(); if (!a || a.__bound) return; a.__bound = true;
+          a.addEventListener('timeupdate', function () {
+            var pct = a.duration ? (a.currentTime / a.duration * 100) : 0;
+            var f = $('svr-p-fill'); if (f) f.style.width = pct + '%';
+            var cur = $('svr-p-cur'); if (cur) cur.textContent = fmt(a.currentTime);
+            var scrub = $('svr-p-scrub'); if (scrub) scrub.setAttribute('aria-valuenow', Math.round(pct));
+          });
+          a.addEventListener('loadedmetadata', function () { var d = $('svr-p-dur'); if (d) d.textContent = fmt(a.duration); });
+          a.addEventListener('play', function () { var t = $('svr-p-toggle'); if (t) { t.textContent = '‖'; t.setAttribute('aria-label', 'Pause'); } if (SVR._trigger) SVR._trigger.classList.add('playing'); });
+          a.addEventListener('pause', function () { var t = $('svr-p-toggle'); if (t) { t.textContent = '▶'; t.setAttribute('aria-label', 'Play'); } if (SVR._trigger) SVR._trigger.classList.remove('playing'); });
+          a.addEventListener('ended', function () { var t = $('svr-p-toggle'); if (t) { t.textContent = '▶'; t.setAttribute('aria-label', 'Play'); } if (SVR._trigger) SVR._trigger.classList.remove('playing'); });
+        }
+        bindAudio();
+        document.addEventListener('astro:page-load', function () { bindAudio(); if (SVR.current) SVR._render(); });
+
+        // Floating-bar controls (delegated so they survive persist across nav).
+        document.addEventListener('click', function (e) {
+          var tgt = e.target;
+          if (tgt.closest && tgt.closest('#svr-p-toggle')) { SVR.toggle(); return; }
+          if (tgt.closest && tgt.closest('#svr-p-close')) { SVR.stop(); return; }
+          if (tgt.closest && tgt.closest('#svr-p-spotify')) { return; } // let the link open
+          var scrub = tgt.closest && tgt.closest('#svr-p-scrub');
+          if (scrub) { var a = SVR.audio(); if (a && a.duration) { var r = scrub.getBoundingClientRect(); a.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * a.duration; } return; }
+          // Site-wide cover play (skip /listen/, which drives the player through its deck).
+          if (onListen()) return;
+          var el = tgt.closest ? tgt.closest('[data-preview],[data-album]') : null;
+          if (!el) return;
+          e.preventDefault(); e.stopPropagation();
+          var img = el.querySelector('img');
+          var title = (el.getAttribute('data-title') || (img && img.alt) || '').replace(/ cover art$/, '');
+          var album = el.getAttribute('data-album');
+          SVR.play({ src: el.getAttribute('data-preview') || '', title: title, cover: (img && img.src) || '', spotify: album ? ('https://open.spotify.com/album/' + album) : '', trigger: el });
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { SVR.stop(); return; }
+          if (onListen()) return;
+          if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.matches && e.target.matches('[data-preview],[data-album]')) {
+            e.preventDefault(); e.target.click();
+          }
+        });
+      })();
+    </script>
 
     <!-- Privacy-first analytics beacon (non-content; page reads fine without JS). -->
     <script src="/analytics.js" defer></script>
