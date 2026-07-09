@@ -208,7 +208,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     const release = (e) => {
       if (dragX == null) return; dragX = null;
       try { if (e && e.pointerId != null) wheel.releasePointerCapture(e.pointerId); } catch (_) {}
-      if (moved < 14 && downCover) {                            // a tap, not a drag — real mouse/trackpad clicks drift a few px
+      if (moved < stepPx() * 0.4 && downCover) {                // a tap, not a drag: under ~0.4 of a cover-step (real clicks drift 15-25px; a spin travels a full step+)
         wheel.classList.remove('dragging', 'fast');
         const idx = +downCover.dataset.idx; downCover = null;
         pos += wrapOff(idx); positionWheel();                   // glide the tapped cover to the front…
