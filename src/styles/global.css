@@ -268,9 +268,14 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .lr-native.no-preview { justify-content: space-between; }
 .lr-native .lr-np-msg { font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.03em; color: var(--static); }
 .lr-native.no-preview .lr-np-spotify { color: var(--silk); }
-/* Deck Spotify CTA (playback lives in the floating bottom bar now; this drives real streams). */
-.lr-np-spotify.solo { display: inline-block; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--silk); text-decoration: none; border: 1px solid var(--silk); border-radius: 3px; padding: 0.4rem 0.85rem; margin: 0.1rem 0 0.5rem; transition: background 0.2s, color 0.2s; }
-.lr-np-spotify.solo:hover { background: var(--silk); color: var(--velvet); }
+/* Deck "Play full on Spotify" — the native bar is the 30s taste; this expands Spotify's own
+   embed inline, where a logged-in listener's play counts as a real stream. */
+.lr-spotify-full { display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.03em; color: var(--velvet); background: var(--silk); border: 0; border-radius: 3px; padding: 0.5rem 0.95rem; margin: 0.1rem 0 0.4rem; cursor: pointer; transition: filter 0.2s; }
+.lr-spotify-full::before { content: ''; width: 11px; height: 11px; border-radius: 50%; background: #1db954; flex: 0 0 auto; } /* Spotify-green cue on our gold button */
+.lr-spotify-full:hover { filter: brightness(1.08); }
+.lr-full-link { display: inline-block; margin-left: 0.7rem; font-family: var(--mono); font-size: 0.72rem; color: var(--static); text-decoration: none; vertical-align: middle; }
+.lr-full-link:hover { color: var(--silk); }
+.lr-spotify-embed { display: block; border-radius: 12px; margin: 0.3rem 0 0.6rem; animation: fadeUp 0.4s ease-out; }
 .lr-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .lr-fallback { margin-top: 2.4rem; }
 
