@@ -16,9 +16,8 @@ export interface Props {
 const { title, description, path, jsonld, ogType = 'website', noindex = false } = Astro.props;
 const canonical = absolute(path);
 const nav = [
-  { href: '/label/', label: 'Label' },
-  { href: '/lucius-p-thundercat/', label: 'Lucius P. Thundercat' },
   { href: '/', label: 'Listen' },
+  { href: '/lucius-p-thundercat/', label: 'Lucius P. Thundercat' },
   { href: '/contact/', label: 'Contact' },
 ];
 const isCurrent = (href: string) => href === path;

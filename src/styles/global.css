@@ -398,10 +398,19 @@ main { flex: 1; padding: 3rem 0 4rem; }
   padding-left: 0.34em; /* offset the trailing tracking so it reads optically centred */
   text-shadow: 0 2px 16px rgba(10,4,8,0.72), 0 0 3px rgba(10,4,8,0.55); /* legibility, band stays undimmed */
 }
+/* Functional band: a Spotify TRACK player floating on the velvet (the flagship track). */
+.velvet-embed-wrap { width: min(540px, calc(100vw - 3rem)); }
+.velvet-embed { display: block; width: 100%; border: 0; border-radius: 12px; box-shadow: 0 16px 38px -14px rgba(0,0,0,0.85); }
 /* background-attachment: fixed janks on iOS + fights reduced-motion → static cover fallback
    (still full richness, just no parallax). */
 @media (max-width: 760px) { .velvet-band { background-attachment: scroll; margin-top: 2.4rem; margin-bottom: 2.4rem; } }
 @media (prefers-reduced-motion: reduce) { .velvet-band { background-attachment: scroll; } }
+
+/* Homepage intro — the folded-in label framing above the crate. Tight, so the crate stays high. */
+.room-intro { text-align: center; max-width: 46rem; margin: 0.2rem auto 1.7rem; }
+.room-intro h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); margin: 0.15rem 0 0.5rem; }
+.room-intro .lede { color: var(--static); margin: 0 auto; }
+.room-intro .eyebrow { margin-bottom: 0.5rem; }
 
 /* ── Root = the Listening Room: warm pooled light, lived-in cigar-lounge mood ──── */
 .room-home { position: relative; padding-top: 1.2rem; min-height: 62vh; }
