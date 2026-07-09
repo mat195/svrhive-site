@@ -16,9 +16,9 @@ export interface Props {
 const { title, description, path, jsonld, ogType = 'website', noindex = false } = Astro.props;
 const canonical = absolute(path);
 const nav = [
-  { href: '/', label: 'Label' },
+  { href: '/label/', label: 'Label' },
   { href: '/lucius-p-thundercat/', label: 'Lucius P. Thundercat' },
-  { href: '/listen/', label: 'Listen' },
+  { href: '/', label: 'Listen' },
   { href: '/contact/', label: 'Contact' },
 ];
 const isCurrent = (href: string) => href === path;
@@ -92,7 +92,9 @@ const isCurrent = (href: string) => href === path;
     <script is:inline>
       (function () {
         if (window.SVR) return;
-        var onListen = function () { return location.pathname.indexOf('/listen') === 0; };
+        // The Listening Room can live at any URL (it's the root front door now). Detect it by the
+        // crate's presence, not the path — so the site-wide cover-play defers to the deck there.
+        var onListen = function () { return !!document.getElementById('lr-crate'); };
         var fmt = function (t) { if (!isFinite(t) || t < 0) t = 0; var m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; };
         var $ = function (id) { return document.getElementById(id); };
         var SVR = {

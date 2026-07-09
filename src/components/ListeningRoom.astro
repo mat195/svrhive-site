@@ -1,0 +1,203 @@
+---
+// The Listening Room — the interactive crate + vinyl deck + full catalog list. Extracted so it
+// can BE the front door (root) as well as living at a canonical URL. No intro copy here: the
+// room speaks for itself. Any framing/heading is the host page's call.
+import covers from '../data/covers.json';
+import featuredSet from '../data/featured.json';
+
+const cov: Record<string, any> = covers as any;
+const featCats = new Set((featuredSet as any[]).map((f) => f.catalog));
+// Featured (mat-confirmed-current, source: Mat 2026-07-07) leads; then the rest of the
+// catalog, for the mood chips to dig through. Default crate view = the featured set.
+const rest = Object.entries(cov).map(([slug, v]: any) => ({ slug, ...v }))
+  .filter((r) => r.cover && r.albumId && !featCats.has(r.catalog));
+const streamsSorted = rest.map((r) => r.streams ?? 0).concat((featuredSet as any[]).map((f) => f.streams ?? 0)).sort((a, b) => a - b);
+const median = streamsSorted[Math.floor(streamsSorted.length / 2)] ?? 0;
+const tag = (r: any, feat: boolean) => ({ ...r, feat, moods: [
+  feat ? 'featured' : null,
+  r.featured?.length ? 'feature' : null,
+  (r.streams ?? 0) <= median ? 'deep' : 'essential',
+].filter(Boolean) });
+const records = [...(featuredSet as any[]).map((r) => tag(r, true)), ...rest.map((r) => tag(r, false))];
+const CHIPS = [
+  { id: 'featured', label: 'Featured' },
+  { id: 'all', label: 'Everything' },
+  { id: 'feature', label: 'Feature-heavy' },
+  { id: 'deep', label: 'Deep cuts' },
+];
+const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(n >= 100000 ? 0 : 1)}K streams` : `${n} streams`);
+---
+
+<div class="lr" data-reduced-safe>
+  <div class="lr-chips" role="tablist" aria-label="Filter the crate">
+    {CHIPS.map((c, i) => (
+      <button class="lr-chip" data-mood={c.id} aria-pressed={i === 0 ? 'true' : 'false'}>{c.label}</button>
+    ))}
+  </div>
+
+  <div class="lr-crate-wrap">
+    <div id="lr-crate" class="lr-crate" aria-label="Record crate"></div>
+    <button id="lr-pull" class="lr-pullbtn">Pull a record</button>
+  </div>
+
+  <div id="lr-stage" class="lr-stage" hidden>
+    <div class="lr-deck">
+      <div class="lr-turntable">
+        <div id="lr-disc" class="lr-disc"><span id="lr-disc-label" class="lr-disc-label"></span></div>
+        <div id="lr-sleeve" class="lr-stage-sleeve"><img id="lr-sleeve-img" src="" alt="" /></div>
+        <svg class="lr-tonearm" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="98" cy="22" r="9" fill="#201826" stroke="#c9a86a" stroke-width="1.5"/>
+          <g id="lr-arm" transform="rotate(-28 98 22)">
+            <line x1="98" y1="22" x2="52" y2="72" stroke="#8d8496" stroke-width="3.2" stroke-linecap="round"/>
+            <rect x="46" y="70" width="12" height="8" rx="1.5" fill="#c9a86a"/>
+          </g>
+        </svg>
+      </div>
+      <div class="lr-card">
+        <span id="lr-catno" class="catno"></span>
+        <h2 id="lr-title" style="margin:0.2rem 0 0.3rem;"></h2>
+        <p id="lr-meta" class="mono" style="color:var(--static);font-size:0.8rem;margin:0 0 0.9rem;"></p>
+        <div id="lr-embed" class="lr-embed"></div>
+        <div class="lr-actions">
+          <button id="lr-another" class="lr-pullbtn sm">Pull another</button>
+          <button id="lr-back" class="lr-textbtn">← Back to the crate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* Full list — rich rows (thumbnail + play), also the static fallback: every track is
+    in the HTML before any JS runs (crawlers + no-JS get titles + Spotify links). */}
+<h2 class="lr-fulltitle mono">The full crate</h2>
+<ul class="lr-list">
+  {records.map((r) => (
+    <li class="lr-row" data-slug={r.slug}>
+      <span class="lr-thumb">
+        {r.cover
+          ? <img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="72" height="72" />
+          : <span class="lr-thumb-ph"><span class="catno">{r.catalog}</span></span>}
+      </span>
+      <span class="lr-row-main">
+        <a class="lr-row-title" href={`https://open.spotify.com/album/${r.albumId}`} target="_blank" rel="noopener">{r.title}</a>
+        <span class="lr-row-sub"><span class="catno lr-row-cat">{r.catalog}</span> · {r.year}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}{r.streams ? ` · ${fmt(r.streams)}` : ''}</span>
+      </span>
+      <button class="lr-row-play" data-slug={r.slug} aria-label={`Play ${r.title}`} title="Play preview">▶</button>
+    </li>
+  ))}
+</ul>
+
+<script type="application/json" id="lr-data" set:html={JSON.stringify(records)}></script>
+<script is:inline>
+  const initListeningRoom = () => {
+    const crateEl0 = document.getElementById('lr-crate');
+    if (!crateEl0 || crateEl0.dataset.init) return; // not on this page, or already bound
+    crateEl0.dataset.init = '1';
+    const data = JSON.parse(document.getElementById('lr-data').textContent);
+    const crate = document.getElementById('lr-crate');
+    const stage = document.getElementById('lr-stage');
+    const crateWrap = document.querySelector('.lr-crate-wrap');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let filtered = data.filter((r) => r.moods.includes('featured')); // default = mat-confirmed featured
+    let idleTimer = null, shuffleTimer = null;
+
+    const fan = (list) => {
+      const n = list.length;
+      crate.innerHTML = list.map((r, i) => {
+        const spread = Math.min(52, Math.max(18, n * 3));
+        const rot = n > 1 ? (-spread / 2 + (i / (n - 1)) * spread) : 0;
+        const x = (i - (n - 1) / 2) * (n > 10 ? 22 : 34);
+        const y = Math.abs(i - (n - 1) / 2) * 2;
+        return `<button class="cr-sleeve" data-slug="${r.slug}" style="--rot:${rot.toFixed(1)}deg;--x:${x.toFixed(0)}px;--y:${y}px;z-index:${i}" aria-label="Pull ${r.title.replace(/"/g, '')}"><img src="${r.cover}" alt="${r.title.replace(/"/g, '')} cover art" loading="lazy"></button>`;
+      }).join('');
+    };
+
+    // Needle-drop → native preview. Renders an in-theme transport in the deck card and
+    // drives the shared <audio> (Base.astro). No Spotify iframe. Null-preview → a graceful
+    // "Listen on Spotify" state (never an embed).
+    const embed = document.getElementById('lr-embed');
+    const fmtT = (t) => { if (!isFinite(t) || t < 0) t = 0; const m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; };
+    const mountDeckPlayer = (r) => {
+      const spotify = 'https://open.spotify.com/album/' + r.albumId;
+      if (!r.previewUrl) {
+        embed.innerHTML = `<div class="lr-native no-preview"><span class="lr-np-msg">Preview unavailable</span><a class="lr-np-spotify" href="${spotify}" target="_blank" rel="noopener">Listen on Spotify →</a></div>`;
+        if (window.SVR) window.SVR.stop();
+        return;
+      }
+      embed.innerHTML = `<div class="lr-native">`
+        + `<button class="lr-np-toggle" type="button" aria-label="Pause">‖</button>`
+        + `<span class="lr-np-time lr-np-cur">0:00</span>`
+        + `<div class="lr-np-scrub" role="slider" aria-label="Seek" tabindex="0"><div class="lr-np-fill"></div></div>`
+        + `<span class="lr-np-time lr-np-dur">0:30</span>`
+        + `<a class="lr-np-spotify" href="${spotify}" target="_blank" rel="noopener" title="Open in Spotify">↗</a>`
+        + `</div>`;
+      if (window.SVR) window.SVR.play({ src: r.previewUrl, title: r.title, cover: r.cover, spotify: spotify, trigger: null });
+    };
+    // One updater bound to the shared <audio>: reflects state into whatever deck transport
+    // is currently mounted. Bound once; survives re-renders of #lr-embed.
+    const svrAudio = document.getElementById('svr-audio');
+    if (svrAudio && !svrAudio.__lrBound) {
+      svrAudio.__lrBound = 1;
+      const setFill = () => { const f = embed.querySelector('.lr-np-fill'), cur = embed.querySelector('.lr-np-cur'); const pct = svrAudio.duration ? (svrAudio.currentTime / svrAudio.duration * 100) : 0; if (f) f.style.width = pct + '%'; if (cur) cur.textContent = fmtT(svrAudio.currentTime); };
+      svrAudio.addEventListener('timeupdate', setFill);
+      svrAudio.addEventListener('loadedmetadata', () => { const d = embed.querySelector('.lr-np-dur'); if (d) d.textContent = fmtT(svrAudio.duration); });
+      svrAudio.addEventListener('play', () => { const t = embed.querySelector('.lr-np-toggle'); if (t) { t.textContent = '‖'; t.setAttribute('aria-label', 'Pause'); } });
+      svrAudio.addEventListener('pause', () => { const t = embed.querySelector('.lr-np-toggle'); if (t) { t.textContent = '▶'; t.setAttribute('aria-label', 'Play'); } });
+      svrAudio.addEventListener('ended', () => { const t = embed.querySelector('.lr-np-toggle'); if (t) { t.textContent = '▶'; t.setAttribute('aria-label', 'Play'); } });
+    }
+    // Deck transport controls (delegated; #lr-embed re-renders each pull).
+    embed.addEventListener('click', (e) => {
+      if (e.target.closest('.lr-np-toggle')) { e.preventDefault(); if (window.SVR) window.SVR.toggle(); return; }
+      const scrub = e.target.closest('.lr-np-scrub');
+      if (scrub && svrAudio && svrAudio.duration) { const rect = scrub.getBoundingClientRect(); svrAudio.currentTime = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * svrAudio.duration; }
+    });
+
+    const pull = (slug) => {
+      const r = (slug ? data.find((x) => x.slug === slug) : filtered[Math.floor(Math.random() * filtered.length)]);
+      if (!r) return;
+      stopIdle();
+      document.getElementById('lr-catno').textContent = r.catalog || '';
+      document.getElementById('lr-title').textContent = r.title;
+      document.getElementById('lr-meta').textContent = [r.year, r.featured?.length ? 'feat. ' + r.featured.join(', ') : null, r.streams ? (r.streams >= 1000 ? (r.streams / 1000).toFixed(r.streams >= 1e5 ? 0 : 1) + 'K streams' : r.streams + ' streams') : null].filter(Boolean).join(' · ');
+      document.getElementById('lr-disc-label').textContent = r.catalog || 'SVR';
+      document.getElementById('lr-sleeve-img').src = r.cover;
+      document.getElementById('lr-sleeve-img').alt = r.title + ' cover art';
+      mountDeckPlayer(r);
+      crateWrap.hidden = true; stage.hidden = false;
+      stage.querySelector('.lr-deck').classList.remove('spun'); void stage.offsetWidth; stage.querySelector('.lr-deck').classList.add('spun');
+      stage.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    };
+
+    const reset = () => { stage.hidden = true; crateWrap.hidden = false; if (window.SVR) window.SVR.stop(); embed.innerHTML = ''; startIdle(); };
+
+    const applyFilter = (mood) => {
+      filtered = mood === 'all' ? data.slice() : data.filter((r) => r.moods.includes(mood));
+      fan(filtered);
+    };
+
+    // idle "digging" auto-shuffle — off entirely under reduced-motion
+    const startIdle = () => { if (reduced) return; stopIdle(); idleTimer = setTimeout(() => { shuffleTimer = setInterval(() => { filtered = filtered.slice().sort(() => Math.random() - 0.5); fan(filtered); }, 2600); }, 10000); };
+    const stopIdle = () => { clearTimeout(idleTimer); clearInterval(shuffleTimer); idleTimer = shuffleTimer = null; };
+
+    crate.addEventListener('click', (e) => { const b = e.target.closest('.cr-sleeve'); if (b) pull(b.dataset.slug); });
+    document.getElementById('lr-pull').addEventListener('click', () => pull());
+    document.getElementById('lr-another').addEventListener('click', () => pull());
+    document.getElementById('lr-back').addEventListener('click', reset);
+    document.querySelectorAll('.lr-chip').forEach((chip) => chip.addEventListener('click', () => {
+      document.querySelectorAll('.lr-chip').forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      chip.setAttribute('aria-pressed', 'true'); stopIdle(); applyFilter(chip.dataset.mood); startIdle();
+    }));
+    // Full-list rows: play button (or clicking the row) runs the same pull/spin/embed
+    // sequence and scrolls up to the deck — no need to hunt for the sleeve in the crate.
+    document.querySelectorAll('.lr-row-play').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); pull(b.dataset.slug); }));
+    document.querySelectorAll('.lr-row').forEach((row) => row.addEventListener('click', (e) => { if (e.target.closest('a')) return; pull(row.dataset.slug); }));
+    ['pointermove', 'keydown', 'click'].forEach((ev) => document.querySelector('.lr').addEventListener(ev, () => { if (!shuffleTimer && stage.hidden) startIdle(); else if (shuffleTimer) { stopIdle(); startIdle(); } }, { passive: true }));
+
+    fan(filtered);
+    startIdle();
+    // deep link: /#slug (or /listen/#slug) auto-pulls that record (from artist-page "play preview")
+    if (location.hash.length > 1) { const s = decodeURIComponent(location.hash.slice(1)); if (data.some((r) => r.slug === s)) pull(s); }
+  };
+  initListeningRoom();
+  document.addEventListener('astro:page-load', initListeningRoom);
+</script>

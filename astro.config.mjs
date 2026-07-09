@@ -15,6 +15,8 @@ export default defineConfig({
   // press kit now lives unlisted at /kit/ (internal tool, noindex, not in nav/sitemap).
   redirects: {
     '/notes': '/', '/notes/': '/', '/press': '/', '/press/': '/',
+    // The Listening Room IS the front door now (root). The old /listen/ URL redirects home.
+    '/listen/': '/',
     // Canonicalized 2026-07-08: the study-playlist page has one canonical slug
     // (list-10-…); the older duplicate slug redirects to it.
     '/notes/10-underground-rappers-for-a-study-playlist': '/notes/list-10-underground-rappers-for-a-study-playlist/',

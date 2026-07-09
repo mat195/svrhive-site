@@ -394,3 +394,21 @@ main { flex: 1; padding: 3rem 0 4rem; }
    (still full richness, just no parallax). */
 @media (max-width: 760px) { .velvet-band { background-attachment: scroll; margin-top: 2.4rem; margin-bottom: 2.4rem; } }
 @media (prefers-reduced-motion: reduce) { .velvet-band { background-attachment: scroll; } }
+
+/* ── Root = the Listening Room: warm pooled light, lived-in cigar-lounge mood ──── */
+.room-home { position: relative; padding-top: 1.2rem; min-height: 62vh; }
+/* A warm pool of light spilling from above onto the crate; the edges fall into shadow like a
+   dim lounge. Fixed — it's the room you're standing in, not a panel that scrolls past. Layered
+   over the base velvet atmosphere, behind the crate + deck. */
+.room-home::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(66% 46% at 50% 32%, rgba(222,186,126,0.22), rgba(222,186,126,0.07) 44%, transparent 64%),
+    radial-gradient(52% 38% at 50% 36%, rgba(140,66,88,0.16), transparent 58%);
+}
+.room-home::after {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(125% 108% at 50% 36%, transparent 50%, rgba(5,2,7,0.6) 100%);
+}
+/* The full-crate heading — a quiet selvedge label, not a headline. */
+.lr-fulltitle { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--static); border: 0; margin-top: 2.6rem; }
