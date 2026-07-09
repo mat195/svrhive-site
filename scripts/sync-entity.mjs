@@ -51,5 +51,12 @@ const data = extractBlock(readFileSync(src, 'utf8'));
 for (const r of data.releases ?? []) delete r.producers;
 delete data.realNamePolicy;
 
+// Positioning boundary (Mat 2026-07-09): LPT's featured-artist appearances — tracks where he
+// is NOT the primary artist (e.g. Nick Nigh's "Love You/Leave You") — are internal record
+// only. They are NOT surfaced publicly (no release page, not in the discography or sameAs)
+// until Mat decides a specific one is big enough to promote, by setting `"promote": true` on
+// that release in the entity master. Everything else featured stays out of the public site.
+data.releases = (data.releases ?? []).filter((r) => (r.role ?? 'primary') !== 'featured' || r.promote === true);
+
 writeFileSync(OUT, JSON.stringify(data, null, 2) + '\n');
 console.log(`[sync-entity] Synced entity.json from ${src} (${data.releases?.length ?? 0} releases, ${data.links?.length ?? 0} links).`);

@@ -19,6 +19,12 @@ export default defineConfig({
     // (list-10-…); the older duplicate slug redirects to it.
     '/notes/10-underground-rappers-for-a-study-playlist': '/notes/list-10-underground-rappers-for-a-study-playlist/',
     '/notes/10-underground-rappers-for-a-study-playlist/': '/notes/list-10-underground-rappers-for-a-study-playlist/',
+    // Removed 2026-07-09: LPT's featured-artist appearances (not the primary artist) are no
+    // longer surfaced (Mat's positioning call). Old release-page URLs redirect to the artist.
+    '/lucius-p-thundercat/releases/love-you-leave-you/': '/lucius-p-thundercat/',
+    '/lucius-p-thundercat/releases/forbidden-fruit/': '/lucius-p-thundercat/',
+    '/lucius-p-thundercat/releases/boy-genius/': '/lucius-p-thundercat/',
+    '/lucius-p-thundercat/releases/subconscious/': '/lucius-p-thundercat/',
   },
   // Sitemap keeps every individual corpus page; excludes the /notes/ stub and the private /kit/.
   integrations: [sitemap({ filter: (page) => page !== `${SITE}/notes/` && !page.startsWith(`${SITE}/kit`) && page !== `${SITE}/notes/10-underground-rappers-for-a-study-playlist/` })],
