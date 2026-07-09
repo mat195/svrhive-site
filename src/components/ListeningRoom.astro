@@ -30,8 +30,8 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
 
 <div class="lr" data-reduced-safe>
   <div class="lr-chips" role="tablist" aria-label="Filter the crate">
-    {CHIPS.map((c, i) => (
-      <button class="lr-chip" data-mood={c.id} aria-pressed={i === 0 ? 'true' : 'false'}>{c.label}</button>
+    {CHIPS.map((c) => (
+      <button class="lr-chip" data-mood={c.id} aria-pressed={c.id === 'all' ? 'true' : 'false'}>{c.label}</button>
     ))}
   </div>
 
@@ -98,7 +98,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     const stage = document.getElementById('lr-stage');
     const crateWrap = document.querySelector('.lr-crate-wrap');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let filtered = data.filter((r) => r.moods.includes('featured')); // default = mat-confirmed featured
+    let filtered = data.slice(); // front door opens on the FULL crate (Everything)
     let idleTimer = null, shuffleTimer = null;
 
     const fan = (list) => {
