@@ -255,7 +255,29 @@ main { flex: 1; padding: 3rem 0 4rem; }
 @keyframes vinyl-spin { to { transform: rotate(360deg); } }
 
 .lr-card .catno { display: block; }
-.lr-embed { margin: 0.4rem 0 1rem; min-height: 56px; }
+/* The platform player fades in BELOW the vinyl, centred. */
+.lr-embed { margin: 1.1rem auto 0.2rem; max-width: 560px; min-height: 0; animation: fadeUp 0.55s ease-out; }
+.lr-embed:empty { display: none; }
+.lr-listen-on { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin: 0 0 0.5rem; }
+.lr-lo-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--static); margin-right: 0.15rem; }
+.lr-lo-btn { font-family: var(--mono); font-size: 0.74rem; color: var(--static); background: transparent; border: 1px solid var(--edge); border-radius: 3px; padding: 0.25rem 0.65rem; cursor: pointer; transition: color 0.2s, background 0.2s, border-color 0.2s; }
+.lr-lo-btn:hover { color: var(--cream); }
+.lr-lo-btn.on { color: var(--velvet); background: var(--silk); border-color: var(--silk); }
+
+/* The interactive vinyl crate lives on a full-bleed velvet section, directly below the hero —
+   the "press play" moment, one of the first things visible (the full list follows below it). */
+.velvet-stage {
+  position: relative;
+  width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+  margin-top: 1.4rem; margin-bottom: 2.2rem; padding: 2.4rem 0 2.8rem;
+  background-image: url('/assets/silk-ribbon-tile-1400x700.jpg');
+  background-size: cover; background-position: center; background-attachment: fixed;
+  border-top: 1.5px solid var(--silk); border-bottom: 1.5px solid var(--silk);
+}
+/* A soft scrim so the crate + deck text read on the busy velvet — texture stays visible. */
+.velvet-stage::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(125% 100% at 50% 42%, rgba(9,4,7,0.30), rgba(9,4,7,0.64)); }
+.velvet-stage-inner { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+@media (max-width: 760px) { .velvet-stage { background-attachment: scroll; } }
 /* Native deck transport (replaces the old Spotify iframe in the Listening Room). */
 .lr-native { display: flex; align-items: center; gap: 0.7rem; background: var(--velvet); border: 1px solid var(--edge); border-radius: 8px; padding: 0.55rem 0.7rem; animation: fadeUp 0.5s ease-out; }
 .lr-native .lr-np-toggle { flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--silk); background: transparent; color: var(--silk); font-size: 0.9rem; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: background 0.2s, color 0.2s; }

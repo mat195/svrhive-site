@@ -3,16 +3,12 @@ import Base from '../layouts/Base.astro';
 import { LABEL_NAME, CANONICAL_NAME } from '../lib/entity';
 import { organizationLd, websiteLd, musicGroupLd, breadcrumbLd, graph } from '../lib/jsonld';
 import ListeningRoom from '../components/ListeningRoom.astro';
-import VelvetBand from '../components/VelvetBand.astro';
-import featured from '../data/featured.json';
 
 // The Listen page IS the homepage (root). It opens on a short label framing — the copy folded in
-// from the retired /label/ page — then the interactive crate, then a velvet band carrying the
-// flagship track's player. The flagship = the release with slug 'hate-fuck' (the long-standing
-// "hero"), sourced from the data so the band's track id matches the rest of the site (no second
-// source of truth); falls back to the known id only if the data ever drops it.
+// from the retired /label/ page — then the interactive vinyl crate, which now lives on a velvet
+// section directly below the hero (above the full discography), so the "press play" moment is one
+// of the first things visible. The full catalogue list follows for deeper browsing.
 const releaseCount = 72;
-const heroTrack = (featured as any[]).find((r) => r.slug === 'hate-fuck')?.trackId ?? '4Kp5EilxWm9lk7iWd63f3A';
 
 const title = `${LABEL_NAME} — home of ${CANONICAL_NAME}`;
 const description = `${LABEL_NAME}: independent Canadian record label in Montréal, home of ${CANONICAL_NAME} — ${releaseCount} releases, catalogued SVR-001 onward. Pull a record and hear it.`;
@@ -35,7 +31,5 @@ const jsonld = graph([
     </div>
 
     <ListeningRoom />
-
-    <VelvetBand trackId={heroTrack} height={280} />
   </div>
 </Base>

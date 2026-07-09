@@ -28,6 +28,8 @@ const CHIPS = [
 const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(n >= 100000 ? 0 : 1)}K streams` : `${n} streams`);
 ---
 
+<section class="velvet-stage">
+  <div class="velvet-stage-inner">
 <div class="lr" data-reduced-safe>
   <div class="lr-chips" role="tablist" aria-label="Filter the crate">
     {CHIPS.map((c) => (
@@ -57,15 +59,18 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
         <span id="lr-catno" class="catno"></span>
         <h2 id="lr-title" style="margin:0.2rem 0 0.3rem;"></h2>
         <p id="lr-meta" class="mono" style="color:var(--static);font-size:0.8rem;margin:0 0 0.9rem;"></p>
-        <div id="lr-embed" class="lr-embed"></div>
         <div class="lr-actions">
           <button id="lr-another" class="lr-pullbtn sm">Pull another</button>
           <button id="lr-back" class="lr-textbtn">← Back to the crate</button>
         </div>
       </div>
     </div>
+    {/* Embed fades in BELOW the vinyl (the platform's own track player). */}
+    <div id="lr-embed" class="lr-embed"></div>
   </div>
 </div>
+  </div>
+</section>
 
 {/* Full list — rich rows (thumbnail + play), also the static fallback: every track is
     in the HTML before any JS runs (crawlers + no-JS get titles + Spotify links). */}
@@ -112,34 +117,34 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       }).join('');
     };
 
-    // Two-tier listening: the floating bottom bar (Base.astro) plays our native 30s taste —
-    // instant, on-brand, working progress. The deck offers the FULL track through the platform's
-    // OWN embed — Spotify and (where available) Apple Music — each track-level, so a logged-in
-    // play counts as a real stream (our own audio never can). No-preview tracks skip the taste.
+    // Pull → the platform's OWN track player FADES IN below the vinyl (the Spotify iframe is the
+    // audio; no Web Audio, no native taste). Track-level (embed/track/<id>) so a logged-in play
+    // counts as a real stream — never an album/artist embed. A small toggle switches to Apple.
     const embed = document.getElementById('lr-embed');
-    const mountDeckPlayer = (r) => {
-      // Track-level: the specific track plays (and counts) — not the whole album from track 1.
-      const spotify = r.trackId ? ('https://open.spotify.com/track/' + r.trackId) : ('https://open.spotify.com/album/' + r.albumId);
-      let html = `<div class="lr-play-row">`
-        + `<button class="lr-spotify-full" type="button" data-track="${r.trackId || ''}" data-album="${r.albumId}">Play full on Spotify</button>`;
-      if (r.appleTrackId && r.appleAlbumId) html += `<button class="lr-apple-full" type="button" data-atrack="${r.appleTrackId}" data-aalbum="${r.appleAlbumId}">Play on Apple Music</button>`;
-      html += `</div>`;
-      embed.innerHTML = html;
-      if (r.previewUrl && window.SVR) window.SVR.play({ src: r.previewUrl, title: r.title, cover: r.cover, spotify: spotify, trigger: null });
-      else if (window.SVR) window.SVR.stop(); // no taste → no floating bar; the platform options are the action
+    let currentRec = null;
+    const platformIframe = (r, plat) => {
+      if (plat === 'apple' && r.appleTrackId && r.appleAlbumId)
+        return `<iframe class="lr-apple-embed" src="https://embed.music.apple.com/us/album/${r.appleAlbumId}?i=${r.appleTrackId}" height="175" frameborder="0" allow="autoplay *; encrypted-media *; clipboard-write" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" loading="lazy" title="Apple Music player"></iframe>`;
+      const src = r.trackId ? `https://open.spotify.com/embed/track/${r.trackId}` : `https://open.spotify.com/embed/album/${r.albumId}`;
+      return `<iframe class="lr-spotify-embed" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; encrypted-media; clipboard-write; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>`;
     };
-    // Expand the chosen platform's own embed inline — the specific TRACK, so a logged-in play counts.
+    const renderEmbed = (r, plat) => {
+      const hasApple = r.appleTrackId && r.appleAlbumId;
+      let toggle = `<div class="lr-listen-on"><span class="lr-lo-label">Listen on</span>`
+        + `<button class="lr-lo-btn ${plat === 'spotify' ? 'on' : ''}" data-plat="spotify" type="button">Spotify</button>`;
+      if (hasApple) toggle += `<button class="lr-lo-btn ${plat === 'apple' ? 'on' : ''}" data-plat="apple" type="button">Apple Music</button>`;
+      toggle += `</div>`;
+      embed.innerHTML = toggle + platformIframe(r, plat);
+    };
+    const mountDeckPlayer = (r) => {
+      currentRec = r;
+      if (window.SVR) window.SVR.stop(); // the embed is the audio here — silence the native taste bar
+      renderEmbed(r, 'spotify'); // auto-load Spotify (fades in); toggle switches platform
+    };
     embed.addEventListener('click', (e) => {
-      const sp = e.target.closest('.lr-spotify-full');
-      const ap = e.target.closest('.lr-apple-full');
-      if (!sp && !ap) return;
-      if (window.SVR) window.SVR.stop(); // one player at a time — stop the native taste
-      if (sp) {
-        const src = sp.dataset.track ? `https://open.spotify.com/embed/track/${sp.dataset.track}` : `https://open.spotify.com/embed/album/${sp.dataset.album}`;
-        embed.innerHTML = `<iframe class="lr-spotify-embed" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; encrypted-media; clipboard-write; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>`;
-      } else {
-        embed.innerHTML = `<iframe class="lr-apple-embed" src="https://embed.music.apple.com/us/album/${ap.dataset.aalbum}?i=${ap.dataset.atrack}" height="175" frameborder="0" allow="autoplay *; encrypted-media *; clipboard-write" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" loading="lazy" title="Apple Music player"></iframe>`;
-      }
+      const btn = e.target.closest('.lr-lo-btn');
+      if (!btn || !currentRec) return;
+      renderEmbed(currentRec, btn.dataset.plat);
     });
 
     const pull = (slug) => {
