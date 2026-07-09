@@ -377,7 +377,7 @@ main { flex: 1; padding: 3rem 0 4rem; }
   position: relative;
   width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   height: var(--band-h, 210px); margin-top: 3.6rem; margin-bottom: 3.6rem;
-  background-image: url('/assets/silk-velvet-ribbon.jpg');
+  background-image: url('/assets/silk-ribbon-tile-1400x700.jpg');
   background-size: cover; background-position: center center; background-repeat: no-repeat;
   background-attachment: fixed; /* parallax depth — the band feels like physical fabric on scroll */
   display: grid; place-items: center;
