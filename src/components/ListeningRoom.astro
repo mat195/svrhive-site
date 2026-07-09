@@ -47,19 +47,30 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       </div>
       {/* Player sits DIRECTLY beneath the wheel, in place — never a page swap. Track info lives in
           its header and tracks the front cover; the embed fills in when a cover is tapped. */}
+      {/* Always-visible player. Idle when nothing plays; a cover-tap (or the record, or ▶) starts
+          the 30s preview instantly. 'Full track' loads the Spotify/Apple embed (counts a stream). */}
       <div id="lr-player" class="lr-player">
-        <div class="lr-player-info">
-          <span id="lr-catno" class="catno"></span>
-          <strong id="lr-title" class="lr-player-title"></strong>
-          <span id="lr-meta" class="muted mono"></span>
-        </div>
         <div class="lr-player-body">
-          {/* Record player: a compact vinyl (cover on the label) that spins while a track plays. */}
-          <div class="lr-vinyl" aria-hidden="true"><span class="lr-vinyl-disc"><img id="lr-vinyl-cover" src="" alt="" /></span></div>
-          {/* Embed player: the platform's own track player. */}
-          <div id="lr-embed" class="lr-embed"></div>
+          <button class="lr-vinyl" id="lr-vinyl" type="button" aria-label="Play or pause">
+            <span class="lr-vinyl-disc"><img id="lr-vinyl-cover" src="" alt="" /></span>
+          </button>
+          <div class="lr-player-main">
+            <div class="lr-player-info">
+              <span id="lr-catno" class="catno"></span>
+              <strong id="lr-title" class="lr-player-title"></strong>
+              <span id="lr-meta" class="muted mono"></span>
+            </div>
+            <div class="lr-transport">
+              <button id="lr-playpause" class="lr-playpause" type="button" aria-label="Play">▶</button>
+              <span class="lr-time" id="lr-cur">0:00</span>
+              <div class="lr-scrub" id="lr-scrub" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><div class="lr-scrub-fill" id="lr-fill"></div></div>
+              <span class="lr-time" id="lr-dur">0:30</span>
+            </div>
+            <div class="lr-full" id="lr-full"></div>
+          </div>
         </div>
       </div>
+      <audio id="lr-audio" preload="none"></audio>
     </div>
   </div>
 </div>
@@ -102,7 +113,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     // release flings with velocity, decays with friction, then springs to the nearest cover.
     const wheel = document.getElementById('lr-wheel');
     const wheelTrack = wheel.querySelector('.lr-wheel-track');
-    let wheelList = [], pos = 0, vel = 0, wheelRaf = 0;
+    let wheelList = [], pos = 0, vel = 0, wheelRaf = 0, currentRec = null;
     const N = () => wheelList.length;
     const ANGLE = 22;                                            // degrees between adjacent covers
     const radius = () => (window.innerWidth < 560 ? 230 : 340);
@@ -126,13 +137,24 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       });
     };
     const fmtStreams = (n) => n ? (n >= 1000 ? (n / 1000).toFixed(n >= 1e5 ? 0 : 1) + 'K streams' : n + ' streams') : '';
-    const setInfo = (rec) => {                                  // fill the player header for a record
+    const fmtT = (t) => { if (!isFinite(t) || t < 0) t = 0; const m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; };
+    const fullButtons = (r) => {
+      let h = `<span class="lr-full-label muted">Full track</span><button class="lr-full-btn" type="button" data-plat="spotify">Spotify</button>`;
+      if (r.appleTrackId && r.appleAlbumId) h += `<button class="lr-full-btn" type="button" data-plat="apple">Apple Music</button>`;
+      return h;
+    };
+    // Load a record into the always-visible player (idle — does NOT start playback).
+    const setInfo = (rec) => {
       if (!rec) return;
+      currentRec = rec;
       document.getElementById('lr-catno').textContent = rec.catalog || '';
       document.getElementById('lr-title').textContent = rec.title;
       document.getElementById('lr-meta').textContent = [rec.year, fmtStreams(rec.streams)].filter(Boolean).join(' · ');
+      const vc = document.getElementById('lr-vinyl-cover'); if (vc) { vc.src = rec.cover; vc.alt = rec.title + ' cover art'; }
+      document.getElementById('lr-full').innerHTML = fullButtons(rec);
     };
-    const updateWheelLabel = () => setInfo(wheelList[frontIdx()]); // header tracks the front cover as you spin
+    // As you spin, the player tracks the front record — but only while nothing is playing.
+    const updateWheelLabel = () => { const a = document.getElementById('lr-audio'); if (!a || a.paused) setInfo(wheelList[frontIdx()]); };
     const renderWheel = (list) => {
       wheelList = list; pos = 0; vel = 0;
       wheelTrack.innerHTML = list.map((rec, i) => `<button class="lr-wheel-cover" type="button" tabindex="-1" data-slug="${rec.slug}" data-idx="${i}" aria-label="${rec.title.replace(/"/g, '')}"><img src="${rec.cover}" alt="${rec.title.replace(/"/g, '')} cover art" loading="lazy"></button>`).join('');
@@ -176,7 +198,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       if (moved < 6 && downCover) {                             // a tap, not a drag
         wheel.classList.remove('dragging', 'fast');
         const idx = +downCover.dataset.idx; downCover = null;
-        if (Math.round(wrapOff(idx)) === 0) playRecord(wheelList[idx]);      // front cover → play in place
+        if (Math.round(wrapOff(idx)) === 0) playPreview(wheelList[idx]);     // front cover → play instantly
         else { pos += wrapOff(idx); positionWheel(); updateWheelLabel(); }   // side cover → glide to front
         return;
       }
@@ -193,68 +215,82 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     wheel.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') { e.preventDefault(); stepBy(-1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); stepBy(1); }
-      else if ((e.key === 'Enter' || e.key === ' ') && wheelList[frontIdx()]) { e.preventDefault(); playRecord(wheelList[frontIdx()]); }
+      else if ((e.key === 'Enter' || e.key === ' ') && wheelList[frontIdx()]) { e.preventDefault(); playPreview(wheelList[frontIdx()]); }
     });
     window.addEventListener('resize', () => positionWheel(), { passive: true });
 
     // Pull → the platform's OWN track player FADES IN below the vinyl (the Spotify iframe is the
     // audio; no Web Audio, no native taste). Track-level (embed/track/<id>) so a logged-in play
     // counts as a real stream — never an album/artist embed. A small toggle switches to Apple.
-    const embed = document.getElementById('lr-embed');
-    let currentRec = null;
+    // ── Player: instant 30s preview via a native <audio> (the Spotify iframe can't autoplay for
+    //    logged-out users). The record + transport are ALWAYS visible, idle until you play. 'Full
+    //    track' loads the Spotify/Apple embed on demand (counts a stream). ──
     const platformIframe = (r, plat) => {
       if (plat === 'apple' && r.appleTrackId && r.appleAlbumId)
         return `<iframe class="lr-apple-embed" src="https://embed.music.apple.com/us/album/${r.appleAlbumId}?i=${r.appleTrackId}" height="175" frameborder="0" allow="autoplay *; encrypted-media *; clipboard-write" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" loading="lazy" title="Apple Music player"></iframe>`;
       const src = r.trackId ? `https://open.spotify.com/embed/track/${r.trackId}` : `https://open.spotify.com/embed/album/${r.albumId}`;
       return `<iframe class="lr-spotify-embed" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; encrypted-media; clipboard-write; fullscreen; picture-in-picture" loading="lazy" title="Spotify player"></iframe>`;
     };
-    const renderEmbed = (r, plat) => {
-      const hasApple = r.appleTrackId && r.appleAlbumId;
-      let toggle = `<div class="lr-listen-on"><span class="lr-lo-label">Listen on</span>`
-        + `<button class="lr-lo-btn ${plat === 'spotify' ? 'on' : ''}" data-plat="spotify" type="button">Spotify</button>`;
-      if (hasApple) toggle += `<button class="lr-lo-btn ${plat === 'apple' ? 'on' : ''}" data-plat="apple" type="button">Apple Music</button>`;
-      toggle += `</div>`;
-      embed.innerHTML = toggle + platformIframe(r, plat);
+    const audio = document.getElementById('lr-audio');
+    const player = document.getElementById('lr-player');
+    const playBtn = document.getElementById('lr-playpause');
+    const markPlaying = () => wheelTrack.querySelectorAll('.lr-wheel-cover').forEach((el) => el.classList.toggle('playing', currentRec && el.dataset.slug === currentRec.slug));
+    const loadEmbed = (plat) => {
+      if (!currentRec) return;
+      audio.pause();
+      document.getElementById('lr-full').innerHTML = platformIframe(currentRec, plat) + `<button class="lr-full-close" type="button" aria-label="Back to preview">✕</button>`;
     };
-    embed.addEventListener('click', (e) => {
-      const btn = e.target.closest('.lr-lo-btn');
-      if (!btn || !currentRec) return;
-      renderEmbed(currentRec, btn.dataset.plat);
-    });
-
-    // Click a cover → play IN PLACE beneath the wheel (no page swap). The played cover keeps a
-    // 'playing' ring until another is chosen. Every tab drives the same wheel — only the set changes.
-    const playRecord = (r) => {
+    // Start the preview IMMEDIATELY (called inside the click/tap gesture → autoplay is allowed).
+    // No preview available → open the full embed instead. Never two audios at once.
+    const playPreview = (r) => {
       if (!r) return;
-      currentRec = r; setInfo(r);
+      setInfo(r); markPlaying();
       if (window.SVR) window.SVR.stop();
-      const vc = document.getElementById('lr-vinyl-cover'); if (vc) { vc.src = r.cover; vc.alt = r.title + ' cover art'; }
-      renderEmbed(r, 'spotify');
-      document.getElementById('lr-player').classList.add('has-embed'); // reveals + spins the record player
-      wheelTrack.querySelectorAll('.lr-wheel-cover').forEach((el) => el.classList.toggle('playing', el.dataset.slug === r.slug));
+      if (!r.previewUrl) { loadEmbed('spotify'); return; }
+      if (audio.getAttribute('src') !== r.previewUrl) audio.setAttribute('src', r.previewUrl);
+      audio.currentTime = 0; audio.play().catch(() => {});
     };
+    const togglePlay = () => {
+      if (!currentRec) return;
+      if (!currentRec.previewUrl) { loadEmbed('spotify'); return; }
+      if (audio.paused) playPreview(currentRec); else audio.pause();
+    };
+    document.getElementById('lr-vinyl').addEventListener('click', togglePlay);
+    playBtn.addEventListener('click', togglePlay);
+    document.getElementById('lr-full').addEventListener('click', (e) => {
+      const fb = e.target.closest('.lr-full-btn'); if (fb) { loadEmbed(fb.dataset.plat); return; }
+      if (e.target.closest('.lr-full-close')) setInfo(currentRec); // back to the buttons
+    });
+    document.getElementById('lr-scrub').addEventListener('pointerdown', (e) => { const rc = e.currentTarget.getBoundingClientRect(); if (audio.duration) audio.currentTime = Math.max(0, Math.min(1, (e.clientX - rc.left) / rc.width)) * audio.duration; });
+    audio.addEventListener('play', () => { player.classList.add('playing'); playBtn.textContent = '⏸'; playBtn.setAttribute('aria-label', 'Pause'); markPlaying(); });
+    audio.addEventListener('pause', () => { player.classList.remove('playing'); playBtn.textContent = '▶'; playBtn.setAttribute('aria-label', 'Play'); });
+    audio.addEventListener('ended', () => { player.classList.remove('playing'); playBtn.textContent = '▶'; playBtn.setAttribute('aria-label', 'Play'); });
+    audio.addEventListener('timeupdate', () => { const d = audio.duration || 30; document.getElementById('lr-fill').style.width = (audio.currentTime / d * 100) + '%'; document.getElementById('lr-cur').textContent = fmtT(audio.currentTime); });
+    audio.addEventListener('loadedmetadata', () => { document.getElementById('lr-dur').textContent = fmtT(audio.duration); });
+
     const spinToSlug = (slug) => {                              // bring a record to the front (list / deep-link)
       const idx = wheelList.findIndex((x) => x.slug === slug);
       if (idx < 0) return null;
       if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; }
-      pos += wrapOff(idx); wheel.classList.remove('dragging'); positionWheel(); updateWheelLabel();
+      pos += wrapOff(idx); wheel.classList.remove('dragging'); positionWheel();
       return wheelList[idx];
     };
     const applyFilter = (mood) => {
       filtered = mood === 'all' ? data.slice() : data.filter((r) => r.moods.includes(mood));
       if (!filtered.length) filtered = data.slice();
-      renderWheel(filtered);                                    // same wheel, different subset
+      renderWheel(filtered);
+      audio.pause(); setInfo(wheelList[frontIdx()]); markPlaying(); // reset the player to the new front record
     };
     document.querySelectorAll('.lr-chip').forEach((chip) => chip.addEventListener('click', () => {
       document.querySelectorAll('.lr-chip').forEach((c) => c.setAttribute('aria-pressed', 'false'));
       chip.setAttribute('aria-pressed', 'true'); applyFilter(chip.dataset.mood);
     }));
-    // Full-list rows also play in place — spin the wheel to that record if it's in the set, then play.
-    const playFromList = (slug) => playRecord(spinToSlug(slug) || data.find((x) => x.slug === slug));
+    // Full-list rows play instantly too — spin the wheel to that record if present, then play.
+    const playFromList = (slug) => playPreview(spinToSlug(slug) || data.find((x) => x.slug === slug));
     document.querySelectorAll('.lr-row-play').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); playFromList(b.dataset.slug); }));
     document.querySelectorAll('.lr-row').forEach((row) => row.addEventListener('click', (e) => { if (e.target.closest('a')) return; playFromList(row.dataset.slug); }));
 
-    applyFilter('all'); // opens on Everything — all tabs use this same wheel
+    applyFilter('all'); // opens on Everything; the player sits idle on the front record
     // deep link: /#slug brings that record to the front + plays it
     if (location.hash.length > 1) { const s = decodeURIComponent(location.hash.slice(1)); if (data.some((r) => r.slug === s)) playFromList(s); }
   };
