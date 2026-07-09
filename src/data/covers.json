@@ -1,648 +1,715 @@
 {
- "they-are-not-your-friends": {
-  "title": "They are not your Friends",
-  "catalog": "SVR-054",
-  "year": "2021",
-  "streams": 2594,
-  "cover": "/assets/cover-art/they-are-not-your-friends.jpg",
-  "albumId": "4UrDfeCWE65HV72iaKRRUT",
-  "featured": []
- },
- "grind-and-stack": {
-  "title": "Grind and Stack",
-  "catalog": "SVR-019",
-  "year": "2018",
-  "streams": 9867,
-  "cover": "/assets/cover-art/grind-and-stack.jpg",
-  "albumId": "3f622JLZ71Ch8xa4XsEiNH",
-  "featured": []
- },
- "brujeria": {
-  "title": "Brujeria",
-  "catalog": "SVR-026",
-  "year": "2019",
-  "streams": 4777,
-  "cover": "/assets/cover-art/brujeria.jpg",
-  "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
-  "featured": []
- },
- "coins": {
-  "title": "Coins",
-  "catalog": "SVR-008",
-  "year": "2018",
-  "streams": 6324,
-  "cover": "/assets/cover-art/coins.jpg",
-  "albumId": "3z1vU3X0RbNVhSYFvOtekp",
-  "featured": []
- },
- "ron-in-my-colada": {
-  "title": "Ron in My Colada",
-  "catalog": "SVR-021",
-  "year": "2019",
-  "streams": 3722,
-  "cover": "/assets/cover-art/ron-in-my-colada.jpg",
-  "albumId": "1kej86moPExvEqvQQ0Owh4",
-  "featured": []
- },
- "back-on-my-95": {
-  "title": "Back on My '95",
-  "catalog": "SVR-033",
-  "year": "2019",
-  "streams": 4391,
-  "cover": "/assets/cover-art/back-on-my-95.jpg",
-  "albumId": "3avpQlAIyDhbOaOKxxOBu8",
-  "featured": [
-   "Vegas of the North"
-  ]
- },
- "bodycon": {
-  "title": "Bodycon",
-  "catalog": "SVR-007",
-  "year": "2017",
-  "streams": 90924,
-  "cover": "/assets/cover-art/bodycon.jpg",
-  "albumId": "4FMuhQv6Clxv4hc18oyPkA",
-  "featured": []
- },
- "already-knew": {
-  "title": "Already Knew",
-  "catalog": "SVR-042",
-  "year": "2020",
-  "streams": 5024,
-  "cover": "/assets/cover-art/already-knew.jpg",
-  "albumId": "4FbNCr1GQZ9tK1SGTdAGYp",
-  "featured": []
- },
- "never-not-me": {
-  "title": "Never Not Me",
-  "catalog": "SVR-015",
-  "year": "2018",
-  "streams": 1988,
-  "cover": "/assets/cover-art/never-not-me.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "gold-standard": {
-  "title": "Gold Standard",
-  "catalog": "SVR-036",
-  "year": "2020",
-  "streams": 688,
-  "cover": "/assets/cover-art/gold-standard.jpg",
-  "albumId": "50b9zMhxb5pEwcN6VEKU7G",
-  "featured": []
- },
- "control-of-it-muffin-remix": {
-  "title": "Control of It (Muffin Remix)",
-  "catalog": "SVR-006",
-  "year": "2017",
-  "streams": 16355,
-  "cover": "/assets/cover-art/control-of-it-muffin-remix.jpg",
-  "albumId": "2c0St81waMviqJIzbkl9oP",
-  "featured": [
-   "Muffin"
-  ]
- },
- "honey-berry": {
-  "title": "Honey Berry",
-  "catalog": "SVR-027",
-  "year": "2019",
-  "streams": 913,
-  "cover": "/assets/cover-art/honey-berry.jpg",
-  "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
-  "featured": []
- },
- "who-is-i": {
-  "title": "Who Is I",
-  "catalog": "SVR-043",
-  "year": "2020",
-  "streams": 393,
-  "cover": "/assets/cover-art/who-is-i.jpg",
-  "albumId": "7pONL2zl3Nh44IvnfOaUrS",
-  "featured": []
- },
- "fell-in-love-with-the-vibe": {
-  "title": "Fell in Love With the Vibe",
-  "catalog": "SVR-017",
-  "year": "2018",
-  "streams": 2675,
-  "cover": "/assets/cover-art/fell-in-love-with-the-vibe.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "want-me-gone": {
-  "title": "Want Me Gone",
-  "catalog": "SVR-034",
-  "year": "2019",
-  "streams": 12965,
-  "cover": "/assets/cover-art/want-me-gone.jpg",
-  "albumId": "4ILUTMc7NIl6cHc6XT2jTe",
-  "featured": [
-   "Vegas of the North",
-   "Lucas Wolfe"
-  ]
- },
- "i-can-t-control": {
-  "title": "I Can't Control",
-  "catalog": "SVR-022",
-  "year": "2019",
-  "streams": 1923,
-  "cover": "/assets/cover-art/i-can-t-control.jpg",
-  "albumId": "3EWQbRCXJC6JihZPcjDB3M",
-  "featured": []
- },
- "finessing": {
-  "title": "Finessing",
-  "catalog": "SVR-011",
-  "year": "2018",
-  "streams": 2239,
-  "cover": "/assets/cover-art/finessing.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "95-thrillalude-lpt-as-95-thrilla": {
-  "title": "95 Thrillalude (LPT As 95 Thrilla)",
-  "catalog": "SVR-012",
-  "year": "2018",
-  "streams": 2063,
-  "cover": "/assets/cover-art/95-thrillalude-lpt-as-95-thrilla.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "hustle-don-t-stop": {
-  "title": "Hustle Don't Stop",
-  "catalog": "SVR-018",
-  "year": "2018",
-  "streams": 6457,
-  "cover": "/assets/cover-art/hustle-don-t-stop.jpg",
-  "albumId": "5VBmCde9ddhZwF59sgphrs",
-  "featured": []
- },
- "must-be-love": {
-  "title": "Must Be Love",
-  "catalog": "SVR-055",
-  "year": "2021",
-  "streams": 1215,
-  "cover": "/assets/cover-art/must-be-love.jpg",
-  "albumId": "2i4yVR6fV9StGGrHs3opBf",
-  "featured": [
-   "Magi Merlin"
-  ]
- },
- "black-history-legend": {
-  "title": "Black History Legend",
-  "catalog": "SVR-014",
-  "year": "2018",
-  "streams": 11171,
-  "cover": "/assets/cover-art/black-history-legend.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "black-and-boastful": {
-  "title": "Black and Boastful",
-  "catalog": "SVR-016",
-  "year": "2018",
-  "streams": 3046,
-  "cover": "/assets/cover-art/black-and-boastful.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "loco-y-loca": {
-  "title": "Loco y Loca",
-  "catalog": "SVR-023",
-  "year": "2019",
-  "streams": 873,
-  "cover": "/assets/cover-art/loco-y-loca.jpg",
-  "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
-  "featured": []
- },
- "a-2-pack-of-throat": {
-  "title": "A 2-Pack of Throat",
-  "catalog": "SVR-070",
-  "year": "2024",
-  "streams": null,
-  "cover": "/assets/cover-art/a-2-pack-of-throat.jpg",
-  "albumId": "4M5kiwE50cC4q0ek7JA7UT",
-  "featured": []
- },
- "tempo": {
-  "title": "Tempo",
-  "catalog": "SVR-031",
-  "year": "2019",
-  "streams": 40274,
-  "cover": "/assets/cover-art/tempo.jpg",
-  "albumId": "3DsQXZHCdCXxnDLiOD39EI",
-  "featured": [
-   "Sunnie"
-  ]
- },
- "daddy-cool": {
-  "title": "Daddy Cool",
-  "catalog": "SVR-056",
-  "year": "2021",
-  "streams": 527,
-  "cover": "/assets/cover-art/daddy-cool.jpg",
-  "albumId": "5bbHrrBjEw1YQ1zKYtHHac",
-  "featured": []
- },
- "love-pack": {
-  "title": "Love Pack",
-  "catalog": "SVR-038",
-  "year": "2020",
-  "streams": null,
-  "cover": "/assets/cover-art/love-pack.jpg",
-  "albumId": "0tGSdZITyJA6AyDsaPY5F4",
-  "featured": []
- },
- "next-man-remix": {
-  "title": "Next Man - Remix",
-  "catalog": "SVR-061",
-  "year": "2023",
-  "streams": 1815,
-  "cover": "/assets/cover-art/next-man-remix.jpg",
-  "albumId": "1tz1bXKjQCRN1hALk477Qq",
-  "featured": []
- },
- "make-you-happy": {
-  "title": "Make You Happy",
-  "catalog": "SVR-057",
-  "year": "2022",
-  "streams": 159,
-  "cover": "/assets/cover-art/make-you-happy.jpg",
-  "albumId": "0QC0uEt3WK8w6b6UsrMjMD",
-  "featured": []
- },
- "kiss-my-taint-freestyle": {
-  "title": "Kiss My Taint Freestyle",
-  "catalog": "SVR-053",
-  "year": "2021",
-  "streams": 7354,
-  "cover": "/assets/cover-art/kiss-my-taint-freestyle.jpg",
-  "albumId": "7xiOhEtehmh2rbfqWXyKK7",
-  "featured": []
- },
- "love-potion": {
-  "title": "Love Potion",
-  "catalog": "SVR-058",
-  "year": "2022",
-  "streams": 6114,
-  "cover": "/assets/cover-art/love-potion.jpg",
-  "albumId": "6T7K7x9A1vH442Wu3SlP8M",
-  "featured": [
-   "Sunnie"
-  ]
- },
- "power-man-iron-fist": {
-  "title": "Power Man & Iron Fist",
-  "catalog": "SVR-005",
-  "year": "2017",
-  "streams": 12226,
-  "cover": "/assets/cover-art/power-man-iron-fist.jpg",
-  "albumId": "110Ua3SLtqZmF9vHonwtNS",
-  "featured": []
- },
- "me-now": {
-  "title": "Me Now",
-  "catalog": "SVR-041",
-  "year": "2020",
-  "streams": 15821,
-  "cover": "/assets/cover-art/me-now.jpg",
-  "albumId": "1zpSJQCfHdbT1tDa0kfxcq",
-  "featured": [
-   "King Mizery"
-  ]
- },
- "black-sacrifice-a-dedication": {
-  "title": "Black Sacrifice (A Dedication)",
-  "catalog": "SVR-009",
-  "year": "2018",
-  "streams": 2720,
-  "cover": "/assets/cover-art/black-sacrifice-a-dedication.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "love-pack-tokyo-drift": {
-  "title": "Love Pack : Tokyo Drift",
-  "catalog": "SVR-060",
-  "year": "2023",
-  "streams": null,
-  "cover": "/assets/cover-art/love-pack-tokyo-drift.jpg",
-  "albumId": "1tz1bXKjQCRN1hALk477Qq",
-  "featured": []
- },
- "energy": {
-  "title": "Energy",
-  "catalog": "SVR-052",
-  "year": "2020",
-  "streams": 606,
-  "cover": "/assets/cover-art/energy.jpg",
-  "albumId": "2QiTMMThULR5JC52wbG4OS",
-  "featured": []
- },
- "rock-with-it": {
-  "title": "Rock With It",
-  "catalog": "SVR-068",
-  "year": "2023",
-  "streams": 372,
-  "cover": "/assets/cover-art/rock-with-it.jpg",
-  "albumId": "5W96spjedfF4gA0pB6ACp2",
-  "featured": []
- },
- "tempo-sped-up": {
-  "title": "Tempo - Sped Up",
-  "catalog": "SVR-064",
-  "year": "2023",
-  "streams": 382,
-  "cover": "/assets/cover-art/tempo-sped-up.jpg",
-  "albumId": "5uUuIlDPQQJ17SepUZnbJT",
-  "featured": []
- },
- "neck-me-down-oclock": {
-  "title": "Neck Me Down O'clock",
-  "catalog": "SVR-071",
-  "year": "2024",
-  "streams": 184,
-  "cover": "/assets/cover-art/neck-me-down-oclock.jpg",
-  "albumId": "4M5kiwE50cC4q0ek7JA7UT",
-  "featured": [
-   "Nick Nigh"
-  ]
- },
- "tempo-slowed-down": {
-  "title": "Tempo - Slowed Down",
-  "catalog": "SVR-065",
-  "year": "2023",
-  "streams": 75,
-  "cover": "/assets/cover-art/tempo-slowed-down.jpg",
-  "albumId": "5uUuIlDPQQJ17SepUZnbJT",
-  "featured": []
- },
- "tempo-sped-up-and-slowed-down-by-nick-nigh": {
-  "title": "Tempo (Sped up and Slowed Down by Nick Nigh)",
-  "catalog": "SVR-066",
-  "year": "2023",
-  "streams": null,
-  "cover": "/assets/cover-art/tempo-sped-up-and-slowed-down-by-nick-nigh.jpg",
-  "albumId": "3DsQXZHCdCXxnDLiOD39EI",
-  "featured": [
-   "Nick Nigh"
-  ]
- },
- "i-just-want-the-neck": {
-  "title": "I Just Want The Neck",
-  "catalog": "SVR-069",
-  "year": "2024",
-  "streams": 71,
-  "cover": "/assets/cover-art/i-just-want-the-neck.jpg",
-  "albumId": "4M5kiwE50cC4q0ek7JA7UT",
-  "featured": []
- },
- "superflex": {
-  "title": "Superflex",
-  "catalog": "SVR-024",
-  "year": "2019",
-  "streams": 1009,
-  "cover": "/assets/cover-art/superflex.jpg",
-  "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
-  "featured": []
- },
- "my-worst": {
-  "title": "My Worst",
-  "catalog": "SVR-051",
-  "year": "2020",
-  "streams": 292,
-  "cover": "/assets/cover-art/my-worst.jpg",
-  "albumId": "2f1VmJRm0Mhu03t0om3HyO",
-  "featured": []
- },
- "just-got-paid": {
-  "title": "Just Got Paid",
-  "catalog": "SVR-001",
-  "year": "2016",
-  "streams": 11532,
-  "cover": "/assets/cover-art/just-got-paid.jpg",
-  "albumId": "3aCuAQC26tgwFeDoQsem1u",
-  "featured": []
- },
- "control-of-it": {
-  "title": "Control of It",
-  "catalog": "SVR-002",
-  "year": "2017",
-  "streams": 40520,
-  "cover": "/assets/cover-art/control-of-it.jpg",
-  "albumId": "3gPfEvTeiF21JKP0LdDmnV",
-  "featured": []
- },
- "everybody-fuckin-the-threesome-song-feat-muffin": {
-  "title": "Everybody Fuckin' (The Threesome Song) [feat. Muffin]",
-  "catalog": "SVR-025",
-  "year": "2019",
-  "streams": 743,
-  "cover": "/assets/cover-art/everybody-fuckin-the-threesome-song-feat-muffin.jpg",
-  "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
-  "featured": [
-   "Muffin"
-  ]
- },
- "breathe-on-it": {
-  "title": "Breathe on It",
-  "catalog": "SVR-013",
-  "year": "2018",
-  "streams": 6155,
-  "cover": "/assets/cover-art/breathe-on-it.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "finger-fuckin-fianc-s-all-2k20-remix": {
-  "title": "Finger Fuckin' Fiancés All 2k20 (Remix)",
-  "catalog": "SVR-047",
-  "year": "2020",
-  "streams": 4972,
-  "cover": "/assets/cover-art/finger-fuckin-fianc-s-all-2k20-remix.jpg",
-  "albumId": "1tz1bXKjQCRN1hALk477Qq",
-  "featured": [
-   "BIGBABYGUCCI",
-   "Lil House Phone"
-  ]
- },
- "quinceanera-fresh": {
-  "title": "Quinceanera Fresh",
-  "catalog": "SVR-028",
-  "year": "2019",
-  "streams": 8177,
-  "cover": "/assets/cover-art/quinceanera-fresh.jpg",
-  "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
-  "featured": []
- },
- "fax": {
-  "title": "Fax",
-  "catalog": "SVR-029",
-  "year": "2019",
-  "streams": 1841,
-  "cover": "/assets/cover-art/fax.jpg",
-  "albumId": "3TTIAZH9uMvfaAYRmQAaB1",
-  "featured": []
- },
- "fast-girls": {
-  "title": "Fast Girls",
-  "catalog": "SVR-030",
-  "year": "2019",
-  "streams": 11094,
-  "cover": "/assets/cover-art/fast-girls.jpg",
-  "albumId": "2vSntMl95howLPQsqAX5DQ",
-  "featured": []
- },
- "finger-fuckin-fianc-s-all-2k20": {
-  "title": "Finger Fuckin' Fiancés All 2k20",
-  "catalog": "SVR-032",
-  "year": "2019",
-  "streams": 2313,
-  "cover": "/assets/cover-art/finger-fuckin-fianc-s-all-2k20.jpg",
-  "albumId": "32te14Z6lImw8pKOULdjPp",
-  "featured": []
- },
- "next-man": {
-  "title": "Next Man",
-  "catalog": "SVR-035",
-  "year": "2020",
-  "streams": 30082,
-  "cover": "/assets/cover-art/next-man.jpg",
-  "albumId": "7ptCLKxeSgUxxw0mFhbRsT",
-  "featured": [
-   "Muffin",
-   "Lucas Wolfe"
-  ]
- },
- "love-eachother": {
-  "title": "Love Eachother",
-  "catalog": "SVR-039",
-  "year": "2020",
-  "streams": 15228,
-  "cover": "/assets/cover-art/love-eachother.jpg",
-  "albumId": "0tGSdZITyJA6AyDsaPY5F4",
-  "featured": []
- },
- "hate-fuck": {
-  "title": "Hate Fuck",
-  "catalog": "SVR-040",
-  "year": "2020",
-  "streams": 311282,
-  "cover": "/assets/cover-art/hate-fuck.jpg",
-  "albumId": "2dD9eFNVNAtk9qOH37lCfm",
-  "featured": [
-   "Project Pat"
-  ]
- },
- "the-steez": {
-  "title": "The Steez",
-  "catalog": "SVR-045",
-  "year": "2020",
-  "streams": 1997,
-  "cover": "/assets/cover-art/the-steez.jpg",
-  "albumId": "3JbrrVnoxnhuib7fDpkdTg",
-  "featured": [
-   "Vegas of the North",
-   "J. Knock"
-  ]
- },
- "purple-mattress": {
-  "title": "Purple Mattress",
-  "catalog": "SVR-046",
-  "year": "2020",
-  "streams": 2629,
-  "cover": "/assets/cover-art/purple-mattress.jpg",
-  "albumId": "1tchKq8OMPgxw7ghz5TysN",
-  "featured": []
- },
- "tempo-muffin-remix": {
-  "title": "Tempo (Muffin Remix)",
-  "catalog": "SVR-048",
-  "year": "2020",
-  "streams": 869,
-  "cover": "/assets/cover-art/tempo-muffin-remix.jpg",
-  "albumId": "66jDcShijiDofcBXYZ0jnp",
-  "featured": [
-   "Muffin"
-  ]
- },
- "same-song-do-x6-feat-frei-nick-nigh": {
-  "title": "Same Song (Do X6) [feat. Frei & Nick Nigh]",
-  "catalog": "SVR-049",
-  "year": "2020",
-  "streams": 13672,
-  "cover": "/assets/cover-art/same-song-do-x6-feat-frei-nick-nigh.jpg",
-  "albumId": "5mZIA84Wmoj2BAJPXaB90g",
-  "featured": [
-   "Frei & Nick Nigh"
-  ]
- },
- "if-it-comes-to-it": {
-  "title": "If It Comes to It",
-  "catalog": "SVR-050",
-  "year": "2020",
-  "streams": 13300,
-  "cover": "/assets/cover-art/if-it-comes-to-it.jpg",
-  "albumId": "2VZedDUaSImM1urmhvILTA",
-  "featured": [
-   "Che Noir",
-   "Mooch"
-  ]
- },
- "they-are-not-your-friends-remix": {
-  "title": "They are not your Friends - Remix",
-  "catalog": "SVR-059",
-  "year": "2023",
-  "streams": 6983,
-  "cover": "/assets/cover-art/they-are-not-your-friends-remix.jpg",
-  "albumId": "3Phvnv6NUGftBKg7ZN8Nru",
-  "featured": [
-   "Nick Nigh"
-  ]
- },
- "all-grown": {
-  "title": "All Grown",
-  "catalog": "SVR-062",
-  "year": "2023",
-  "streams": 298,
-  "cover": "/assets/cover-art/all-grown.jpg",
-  "albumId": "1tz1bXKjQCRN1hALk477Qq",
-  "featured": []
- },
- "mind-my-biz": {
-  "title": "Mind My Biz",
-  "catalog": "SVR-067",
-  "year": "2023",
-  "streams": 8185,
-  "cover": "/assets/cover-art/mind-my-biz.jpg",
-  "albumId": "1VCyFoOq3wkXII2wCyPqTW",
-  "featured": [
-   "OG Maco"
-  ]
- },
- "ruse-de-guerre": {
-  "title": "Ruse de Guerre",
-  "catalog": "SVR-072",
-  "year": "2026",
-  "streams": 533,
-  "cover": "/assets/cover-art/ruse-de-guerre.jpg",
-  "albumId": "0zM5oYbbUmMhNrRU6rhaMF",
-  "featured": []
- },
- "95-s-cypher-lpt-as-95-thrilla": {
-  "title": "95's Cypher (LPT As 95 Thrilla)",
-  "catalog": "SVR-010",
-  "year": "2018",
-  "streams": 3475,
-  "cover": "/assets/cover-art/95-s-cypher-lpt-as-95-thrilla.jpg",
-  "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
-  "featured": []
- },
- "scared-you-ll-love": {
-  "title": "Scared You'll Love",
-  "catalog": "SVR-037",
-  "year": "2020",
-  "streams": 1254,
-  "cover": "/assets/cover-art/scared-you-ll-love.jpg",
-  "albumId": "0tGSdZITyJA6AyDsaPY5F4",
-  "featured": []
- }
+  "they-are-not-your-friends": {
+    "title": "They are not your Friends",
+    "catalog": "SVR-054",
+    "year": "2021",
+    "streams": 2594,
+    "cover": "/assets/cover-art/they-are-not-your-friends.jpg",
+    "albumId": "4UrDfeCWE65HV72iaKRRUT",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/77/b1/15/77b11510-5ff0-8e3d-b32b-372e519d884f/mzaf_1681810896972151360.plus.aac.p.m4a"
+  },
+  "grind-and-stack": {
+    "title": "Grind and Stack",
+    "catalog": "SVR-019",
+    "year": "2018",
+    "streams": 9867,
+    "cover": "/assets/cover-art/grind-and-stack.jpg",
+    "albumId": "3f622JLZ71Ch8xa4XsEiNH",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/e6/80/29/e680290c-3cd4-da8e-7ca6-392b34b2771a/mzaf_6879731550590701830.plus.aac.p.m4a"
+  },
+  "brujeria": {
+    "title": "Brujeria",
+    "catalog": "SVR-026",
+    "year": "2019",
+    "streams": 4777,
+    "cover": "/assets/cover-art/brujeria.jpg",
+    "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/1e/40/55/1e405539-fd3d-fa95-6f08-9fed4e898e41/mzaf_6501018024988475145.plus.aac.p.m4a"
+  },
+  "coins": {
+    "title": "Coins",
+    "catalog": "SVR-008",
+    "year": "2018",
+    "streams": 6324,
+    "cover": "/assets/cover-art/coins.jpg",
+    "albumId": "3z1vU3X0RbNVhSYFvOtekp",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview62/v4/f5/5b/ca/f55bcacb-7c83-3e0d-25d9-fcef972430ad/mzaf_8276818463213031664.plus.aac.p.m4a"
+  },
+  "ron-in-my-colada": {
+    "title": "Ron in My Colada",
+    "catalog": "SVR-021",
+    "year": "2019",
+    "streams": 3722,
+    "cover": "/assets/cover-art/ron-in-my-colada.jpg",
+    "albumId": "1kej86moPExvEqvQQ0Owh4",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/7b/08/9f/7b089f51-ddcc-711e-e2fd-3b7fcf22b03f/mzaf_4638481473107604763.plus.aac.p.m4a"
+  },
+  "back-on-my-95": {
+    "title": "Back on My '95",
+    "catalog": "SVR-033",
+    "year": "2019",
+    "streams": 4391,
+    "cover": "/assets/cover-art/back-on-my-95.jpg",
+    "albumId": "3avpQlAIyDhbOaOKxxOBu8",
+    "featured": [
+      "Vegas of the North"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/27/6f/e9/276fe9f8-3820-0076-9349-93d15a6d6a99/mzaf_8522898498869713405.plus.aac.p.m4a"
+  },
+  "bodycon": {
+    "title": "Bodycon",
+    "catalog": "SVR-007",
+    "year": "2017",
+    "streams": 90924,
+    "cover": "/assets/cover-art/bodycon.jpg",
+    "albumId": "4FMuhQv6Clxv4hc18oyPkA",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/2c/4f/6d/2c4f6df7-9b55-795d-89ab-e10421bbacdf/mzaf_4196555305759393667.plus.aac.p.m4a"
+  },
+  "already-knew": {
+    "title": "Already Knew",
+    "catalog": "SVR-042",
+    "year": "2020",
+    "streams": 5024,
+    "cover": "/assets/cover-art/already-knew.jpg",
+    "albumId": "4FbNCr1GQZ9tK1SGTdAGYp",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/0a/8a/da/0a8ada9d-379e-8b83-e8c4-d240e935da9e/mzaf_13149505590128513390.plus.aac.p.m4a"
+  },
+  "never-not-me": {
+    "title": "Never Not Me",
+    "catalog": "SVR-015",
+    "year": "2018",
+    "streams": 1988,
+    "cover": "/assets/cover-art/never-not-me.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/81/93/f9/8193f9cf-7be2-aa1d-9605-8a4bbd6f1782/mzaf_5904239969408636452.plus.aac.p.m4a"
+  },
+  "gold-standard": {
+    "title": "Gold Standard",
+    "catalog": "SVR-036",
+    "year": "2020",
+    "streams": 688,
+    "cover": "/assets/cover-art/gold-standard.jpg",
+    "albumId": "50b9zMhxb5pEwcN6VEKU7G",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/14/8f/25/148f2530-2344-110e-afd5-a4d9ce3b5839/mzaf_10525955731250285617.plus.aac.p.m4a"
+  },
+  "control-of-it-muffin-remix": {
+    "title": "Control of It (Muffin Remix)",
+    "catalog": "SVR-006",
+    "year": "2017",
+    "streams": 16355,
+    "cover": "/assets/cover-art/control-of-it-muffin-remix.jpg",
+    "albumId": "2c0St81waMviqJIzbkl9oP",
+    "featured": [
+      "Muffin"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a4/d9/f5/a4d9f550-1e41-86e9-31d8-b05988befb96/mzaf_3529764603632593193.plus.aac.p.m4a"
+  },
+  "honey-berry": {
+    "title": "Honey Berry",
+    "catalog": "SVR-027",
+    "year": "2019",
+    "streams": 913,
+    "cover": "/assets/cover-art/honey-berry.jpg",
+    "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/72/3e/b1/723eb1c2-6fd7-ba17-1537-ebc2a4c4dd49/mzaf_2761971476141311945.plus.aac.p.m4a"
+  },
+  "who-is-i": {
+    "title": "Who Is I",
+    "catalog": "SVR-043",
+    "year": "2020",
+    "streams": 393,
+    "cover": "/assets/cover-art/who-is-i.jpg",
+    "albumId": "7pONL2zl3Nh44IvnfOaUrS",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/b8/b8/ea/b8b8eace-a98c-c53c-2d00-ffbf175ec250/mzaf_5152047669629783366.plus.aac.p.m4a"
+  },
+  "fell-in-love-with-the-vibe": {
+    "title": "Fell in Love With the Vibe",
+    "catalog": "SVR-017",
+    "year": "2018",
+    "streams": 2675,
+    "cover": "/assets/cover-art/fell-in-love-with-the-vibe.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/b7/a9/9a/b7a99a6b-6ac1-d725-573a-344c9013b1ac/mzaf_2493417639479039055.plus.aac.p.m4a"
+  },
+  "want-me-gone": {
+    "title": "Want Me Gone",
+    "catalog": "SVR-034",
+    "year": "2019",
+    "streams": 12965,
+    "cover": "/assets/cover-art/want-me-gone.jpg",
+    "albumId": "4ILUTMc7NIl6cHc6XT2jTe",
+    "featured": [
+      "Vegas of the North",
+      "Lucas Wolfe"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/8e/bc/a2/8ebca2fe-1d8a-2790-6e9a-7430a1ec4a02/mzaf_4631336977946744037.plus.aac.p.m4a"
+  },
+  "i-can-t-control": {
+    "title": "I Can't Control",
+    "catalog": "SVR-022",
+    "year": "2019",
+    "streams": 1923,
+    "cover": "/assets/cover-art/i-can-t-control.jpg",
+    "albumId": "3EWQbRCXJC6JihZPcjDB3M",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/e2/20/3e/e2203e7b-6af6-b400-f2b7-c077bd4655b8/mzaf_116336877212897118.plus.aac.p.m4a"
+  },
+  "finessing": {
+    "title": "Finessing",
+    "catalog": "SVR-011",
+    "year": "2018",
+    "streams": 2239,
+    "cover": "/assets/cover-art/finessing.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/33/72/fd/3372fde2-d634-4522-a3cc-99b48cd86d1f/mzaf_2389073873707595469.plus.aac.p.m4a"
+  },
+  "95-thrillalude-lpt-as-95-thrilla": {
+    "title": "95 Thrillalude (LPT As 95 Thrilla)",
+    "catalog": "SVR-012",
+    "year": "2018",
+    "streams": 2063,
+    "cover": "/assets/cover-art/95-thrillalude-lpt-as-95-thrilla.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/27/3f/43/273f4313-2cb7-2af2-ff1a-89bc04c85207/mzaf_5547824470793291540.plus.aac.p.m4a"
+  },
+  "hustle-don-t-stop": {
+    "title": "Hustle Don't Stop",
+    "catalog": "SVR-018",
+    "year": "2018",
+    "streams": 6457,
+    "cover": "/assets/cover-art/hustle-don-t-stop.jpg",
+    "albumId": "5VBmCde9ddhZwF59sgphrs",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/22/b9/c2/22b9c249-7103-8325-5f3d-9773ef33dcd4/mzaf_6010340846833487104.plus.aac.p.m4a"
+  },
+  "must-be-love": {
+    "title": "Must Be Love",
+    "catalog": "SVR-055",
+    "year": "2021",
+    "streams": 1215,
+    "cover": "/assets/cover-art/must-be-love.jpg",
+    "albumId": "2i4yVR6fV9StGGrHs3opBf",
+    "featured": [
+      "Magi Merlin"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/0b/51/67/0b516773-27f3-7892-58f4-191b3f760ec6/mzaf_7327879711609812330.plus.aac.p.m4a"
+  },
+  "black-history-legend": {
+    "title": "Black History Legend",
+    "catalog": "SVR-014",
+    "year": "2018",
+    "streams": 11171,
+    "cover": "/assets/cover-art/black-history-legend.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview62/v4/8e/dd/c4/8eddc457-e148-404c-0827-6340bc1267f1/mzaf_7779959563816848501.plus.aac.p.m4a"
+  },
+  "black-and-boastful": {
+    "title": "Black and Boastful",
+    "catalog": "SVR-016",
+    "year": "2018",
+    "streams": 3046,
+    "cover": "/assets/cover-art/black-and-boastful.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/ad/2e/3d/ad2e3d14-c2dc-c112-06ec-ef41537166f4/mzaf_2977172164348409306.plus.aac.p.m4a"
+  },
+  "loco-y-loca": {
+    "title": "Loco y Loca",
+    "catalog": "SVR-023",
+    "year": "2019",
+    "streams": 873,
+    "cover": "/assets/cover-art/loco-y-loca.jpg",
+    "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/0b/c0/fd/0bc0fd0e-7199-9dde-e28b-5192e24950ed/mzaf_4996005269014028586.plus.aac.p.m4a"
+  },
+  "a-2-pack-of-throat": {
+    "title": "A 2-Pack of Throat",
+    "catalog": "SVR-070",
+    "year": "2024",
+    "streams": null,
+    "cover": "/assets/cover-art/a-2-pack-of-throat.jpg",
+    "albumId": "4M5kiwE50cC4q0ek7JA7UT",
+    "featured": [],
+    "previewUrl": null
+  },
+  "tempo": {
+    "title": "Tempo",
+    "catalog": "SVR-031",
+    "year": "2019",
+    "streams": 40274,
+    "cover": "/assets/cover-art/tempo.jpg",
+    "albumId": "3DsQXZHCdCXxnDLiOD39EI",
+    "featured": [
+      "Sunnie"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/39/f4/b7/39f4b74d-8370-d93f-7945-d4b4f5c4f6c4/mzaf_653325682016981369.plus.aac.p.m4a"
+  },
+  "daddy-cool": {
+    "title": "Daddy Cool",
+    "catalog": "SVR-056",
+    "year": "2021",
+    "streams": 527,
+    "cover": "/assets/cover-art/daddy-cool.jpg",
+    "albumId": "5bbHrrBjEw1YQ1zKYtHHac",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/54/c5/bf/54c5bf50-46e2-c19b-3b9d-22c0491a316f/mzaf_330473360284548250.plus.aac.p.m4a"
+  },
+  "love-pack": {
+    "title": "Love Pack",
+    "catalog": "SVR-038",
+    "year": "2020",
+    "streams": null,
+    "cover": "/assets/cover-art/love-pack.jpg",
+    "albumId": "0tGSdZITyJA6AyDsaPY5F4",
+    "featured": [],
+    "previewUrl": null
+  },
+  "next-man-remix": {
+    "title": "Next Man - Remix",
+    "catalog": "SVR-061",
+    "year": "2023",
+    "streams": 1815,
+    "cover": "/assets/cover-art/next-man-remix.jpg",
+    "albumId": "1tz1bXKjQCRN1hALk477Qq",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/5d/1f/5a/5d1f5a37-ab6d-7979-ccb0-3eb79301996e/mzaf_7981464901144631899.plus.aac.p.m4a"
+  },
+  "make-you-happy": {
+    "title": "Make You Happy",
+    "catalog": "SVR-057",
+    "year": "2022",
+    "streams": 159,
+    "cover": "/assets/cover-art/make-you-happy.jpg",
+    "albumId": "0QC0uEt3WK8w6b6UsrMjMD",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/07/25/70/072570ca-56eb-5c20-6265-774de7487839/mzaf_794377417798571382.plus.aac.p.m4a"
+  },
+  "kiss-my-taint-freestyle": {
+    "title": "Kiss My Taint Freestyle",
+    "catalog": "SVR-053",
+    "year": "2021",
+    "streams": 7354,
+    "cover": "/assets/cover-art/kiss-my-taint-freestyle.jpg",
+    "albumId": "7xiOhEtehmh2rbfqWXyKK7",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/07/a1/d8/07a1d8af-04de-a276-9844-d90a32bfb0c4/mzaf_14875099474694993433.plus.aac.p.m4a"
+  },
+  "love-potion": {
+    "title": "Love Potion",
+    "catalog": "SVR-058",
+    "year": "2022",
+    "streams": 6114,
+    "cover": "/assets/cover-art/love-potion.jpg",
+    "albumId": "6T7K7x9A1vH442Wu3SlP8M",
+    "featured": [
+      "Sunnie"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a6/a4/34/a6a4345b-01c8-81a8-3988-128ae78a20e4/mzaf_17914464840994453025.plus.aac.p.m4a"
+  },
+  "power-man-iron-fist": {
+    "title": "Power Man & Iron Fist",
+    "catalog": "SVR-005",
+    "year": "2017",
+    "streams": 12226,
+    "cover": "/assets/cover-art/power-man-iron-fist.jpg",
+    "albumId": "110Ua3SLtqZmF9vHonwtNS",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/bd/d6/cb/bdd6cbe5-0341-6408-05cc-07f4bb274aca/mzaf_4260936205847741949.plus.aac.p.m4a"
+  },
+  "me-now": {
+    "title": "Me Now",
+    "catalog": "SVR-041",
+    "year": "2020",
+    "streams": 15821,
+    "cover": "/assets/cover-art/me-now.jpg",
+    "albumId": "1zpSJQCfHdbT1tDa0kfxcq",
+    "featured": [
+      "King Mizery"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/e3/31/bf/e331bfa1-1caa-d0ae-e2ee-10c50ba6d4bb/mzaf_14472574295662617509.plus.aac.p.m4a"
+  },
+  "black-sacrifice-a-dedication": {
+    "title": "Black Sacrifice (A Dedication)",
+    "catalog": "SVR-009",
+    "year": "2018",
+    "streams": 2720,
+    "cover": "/assets/cover-art/black-sacrifice-a-dedication.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/f4/3e/77/f43e77c9-86ad-4dc7-037f-a7f61a891c17/mzaf_6811407267621103890.plus.aac.p.m4a"
+  },
+  "love-pack-tokyo-drift": {
+    "title": "Love Pack : Tokyo Drift",
+    "catalog": "SVR-060",
+    "year": "2023",
+    "streams": null,
+    "cover": "/assets/cover-art/love-pack-tokyo-drift.jpg",
+    "albumId": "1tz1bXKjQCRN1hALk477Qq",
+    "featured": [],
+    "previewUrl": null
+  },
+  "energy": {
+    "title": "Energy",
+    "catalog": "SVR-052",
+    "year": "2020",
+    "streams": 606,
+    "cover": "/assets/cover-art/energy.jpg",
+    "albumId": "2QiTMMThULR5JC52wbG4OS",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/1b/da/31/1bda31da-d5ea-2a3a-9302-6bd59e7ef945/mzaf_8883596043099713651.plus.aac.p.m4a"
+  },
+  "rock-with-it": {
+    "title": "Rock With It",
+    "catalog": "SVR-068",
+    "year": "2023",
+    "streams": 372,
+    "cover": "/assets/cover-art/rock-with-it.jpg",
+    "albumId": "5W96spjedfF4gA0pB6ACp2",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/8d/ff/e5/8dffe5c4-0889-a3d3-0809-da8c1a810469/mzaf_13163196285700941508.plus.aac.p.m4a"
+  },
+  "tempo-sped-up": {
+    "title": "Tempo - Sped Up",
+    "catalog": "SVR-064",
+    "year": "2023",
+    "streams": 382,
+    "cover": "/assets/cover-art/tempo-sped-up.jpg",
+    "albumId": "5uUuIlDPQQJ17SepUZnbJT",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/3a/5a/8f/3a5a8fad-4fca-bcc7-b5bd-707e64b588de/mzaf_12546508178038397829.plus.aac.p.m4a"
+  },
+  "neck-me-down-oclock": {
+    "title": "Neck Me Down O'clock",
+    "catalog": "SVR-071",
+    "year": "2024",
+    "streams": 184,
+    "cover": "/assets/cover-art/neck-me-down-oclock.jpg",
+    "albumId": "4M5kiwE50cC4q0ek7JA7UT",
+    "featured": [
+      "Nick Nigh"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/82/04/72/82047254-ea69-9d79-894a-cfb0f10d3b4a/mzaf_4781509096921600020.plus.aac.p.m4a"
+  },
+  "tempo-slowed-down": {
+    "title": "Tempo - Slowed Down",
+    "catalog": "SVR-065",
+    "year": "2023",
+    "streams": 75,
+    "cover": "/assets/cover-art/tempo-slowed-down.jpg",
+    "albumId": "5uUuIlDPQQJ17SepUZnbJT",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/3a/5a/8f/3a5a8fad-4fca-bcc7-b5bd-707e64b588de/mzaf_12546508178038397829.plus.aac.p.m4a"
+  },
+  "tempo-sped-up-and-slowed-down-by-nick-nigh": {
+    "title": "Tempo (Sped up and Slowed Down by Nick Nigh)",
+    "catalog": "SVR-066",
+    "year": "2023",
+    "streams": null,
+    "cover": "/assets/cover-art/tempo-sped-up-and-slowed-down-by-nick-nigh.jpg",
+    "albumId": "3DsQXZHCdCXxnDLiOD39EI",
+    "featured": [
+      "Nick Nigh"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/39/f4/b7/39f4b74d-8370-d93f-7945-d4b4f5c4f6c4/mzaf_653325682016981369.plus.aac.p.m4a"
+  },
+  "i-just-want-the-neck": {
+    "title": "I Just Want The Neck",
+    "catalog": "SVR-069",
+    "year": "2024",
+    "streams": 71,
+    "cover": "/assets/cover-art/i-just-want-the-neck.jpg",
+    "albumId": "4M5kiwE50cC4q0ek7JA7UT",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/ab/5e/e6/ab5ee611-9eaf-166f-0d8e-5559fff9a6be/mzaf_7343646814706898882.plus.aac.p.m4a"
+  },
+  "superflex": {
+    "title": "Superflex",
+    "catalog": "SVR-024",
+    "year": "2019",
+    "streams": 1009,
+    "cover": "/assets/cover-art/superflex.jpg",
+    "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/7e/88/e2/7e88e2b3-731b-0c7a-2f05-e32820b348ae/mzaf_6718914900878738289.plus.aac.p.m4a"
+  },
+  "my-worst": {
+    "title": "My Worst",
+    "catalog": "SVR-051",
+    "year": "2020",
+    "streams": 292,
+    "cover": "/assets/cover-art/my-worst.jpg",
+    "albumId": "2f1VmJRm0Mhu03t0om3HyO",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/94/73/69/9473698a-9603-7da5-065e-44cd7a21d286/mzaf_2247834354914254201.plus.aac.p.m4a"
+  },
+  "just-got-paid": {
+    "title": "Just Got Paid",
+    "catalog": "SVR-001",
+    "year": "2016",
+    "streams": 11532,
+    "cover": "/assets/cover-art/just-got-paid.jpg",
+    "albumId": "3aCuAQC26tgwFeDoQsem1u",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/4e/ff/3b/4eff3b20-3c9f-d5f2-33d5-d23392fb9562/mzaf_12453478395988840240.plus.aac.p.m4a"
+  },
+  "control-of-it": {
+    "title": "Control of It",
+    "catalog": "SVR-002",
+    "year": "2017",
+    "streams": 40520,
+    "cover": "/assets/cover-art/control-of-it.jpg",
+    "albumId": "3gPfEvTeiF21JKP0LdDmnV",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a4/d9/f5/a4d9f550-1e41-86e9-31d8-b05988befb96/mzaf_3529764603632593193.plus.aac.p.m4a"
+  },
+  "everybody-fuckin-the-threesome-song-feat-muffin": {
+    "title": "Everybody Fuckin' (The Threesome Song) [feat. Muffin]",
+    "catalog": "SVR-025",
+    "year": "2019",
+    "streams": 743,
+    "cover": "/assets/cover-art/everybody-fuckin-the-threesome-song-feat-muffin.jpg",
+    "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
+    "featured": [
+      "Muffin"
+    ],
+    "previewUrl": null
+  },
+  "breathe-on-it": {
+    "title": "Breathe on It",
+    "catalog": "SVR-013",
+    "year": "2018",
+    "streams": 6155,
+    "cover": "/assets/cover-art/breathe-on-it.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/a8/0d/49/a80d49f1-678f-7332-e9f5-4484f16f6574/mzaf_3673460864064575851.plus.aac.p.m4a"
+  },
+  "finger-fuckin-fianc-s-all-2k20-remix": {
+    "title": "Finger Fuckin' Fiancés All 2k20 (Remix)",
+    "catalog": "SVR-047",
+    "year": "2020",
+    "streams": 4972,
+    "cover": "/assets/cover-art/finger-fuckin-fianc-s-all-2k20-remix.jpg",
+    "albumId": "1tz1bXKjQCRN1hALk477Qq",
+    "featured": [
+      "BIGBABYGUCCI",
+      "Lil House Phone"
+    ],
+    "previewUrl": null
+  },
+  "quinceanera-fresh": {
+    "title": "Quinceanera Fresh",
+    "catalog": "SVR-028",
+    "year": "2019",
+    "streams": 8177,
+    "cover": "/assets/cover-art/quinceanera-fresh.jpg",
+    "albumId": "0LYt1ZlrreRLb6MbXWUdKc",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/c2/ad/e4/c2ade4c2-0aa1-f572-dfb1-e9092e123b5f/mzaf_3068591014915649158.plus.aac.p.m4a"
+  },
+  "fax": {
+    "title": "Fax",
+    "catalog": "SVR-029",
+    "year": "2019",
+    "streams": 1841,
+    "cover": "/assets/cover-art/fax.jpg",
+    "albumId": "3TTIAZH9uMvfaAYRmQAaB1",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/24/e7/15/24e7156d-4e35-583c-2d25-e8cfd6f00511/mzaf_4297460411435182630.plus.aac.p.m4a"
+  },
+  "fast-girls": {
+    "title": "Fast Girls",
+    "catalog": "SVR-030",
+    "year": "2019",
+    "streams": 11094,
+    "cover": "/assets/cover-art/fast-girls.jpg",
+    "albumId": "2vSntMl95howLPQsqAX5DQ",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/ce/19/33/ce193373-62b8-9424-a243-0ccb41100c34/mzaf_14797532557448272050.plus.aac.p.m4a"
+  },
+  "finger-fuckin-fianc-s-all-2k20": {
+    "title": "Finger Fuckin' Fiancés All 2k20",
+    "catalog": "SVR-032",
+    "year": "2019",
+    "streams": 2313,
+    "cover": "/assets/cover-art/finger-fuckin-fianc-s-all-2k20.jpg",
+    "albumId": "32te14Z6lImw8pKOULdjPp",
+    "featured": [],
+    "previewUrl": null
+  },
+  "next-man": {
+    "title": "Next Man",
+    "catalog": "SVR-035",
+    "year": "2020",
+    "streams": 30082,
+    "cover": "/assets/cover-art/next-man.jpg",
+    "albumId": "7ptCLKxeSgUxxw0mFhbRsT",
+    "featured": [
+      "Muffin",
+      "Lucas Wolfe"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/c0/cd/c6/c0cdc629-3475-1d8e-a607-b075c80fc5b4/mzaf_5796871812161977860.plus.aac.p.m4a"
+  },
+  "love-eachother": {
+    "title": "Love Eachother",
+    "catalog": "SVR-039",
+    "year": "2020",
+    "streams": 15228,
+    "cover": "/assets/cover-art/love-eachother.jpg",
+    "albumId": "0tGSdZITyJA6AyDsaPY5F4",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a0/e6/f8/a0e6f8e6-fe9d-e47d-d214-75d73c4ccaa6/mzaf_17401375672883499739.plus.aac.p.m4a"
+  },
+  "hate-fuck": {
+    "title": "Hate Fuck",
+    "catalog": "SVR-040",
+    "year": "2020",
+    "streams": 311282,
+    "cover": "/assets/cover-art/hate-fuck.jpg",
+    "albumId": "2dD9eFNVNAtk9qOH37lCfm",
+    "featured": [
+      "Project Pat"
+    ],
+    "previewUrl": null
+  },
+  "the-steez": {
+    "title": "The Steez",
+    "catalog": "SVR-045",
+    "year": "2020",
+    "streams": 1997,
+    "cover": "/assets/cover-art/the-steez.jpg",
+    "albumId": "3JbrrVnoxnhuib7fDpkdTg",
+    "featured": [
+      "Vegas of the North",
+      "J. Knock"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/cb/e5/13/cbe513ba-003f-47f1-eb6b-acc08ef94e3e/mzaf_326821708680863831.plus.aac.p.m4a"
+  },
+  "purple-mattress": {
+    "title": "Purple Mattress",
+    "catalog": "SVR-046",
+    "year": "2020",
+    "streams": 2629,
+    "cover": "/assets/cover-art/purple-mattress.jpg",
+    "albumId": "1tchKq8OMPgxw7ghz5TysN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/0e/c9/57/0ec9579a-703d-4a39-c0c4-84dd2fd31e32/mzaf_14676493648362966535.plus.aac.p.m4a"
+  },
+  "tempo-muffin-remix": {
+    "title": "Tempo (Muffin Remix)",
+    "catalog": "SVR-048",
+    "year": "2020",
+    "streams": 869,
+    "cover": "/assets/cover-art/tempo-muffin-remix.jpg",
+    "albumId": "66jDcShijiDofcBXYZ0jnp",
+    "featured": [
+      "Muffin"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/39/f4/b7/39f4b74d-8370-d93f-7945-d4b4f5c4f6c4/mzaf_653325682016981369.plus.aac.p.m4a"
+  },
+  "same-song-do-x6-feat-frei-nick-nigh": {
+    "title": "Same Song (Do X6) [feat. Frei & Nick Nigh]",
+    "catalog": "SVR-049",
+    "year": "2020",
+    "streams": 13672,
+    "cover": "/assets/cover-art/same-song-do-x6-feat-frei-nick-nigh.jpg",
+    "albumId": "5mZIA84Wmoj2BAJPXaB90g",
+    "featured": [
+      "Frei & Nick Nigh"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/0d/55/1c/0d551cf8-b5c9-1e19-1ee5-b44fcb63756f/mzaf_10821649412319470994.plus.aac.p.m4a"
+  },
+  "if-it-comes-to-it": {
+    "title": "If It Comes to It",
+    "catalog": "SVR-050",
+    "year": "2020",
+    "streams": 13300,
+    "cover": "/assets/cover-art/if-it-comes-to-it.jpg",
+    "albumId": "2VZedDUaSImM1urmhvILTA",
+    "featured": [
+      "Che Noir",
+      "Mooch"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/7d/ec/66/7dec666f-e381-783c-ac80-35c92eefdd01/mzaf_15546325329494094629.plus.aac.p.m4a"
+  },
+  "they-are-not-your-friends-remix": {
+    "title": "They are not your Friends - Remix",
+    "catalog": "SVR-059",
+    "year": "2023",
+    "streams": 6983,
+    "cover": "/assets/cover-art/they-are-not-your-friends-remix.jpg",
+    "albumId": "3Phvnv6NUGftBKg7ZN8Nru",
+    "featured": [
+      "Nick Nigh"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9c/23/af/9c23aff7-008e-e6c8-717d-156ab74f3a02/mzaf_8875671228655385869.plus.aac.p.m4a"
+  },
+  "all-grown": {
+    "title": "All Grown",
+    "catalog": "SVR-062",
+    "year": "2023",
+    "streams": 298,
+    "cover": "/assets/cover-art/all-grown.jpg",
+    "albumId": "1tz1bXKjQCRN1hALk477Qq",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/03/38/67/03386767-eaf6-cb15-db47-ba4ca7be6ed1/mzaf_782545019667281475.plus.aac.p.m4a"
+  },
+  "mind-my-biz": {
+    "title": "Mind My Biz",
+    "catalog": "SVR-067",
+    "year": "2023",
+    "streams": 8185,
+    "cover": "/assets/cover-art/mind-my-biz.jpg",
+    "albumId": "1VCyFoOq3wkXII2wCyPqTW",
+    "featured": [
+      "OG Maco"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/b1/d5/f9/b1d5f953-a5e3-caa2-fb8d-410a6c75b3ed/mzaf_2937352336454152823.plus.aac.p.m4a"
+  },
+  "ruse-de-guerre": {
+    "title": "Ruse de Guerre",
+    "catalog": "SVR-072",
+    "year": "2026",
+    "streams": 533,
+    "cover": "/assets/cover-art/ruse-de-guerre.jpg",
+    "albumId": "0zM5oYbbUmMhNrRU6rhaMF",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9a/5c/68/9a5c6892-4171-e534-b3bd-6271e5f0c396/mzaf_8685075484844865418.plus.aac.p.m4a"
+  },
+  "95-s-cypher-lpt-as-95-thrilla": {
+    "title": "95's Cypher (LPT As 95 Thrilla)",
+    "catalog": "SVR-010",
+    "year": "2018",
+    "streams": 3475,
+    "cover": "/assets/cover-art/95-s-cypher-lpt-as-95-thrilla.jpg",
+    "albumId": "4jgmoMKPo8GdNgGoRk7RqN",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/a9/14/3f/a9143ff9-da76-a01f-a3da-2f16ca76024b/mzaf_943761173540213548.plus.aac.p.m4a"
+  },
+  "scared-you-ll-love": {
+    "title": "Scared You'll Love",
+    "catalog": "SVR-037",
+    "year": "2020",
+    "streams": 1254,
+    "cover": "/assets/cover-art/scared-you-ll-love.jpg",
+    "albumId": "0tGSdZITyJA6AyDsaPY5F4",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/ad/eb/92/adeb92d7-055c-d9e3-e52a-1685b8c7935b/mzaf_14145137681904990694.plus.aac.p.m4a"
+  }
 }

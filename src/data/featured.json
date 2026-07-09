@@ -1,73 +1,79 @@
 [
- {
-  "slug": "hate-fuck",
-  "title": "Hate Fuck",
-  "catalog": "SVR-040",
-  "year": "2020",
-  "streams": 311282,
-  "cover": "/assets/cover-art/hate-fuck.jpg",
-  "albumId": "2dD9eFNVNAtk9qOH37lCfm",
-  "featured": [
-   "Project Pat"
-  ]
- },
- {
-  "slug": "excelente-2018",
-  "title": "Excelente",
-  "catalog": "SVR-020",
-  "year": "2018",
-  "streams": 59381,
-  "cover": "/assets/cover-art/excelente-2018.jpg",
-  "albumId": "5BgkAlPrRyrzD4rJQVrYQb",
-  "featured": []
- },
- {
-  "slug": "tempo",
-  "title": "Tempo",
-  "catalog": "SVR-031",
-  "year": "2019",
-  "streams": 40274,
-  "cover": "/assets/cover-art/tempo.jpg",
-  "albumId": "3DsQXZHCdCXxnDLiOD39EI",
-  "featured": [
-   "Sunnie"
-  ]
- },
- {
-  "slug": "if-it-comes-to-it",
-  "title": "If It Comes to It",
-  "catalog": "SVR-050",
-  "year": "2020",
-  "streams": 13300,
-  "cover": "/assets/cover-art/if-it-comes-to-it.jpg",
-  "albumId": "2VZedDUaSImM1urmhvILTA",
-  "featured": [
-   "Che Noir",
-   "Mooch"
-  ]
- },
- {
-  "slug": "mind-my-biz",
-  "title": "Mind My Biz",
-  "catalog": "SVR-067",
-  "year": "2023",
-  "streams": 8185,
-  "cover": "/assets/cover-art/mind-my-biz.jpg",
-  "albumId": "1VCyFoOq3wkXII2wCyPqTW",
-  "featured": [
-   "OG Maco"
-  ]
- },
- {
-  "slug": "they-are-not-your-friends-remix",
-  "title": "They are not your Friends - Remix",
-  "catalog": "SVR-059",
-  "year": "2023",
-  "streams": 6983,
-  "cover": "/assets/cover-art/they-are-not-your-friends-remix.jpg",
-  "albumId": "3Phvnv6NUGftBKg7ZN8Nru",
-  "featured": [
-   "Nick Nigh"
-  ]
- }
+  {
+    "slug": "hate-fuck",
+    "title": "Hate Fuck",
+    "catalog": "SVR-040",
+    "year": "2020",
+    "streams": 311282,
+    "cover": "/assets/cover-art/hate-fuck.jpg",
+    "albumId": "2dD9eFNVNAtk9qOH37lCfm",
+    "featured": [
+      "Project Pat"
+    ],
+    "previewUrl": null
+  },
+  {
+    "slug": "excelente-2018",
+    "title": "Excelente",
+    "catalog": "SVR-020",
+    "year": "2018",
+    "streams": 59381,
+    "cover": "/assets/cover-art/excelente-2018.jpg",
+    "albumId": "5BgkAlPrRyrzD4rJQVrYQb",
+    "featured": [],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/61/f1/4f/61f14f5d-0b52-50f4-0996-986a1ce3e91b/mzaf_2709092185917594039.plus.aac.p.m4a"
+  },
+  {
+    "slug": "tempo",
+    "title": "Tempo",
+    "catalog": "SVR-031",
+    "year": "2019",
+    "streams": 40274,
+    "cover": "/assets/cover-art/tempo.jpg",
+    "albumId": "3DsQXZHCdCXxnDLiOD39EI",
+    "featured": [
+      "Sunnie"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/39/f4/b7/39f4b74d-8370-d93f-7945-d4b4f5c4f6c4/mzaf_653325682016981369.plus.aac.p.m4a"
+  },
+  {
+    "slug": "if-it-comes-to-it",
+    "title": "If It Comes to It",
+    "catalog": "SVR-050",
+    "year": "2020",
+    "streams": 13300,
+    "cover": "/assets/cover-art/if-it-comes-to-it.jpg",
+    "albumId": "2VZedDUaSImM1urmhvILTA",
+    "featured": [
+      "Che Noir",
+      "Mooch"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/7d/ec/66/7dec666f-e381-783c-ac80-35c92eefdd01/mzaf_15546325329494094629.plus.aac.p.m4a"
+  },
+  {
+    "slug": "mind-my-biz",
+    "title": "Mind My Biz",
+    "catalog": "SVR-067",
+    "year": "2023",
+    "streams": 8185,
+    "cover": "/assets/cover-art/mind-my-biz.jpg",
+    "albumId": "1VCyFoOq3wkXII2wCyPqTW",
+    "featured": [
+      "OG Maco"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/b1/d5/f9/b1d5f953-a5e3-caa2-fb8d-410a6c75b3ed/mzaf_2937352336454152823.plus.aac.p.m4a"
+  },
+  {
+    "slug": "they-are-not-your-friends-remix",
+    "title": "They are not your Friends - Remix",
+    "catalog": "SVR-059",
+    "year": "2023",
+    "streams": 6983,
+    "cover": "/assets/cover-art/they-are-not-your-friends-remix.jpg",
+    "albumId": "3Phvnv6NUGftBKg7ZN8Nru",
+    "featured": [
+      "Nick Nigh"
+    ],
+    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9c/23/af/9c23aff7-008e-e6c8-717d-156ab74f3a02/mzaf_8875671228655385869.plus.aac.p.m4a"
+  }
 ]
