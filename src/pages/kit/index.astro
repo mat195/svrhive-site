@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
 import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
+import VelvetBand from '../../components/VelvetBand.astro';
 import covers from '../../data/covers.json';
 import featuredSet from '../../data/featured.json';
 const featuredTop = featuredSet as any[]; // mat-confirmed-current (source: Mat, 2026-07-07)
@@ -62,6 +63,8 @@ const facts: [string, string][] = [
       <li><span class="k">{k}</span><span>{v}</span></li>
     ))}
   </ul>
+
+  <VelvetBand height={170} />
 
   <h2>Featured tracks <span class="catno" style="margin-left:0.4rem;">current</span></h2>
   <ul class="sleeve-grid">

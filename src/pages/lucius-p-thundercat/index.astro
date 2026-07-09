@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../../lib/entity';
 import { musicGroupLd, organizationLd, breadcrumbLd, graph } from '../../lib/jsonld';
+import VelvetBand from '../../components/VelvetBand.astro';
 import covers from '../../data/covers.json';
 import featuredSet from '../../data/featured.json';
 
@@ -61,6 +62,8 @@ const jsonld = graph([
       <>{i > 0 ? ', ' : ''}<span class="name">{n}</span></>
     ))}.
   </p>
+
+  <VelvetBand />
 
   {/* Featured — mat-confirmed-current (source: Mat, 2026-07-07). Editorial pick, not a
       streams ranking. Full discography follows below. */}

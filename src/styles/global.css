@@ -369,3 +369,28 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .sleeve .art.playing, .crate .rec.playing { box-shadow: 0 0 0 2px var(--silk), var(--elev-3); }
 .sleeve .art.playing { transform: none !important; }
 .crate .rec.playing { transform: rotate(0deg) scale(1.04) !important; z-index: 300 !important; }
+
+/* ── Counter-Velvet Banner — Ribbon-toned real velvet, full-bleed thick band ──── */
+/* Full-bleed WITHOUT transform (a transformed ancestor would break background-attachment:
+   fixed). The Ribbon scan shows large + rich with NO dimming overlay so the weave reads. */
+.velvet-band {
+  position: relative;
+  width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+  height: var(--band-h, 210px); margin-top: 3.6rem; margin-bottom: 3.6rem;
+  background-image: url('/assets/silk-velvet-ribbon.jpg');
+  background-size: cover; background-position: center center; background-repeat: no-repeat;
+  background-attachment: fixed; /* parallax depth — the band feels like physical fabric on scroll */
+  display: grid; place-items: center;
+  border-top: 1.5px solid var(--silk); border-bottom: 1.5px solid var(--silk); /* gold piping/trim */
+  box-shadow: inset 0 1px 0 rgba(201,168,106,0.25), inset 0 -1px 0 rgba(201,168,106,0.25);
+}
+.velvet-band-label {
+  font-family: var(--display); color: var(--cream);
+  font-size: clamp(0.95rem, 2.4vw, 1.45rem); letter-spacing: 0.34em; text-transform: uppercase;
+  padding-left: 0.34em; /* offset the trailing tracking so it reads optically centred */
+  text-shadow: 0 2px 16px rgba(10,4,8,0.72), 0 0 3px rgba(10,4,8,0.55); /* legibility, band stays undimmed */
+}
+/* background-attachment: fixed janks on iOS + fights reduced-motion → static cover fallback
+   (still full richness, just no parallax). */
+@media (max-width: 760px) { .velvet-band { background-attachment: scroll; margin-top: 2.4rem; margin-bottom: 2.4rem; } }
+@media (prefers-reduced-motion: reduce) { .velvet-band { background-attachment: scroll; } }

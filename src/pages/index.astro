@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { entity, LABEL_NAME, CANONICAL_NAME } from '../lib/entity';
 import { organizationLd, websiteLd, musicGroupLd, breadcrumbLd, graph } from '../lib/jsonld';
+import VelvetBand from '../components/VelvetBand.astro';
 import featured from '../data/featured.json';
 
 // featured: mat-confirmed-current (source: Mat, 2026-07-07) — a direct editorial pick of
@@ -44,6 +45,8 @@ const jsonld = graph([
       </div>
     </div>
   </div>
+
+  <VelvetBand label="Silk Velvet Records" />
 
   <h2>Roster</h2>
   <a class="roster-card" href="/lucius-p-thundercat/">

@@ -1,0 +1,15 @@
+---
+// Counter-Velvet Banner — a thick full-bleed band of the REAL photographed velvet scan,
+// luminance-remapped toward the Ribbon (#7a3b4f) counter-tone. A deliberate visual anchor at
+// a structural break: a different colour from the dominant Velvet base, and a counterweight on
+// the page. Shown large + rich (no dimming overlay) so the weave and fibre catch read as actual
+// fabric. Optional sparse Cream label (a selvedge-style tag); pure texture is the default.
+export interface Props {
+  label?: string;   // optional sparse line, set in Cream (leave unset for pure texture)
+  height?: number;  // band thickness in px (150–250 range)
+}
+const { label, height = 210 } = Astro.props;
+---
+<section class="velvet-band" style={`--band-h:${height}px`} role={label ? undefined : 'presentation'} aria-hidden={label ? undefined : 'true'}>
+  {label && <span class="velvet-band-label">{label}</span>}
+</section>
