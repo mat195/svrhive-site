@@ -372,13 +372,14 @@ main { flex: 1; padding: 3rem 0 4rem; }
   .lr-deck { grid-template-columns: 1fr; justify-items: center; gap: 1.2rem; }
   .cr-sleeve { width: 104px; }
   .lr-crate { height: 200px; }
-  .lr-chips { justify-content: center; margin-bottom: 1rem; }
+  .lr-chips { justify-content: center; margin-bottom: 1rem; gap: 0.4rem; }
+  .lr-chip { font-size: 0.68rem; padding: 0.3rem 0.55rem; }
   /* Compact the intro on mobile so the crate/wheel + Pull button are near the top, not buried. */
   .room-home { padding-top: 0.5rem; }
   .room-intro { margin: 0 auto 1rem; }
   .room-intro h1 { font-size: 1.6rem; margin: 0.1rem 0 0.35rem; }
   .room-intro .lede { font-size: 0.88rem; line-height: 1.42; }
-  .room-intro .eyebrow { font-size: 0.6rem; margin-bottom: 0.3rem; }
+  .room-intro .eyebrow { font-size: 0.58rem; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
   .velvet-stage { padding: 1.4rem 0 1.6rem; margin-top: 1rem; }
 }
 
