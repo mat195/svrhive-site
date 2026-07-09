@@ -53,7 +53,12 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
           <strong id="lr-title" class="lr-player-title"></strong>
           <span id="lr-meta" class="muted mono"></span>
         </div>
-        <div id="lr-embed" class="lr-embed"></div>
+        <div class="lr-player-body">
+          {/* Record player: a compact vinyl (cover on the label) that spins while a track plays. */}
+          <div class="lr-vinyl" aria-hidden="true"><span class="lr-vinyl-disc"><img id="lr-vinyl-cover" src="" alt="" /></span></div>
+          {/* Embed player: the platform's own track player. */}
+          <div id="lr-embed" class="lr-embed"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -130,7 +135,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     const updateWheelLabel = () => setInfo(wheelList[frontIdx()]); // header tracks the front cover as you spin
     const renderWheel = (list) => {
       wheelList = list; pos = 0; vel = 0;
-      wheelTrack.innerHTML = list.map((rec, i) => `<button class="lr-wheel-cover" type="button" data-slug="${rec.slug}" data-idx="${i}" aria-label="${rec.title.replace(/"/g, '')}"><img src="${rec.cover}" alt="${rec.title.replace(/"/g, '')} cover art" loading="lazy"></button>`).join('');
+      wheelTrack.innerHTML = list.map((rec, i) => `<button class="lr-wheel-cover" type="button" tabindex="-1" data-slug="${rec.slug}" data-idx="${i}" aria-label="${rec.title.replace(/"/g, '')}"><img src="${rec.cover}" alt="${rec.title.replace(/"/g, '')} cover art" loading="lazy"></button>`).join('');
       positionWheel(); updateWheelLabel();
     };
     // Momentum + settle. Kept in the 'dragging' state (CSS transition off) so it's rAF-driven.
@@ -146,9 +151,10 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       if (Math.abs(vel) > 0.3) updateWheelLabel();
       wheelRaf = requestAnimationFrame(spin);
     };
-    let dragX = null, startPos = 0, lastPos = 0, moved = 0;
+    let dragX = null, startPos = 0, lastPos = 0, moved = 0, downCover = null;
     wheel.addEventListener('pointerdown', (e) => {
       if (e.target.closest('.lr-wheel-arrow')) return;
+      downCover = e.target.closest('.lr-wheel-cover'); // remember which cover was pressed (for tap-to-play)
       if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; }
       dragX = e.clientX; startPos = pos; lastPos = pos; vel = 0; moved = 0;
       wheel.classList.add('dragging'); try { wheel.setPointerCapture(e.pointerId); } catch (_) {}
@@ -161,19 +167,25 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       wheel.classList.toggle('fast', Math.abs(vel) > 0.3);
       positionWheel();
     });
-    const release = () => {
+    // Release. A TAP (barely moved) plays/centres the pressed cover — handled HERE, not via a
+    // click event, because setPointerCapture makes the browser fire click on the wheel, not the
+    // cover, so a click listener never sees it. A real DRAG flings with momentum.
+    const release = (e) => {
       if (dragX == null) return; dragX = null;
+      try { if (e && e.pointerId != null) wheel.releasePointerCapture(e.pointerId); } catch (_) {}
+      if (moved < 6 && downCover) {                             // a tap, not a drag
+        wheel.classList.remove('dragging', 'fast');
+        const idx = +downCover.dataset.idx; downCover = null;
+        if (Math.round(wrapOff(idx)) === 0) playRecord(wheelList[idx]);      // front cover → play in place
+        else { pos += wrapOff(idx); positionWheel(); updateWheelLabel(); }   // side cover → glide to front
+        return;
+      }
+      downCover = null;
       vel = Math.max(-1.5, Math.min(1.5, vel));                 // cap the fling
       if (!wheelRaf) wheelRaf = requestAnimationFrame(spin);
     };
     wheel.addEventListener('pointerup', release);
     wheel.addEventListener('pointercancel', release);
-    // Tap a cover (not a drag): front → play; a side cover glides to the front.
-    wheelTrack.addEventListener('click', (e) => {
-      const b = e.target.closest('.lr-wheel-cover'); if (!b || moved > 6) return;
-      if (Math.round(wrapOff(+b.dataset.idx)) === 0) playRecord(wheelList[+b.dataset.idx]); // front → play in place
-      else { if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; } pos += wrapOff(+b.dataset.idx); wheel.classList.remove('dragging'); positionWheel(); updateWheelLabel(); }
-    });
     // Arrows — secondary/accessible fallback: one smooth CSS-eased step (still wraps).
     const stepBy = (d) => { if (wheelRaf) { cancelAnimationFrame(wheelRaf); wheelRaf = 0; } wheel.classList.remove('dragging', 'fast'); pos = Math.round(pos) + d; positionWheel(); updateWheelLabel(); };
     wheel.querySelector('.prev').addEventListener('click', () => stepBy(-1));
@@ -216,8 +228,9 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       if (!r) return;
       currentRec = r; setInfo(r);
       if (window.SVR) window.SVR.stop();
+      const vc = document.getElementById('lr-vinyl-cover'); if (vc) { vc.src = r.cover; vc.alt = r.title + ' cover art'; }
       renderEmbed(r, 'spotify');
-      document.getElementById('lr-player').classList.add('has-embed');
+      document.getElementById('lr-player').classList.add('has-embed'); // reveals + spins the record player
       wheelTrack.querySelectorAll('.lr-wheel-cover').forEach((el) => el.classList.toggle('playing', el.dataset.slug === r.slug));
     };
     const spinToSlug = (slug) => {                              // bring a record to the front (list / deep-link)
