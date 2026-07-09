@@ -225,6 +225,29 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .cr-sleeve img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; border: 1px solid var(--edge); box-shadow: 0 12px 26px -14px rgba(0,0,0,0.85); display: block; }
 .cr-sleeve:hover, .cr-sleeve:focus-visible { transform: translate(var(--x), calc(var(--y) - 22px)) rotate(0deg); z-index: 30 !important; }
 .cr-sleeve:focus-visible { outline: 2px solid var(--silk); outline-offset: 3px; }
+.lr-crate[hidden] { display: none; }
+
+/* ── 360° round-spin wheel (coverflow) — the full catalogue, draggable/swipeable ─── */
+.lr-wheel { position: relative; height: 300px; perspective: 1100px; overflow: hidden; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.lr-wheel.dragging { cursor: grabbing; }
+.lr-wheel[hidden] { display: none; }
+.lr-wheel-track { position: absolute; inset: 0; transform-style: preserve-3d; }
+.lr-wheel-cover { position: absolute; left: 50%; top: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; padding: 0; border: 0; background: none; border-radius: 4px; cursor: pointer; transition: transform 0.45s cubic-bezier(.2,.7,.2,1), opacity 0.45s; will-change: transform; }
+.lr-wheel.dragging .lr-wheel-cover { transition: none; }
+.lr-wheel-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; border: 1px solid var(--edge); box-shadow: 0 18px 44px -14px rgba(0,0,0,0.9); display: block; pointer-events: none; }
+.lr-wheel-cover.front img { border-color: var(--silk); box-shadow: 0 22px 50px -12px rgba(0,0,0,0.95), 0 0 0 1px rgba(201,168,106,0.5); }
+.lr-wheel-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 60; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--edge); background: rgba(22,16,28,0.72); color: var(--cream); font-size: 1.4rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+.lr-wheel-arrow:hover { border-color: var(--silk); color: var(--silk); }
+.lr-wheel-arrow.prev { left: 0.4rem; } .lr-wheel-arrow.next { right: 0.4rem; }
+.lr-wheel-label { text-align: center; margin: 0.1rem 0 1.1rem; font-family: var(--display); font-size: 1.2rem; color: var(--cream); }
+.lr-wheel-label[hidden] { display: none; }
+.lr-wheel-label .muted { font-family: var(--mono); font-size: 0.72rem; color: var(--static); }
+@media (max-width: 560px) {
+  .lr-wheel { height: 244px; }
+  .lr-wheel-cover { width: 150px; height: 150px; margin: -75px 0 0 -75px; }
+  .lr-wheel-arrow { width: 34px; height: 34px; font-size: 1.2rem; }
+  .lr-wheel-label { font-size: 1.02rem; }
+}
 
 .lr-pullbtn { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--velvet); background: var(--silk); border: none; border-radius: 3px; padding: 0.7rem 1.4rem; cursor: pointer; transition: background 0.2s; }
 .lr-pullbtn:hover { background: #dcbd7f; }
@@ -347,8 +370,16 @@ main { flex: 1; padding: 3rem 0 4rem; }
 
 @media (max-width: 720px) {
   .lr-deck { grid-template-columns: 1fr; justify-items: center; gap: 1.2rem; }
-  .cr-sleeve { width: 118px; }
+  .cr-sleeve { width: 104px; }
   .lr-crate { height: 200px; }
+  .lr-chips { justify-content: center; margin-bottom: 1rem; }
+  /* Compact the intro on mobile so the crate/wheel + Pull button are near the top, not buried. */
+  .room-home { padding-top: 0.5rem; }
+  .room-intro { margin: 0 auto 1rem; }
+  .room-intro h1 { font-size: 1.6rem; margin: 0.1rem 0 0.35rem; }
+  .room-intro .lede { font-size: 0.88rem; line-height: 1.42; }
+  .room-intro .eyebrow { font-size: 0.6rem; margin-bottom: 0.3rem; }
+  .velvet-stage { padding: 1.4rem 0 1.6rem; margin-top: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
