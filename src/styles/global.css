@@ -388,15 +388,16 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .svr-p-time#svr-p-dur { text-align: right; }
 .svr-p-scrub { flex: 1 1 auto; height: 4px; border-radius: 999px; background: var(--underfelt-2); cursor: pointer; overflow: hidden; }
 .svr-p-fill { height: 100%; width: 0; background: var(--silk); border-radius: 999px; transition: width 0.15s linear; }
-.svr-p-spotify { flex: 0 0 auto; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--static); text-decoration: none; white-space: nowrap; }
-.svr-p-spotify:hover { color: var(--silk); }
+.svr-p-spotify, .svr-p-apple { flex: 0 0 auto; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--static); text-decoration: none; white-space: nowrap; }
+.svr-p-spotify:hover, .svr-p-apple:hover { color: var(--silk); }
+.svr-p-apple[hidden] { display: none; }
 .svr-p-close { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 999px; border: 1px solid var(--edge); background: transparent; color: var(--static); cursor: pointer; font-size: 0.75rem; line-height: 1; }
 .svr-p-close:hover { color: var(--cream); }
 .svr-p-note { display: none; font-family: var(--mono); font-size: 0.74rem; color: var(--static); margin-top: 0.25rem; }
 /* No-preview: hide the transport, show the note + a gold "Listen on Spotify →" CTA. */
 .svr-player.no-preview .svr-p-transport, .svr-player.no-preview .svr-p-toggle { display: none; }
 .svr-player.no-preview .svr-p-note { display: block; }
-.svr-player.no-preview .svr-p-spotify { color: var(--silk); }
+.svr-player.no-preview .svr-p-spotify, .svr-player.no-preview .svr-p-apple { color: var(--silk); }
 @media (max-width: 560px) { .svr-player { bottom: 0.6rem; } .svr-p-title { font-size: 0.95rem; } }
 
 /* Playing → gold ring on the cover + kill the 3D tilt so it sits square. */

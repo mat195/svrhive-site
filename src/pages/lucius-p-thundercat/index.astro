@@ -73,7 +73,7 @@ const jsonld = graph([
       <li>
         <a class="sleeve" href={`/lucius-p-thundercat/releases/${r.slug}/`}>
           {r.cover
-            ? <span class="art" data-album={r.albumId || undefined} data-preview={r.previewUrl || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
+            ? <span class="art" data-album={r.albumId || undefined} data-preview={r.previewUrl || undefined} data-track={r.trackId || undefined} data-apple-track={r.appleTrackId || undefined} data-apple-album={r.appleAlbumId || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
             : <span class="art placeholder"><span class="catno">{r.catalog}</span></span>}
           <span class="meta">
             <span class="title">{r.title}</span>
@@ -92,7 +92,7 @@ const jsonld = graph([
           <li>
             <a class="sleeve" href={`/lucius-p-thundercat/releases/${r.slug}/`}>
               {r.cover ? (
-                <span class="art" data-album={r.albumId || undefined} data-preview={r.previewUrl || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
+                <span class="art" data-album={r.albumId || undefined} data-preview={r.previewUrl || undefined} data-track={r.trackId || undefined} data-apple-track={r.appleTrackId || undefined} data-apple-album={r.appleAlbumId || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
               ) : (
                 <span class="art placeholder"><span class="catno">{r.catalog ?? 'SVR'}</span></span>
               )}

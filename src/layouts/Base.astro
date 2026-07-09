@@ -82,9 +82,10 @@ const isCurrent = (href: string) => href === path;
           <div class="svr-p-scrub" id="svr-p-scrub" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><div class="svr-p-fill" id="svr-p-fill"></div></div>
           <span class="svr-p-time" id="svr-p-dur">0:30</span>
         </div>
-        <div class="svr-p-note" id="svr-p-note">Hear the full track on Spotify</div>
+        <div class="svr-p-note" id="svr-p-note">Hear the full track:</div>
       </div>
-      <a class="svr-p-spotify" id="svr-p-spotify" href="#" target="_blank" rel="noopener">Listen on Spotify →</a>
+      <a class="svr-p-spotify" id="svr-p-spotify" href="#" target="_blank" rel="noopener">Spotify ↗</a>
+      <a class="svr-p-apple" id="svr-p-apple" href="#" target="_blank" rel="noopener" hidden>Apple Music ↗</a>
       <button id="svr-p-close" class="svr-p-close" type="button" aria-label="Close player">✕</button>
     </div>
     <audio id="svr-audio" preload="none" transition:persist></audio>
@@ -118,7 +119,8 @@ const isCurrent = (href: string) => href === path;
             var c = this.current || {};
             $('svr-p-title').textContent = c.title || '';
             var cover = $('svr-p-cover'); if (c.cover) { cover.src = c.cover; cover.style.display = ''; } else { cover.style.display = 'none'; }
-            var sp = $('svr-p-spotify'); if (c.spotify) { sp.href = c.spotify; sp.style.display = ''; } else { sp.style.display = 'none'; }
+            var sp = $('svr-p-spotify'); if (c.spotify) { sp.href = c.spotify; sp.hidden = false; } else { sp.hidden = true; }
+            var ap = $('svr-p-apple'); if (ap) { if (c.apple) { ap.href = c.apple; ap.hidden = false; } else { ap.hidden = true; } }
             bar.classList.toggle('no-preview', !c.src);
             bar.hidden = false; // the floating bottom bar is the transport everywhere, room included
 
@@ -147,7 +149,7 @@ const isCurrent = (href: string) => href === path;
           var tgt = e.target;
           if (tgt.closest && tgt.closest('#svr-p-toggle')) { SVR.toggle(); return; }
           if (tgt.closest && tgt.closest('#svr-p-close')) { SVR.stop(); return; }
-          if (tgt.closest && tgt.closest('#svr-p-spotify')) { return; } // let the link open
+          if (tgt.closest && (tgt.closest('#svr-p-spotify') || tgt.closest('#svr-p-apple'))) { return; } // let the platform link open
           var scrub = tgt.closest && tgt.closest('#svr-p-scrub');
           if (scrub) { var a = SVR.audio(); if (a && a.duration) { var r = scrub.getBoundingClientRect(); a.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * a.duration; } return; }
           // Site-wide cover play (skip /listen/, which drives the player through its deck).
@@ -157,8 +159,13 @@ const isCurrent = (href: string) => href === path;
           e.preventDefault(); e.stopPropagation();
           var img = el.querySelector('img');
           var title = (el.getAttribute('data-title') || (img && img.alt) || '').replace(/ cover art$/, '');
-          var album = el.getAttribute('data-album');
-          SVR.play({ src: el.getAttribute('data-preview') || '', title: title, cover: (img && img.src) || '', spotify: album ? ('https://open.spotify.com/album/' + album) : '', trigger: el });
+          var album = el.getAttribute('data-album'), track = el.getAttribute('data-track');
+          var aTrack = el.getAttribute('data-apple-track'), aAlbum = el.getAttribute('data-apple-album');
+          SVR.play({
+            src: el.getAttribute('data-preview') || '', title: title, cover: (img && img.src) || '',
+            spotify: track ? ('https://open.spotify.com/track/' + track) : (album ? ('https://open.spotify.com/album/' + album) : ''),
+            apple: (aTrack && aAlbum) ? ('https://music.apple.com/us/album/' + aAlbum + '?i=' + aTrack) : '',
+            trigger: el });
         });
         document.addEventListener('keydown', function (e) {
           if (e.key === 'Escape') { SVR.stop(); return; }
