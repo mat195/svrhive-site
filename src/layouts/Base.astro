@@ -52,7 +52,7 @@ const isCurrent = (href: string) => href === path;
     <div id="sheen" aria-hidden="true"></div>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="/" aria-label={LABEL_NAME}><img class="brand-logo" src="/assets/svr-glass-plate-logo.png" alt={LABEL_NAME} width="1795" height="1721" /></a>
+        <a class="brand" href="/" aria-label={LABEL_NAME}><img class="brand-logo" src="/assets/svr-glass-plate-logo.png?v=2" alt={LABEL_NAME} width="1423" height="1193" /></a>
         <nav class="primary" aria-label="Primary">
           {nav.map((n) => (
             <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
