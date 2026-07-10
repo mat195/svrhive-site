@@ -1,5 +1,5 @@
 {
-  "_about": "Friday to Friday Podcast episode guide. One entry per episode. episode_number is provisional/site-assigned (the channel does not publish official numbers) — reorder as the backlog is filled. transcript_source flags caption quality: 'youtube-auto' = machine-generated, lower quality, swap later without touching code.",
+  "_about": "Friday to Friday Podcast. `episodes` = full-length episodes (lead content: YouTube + Spotify embeds + transcript). `clips` = the short daily YouTube clips, demoted. episode_number is provisional/site-assigned (channel publishes no official numbers). transcript_source flags caption quality. spotify_episode_id is null until Mat provides the Spotify show/episode IDs — the show was not findable via Spotify search, so those embeds are pending.",
   "channel": {
     "name": "Friday To Friday Podcast",
     "handle": "@FridayToFridayPodcast",
@@ -8,38 +8,62 @@
   },
   "episodes": [
     {
+      "slug": "maxo-kream-prof-1900rugrat-radamiz-jody-fontaine-maiya-the-d",
+      "episode_number": 2,
+      "title": "Maxo Kream, Prof, 1900Rugrat, Radamiz, Jody Fontaine & Maiya the Don",
+      "air_date": "2026-07-06",
+      "duration_min": 35,
+      "youtube_video_id": "my5zPBsuVNU",
+      "spotify_episode_id": null,
+      "artists_covered": ["Maxo Kream", "Prof", "1900Rugrat", "Radamiz", "Jody Fontaine", "Maiya the Don"],
+      "synopsis": "The full weekly roundup — the hosts run through the week's new releases from Maxo Kream, Prof, 1900Rugrat, Radamiz, Jody Fontaine, and Maiya the Don.",
+      "hosts": [],
+      "transcript_file": "maxo-kream-prof-1900rugrat-radamiz-jody-fontaine-maiya-the-d.txt",
+      "transcript_source": "youtube-auto"
+    },
+    {
+      "slug": "tierra-whack-key-glock-yg-benny-the-butcher-nicholas-craven-",
+      "episode_number": 1,
+      "title": "Tierra Whack, Key Glock, YG, Benny The Butcher, Nicholas Craven & Boldy James, The Alchemist",
+      "air_date": "2026-06-29",
+      "duration_min": 34,
+      "youtube_video_id": "s0zqfd3c9Yk",
+      "spotify_episode_id": null,
+      "artists_covered": ["Tierra Whack", "Key Glock", "YG", "Benny The Butcher", "Nicholas Craven", "Boldy James", "The Alchemist"],
+      "synopsis": "A packed week in review — the hosts break down new drops from Tierra Whack, Key Glock, YG, Benny The Butcher, the Nicholas Craven & Boldy James collab, and The Alchemist.",
+      "hosts": [],
+      "transcript_file": "tierra-whack-key-glock-yg-benny-the-butcher-nicholas-craven-.txt",
+      "transcript_source": "youtube-auto"
+    }
+  ],
+  "clips": [
+    {
       "slug": "tyler-the-creator-whisper-rap-twist",
-      "episode_number": 3,
       "title": "Tyler, the Creator's Whisper Rap Twist",
       "air_date": "2026-07-10",
       "youtube_video_id": "1yB-CGGYPwM",
       "artists_covered": ["YG", "Tyler, the Creator"],
-      "synopsis": "The hosts unpack the surprise Tyler, the Creator feature on YG's \"On the Low\" — bracing for whisper-rap and getting a laid-back subversion instead — and name their favorite cuts on the album.",
-      "hosts": [],
+      "synopsis": "The surprise Tyler, the Creator feature on YG's \"On the Low\" — bracing for whisper-rap and getting a laid-back subversion instead.",
       "transcript_file": "tyler-the-creator-whisper-rap-twist.txt",
       "transcript_source": "youtube-auto"
     },
     {
       "slug": "flyana-boss-under-the-influence",
-      "episode_number": 2,
       "title": "Flyana Boss — Under the Influence",
       "air_date": "2026-07-09",
       "youtube_video_id": "0Qw_2Nex9B8",
       "artists_covered": ["Flyana Boss"],
-      "synopsis": "A high-energy look at Flyana Boss's \"Under the Influence\" — eight songs of catchy, club-ready bangers, with standouts Wasabi, Bands Up, Jungle, and the EDM-trap \"Feeling It.\"",
-      "hosts": [],
+      "synopsis": "Eight songs of catchy, club-ready bangers — standouts Wasabi, Bands Up, Jungle, and the EDM-trap \"Feeling It.\"",
       "transcript_file": "flyana-boss-under-the-influence.txt",
       "transcript_source": "youtube-auto"
     },
     {
       "slug": "rj-payne-growing-paynes-ep",
-      "episode_number": 1,
       "title": "RJ Payne — Growing Paynes EP",
       "air_date": "2026-07-08",
       "youtube_video_id": "jSC15alaha4",
       "artists_covered": ["RJ Payne", "Padre"],
-      "synopsis": "A quick take on RJ Payne's five-track \"Growing Paynes\" EP — sharp lyricism over Padre's boom-bap beats, and a more introspective turn from Payne.",
-      "hosts": [],
+      "synopsis": "RJ Payne's five-track \"Growing Paynes\" EP — sharp lyricism over Padre's boom-bap beats, and a more introspective turn.",
       "transcript_file": "rj-payne-growing-paynes-ep.txt",
       "transcript_source": "youtube-auto"
     }

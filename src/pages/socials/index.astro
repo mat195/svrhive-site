@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import { LABEL_NAME, CANONICAL_NAME, entity, absolute } from '../../lib/entity';
+import { organizationLd, musicGroupLd, breadcrumbLd, graph } from '../../lib/jsonld';
+
+const links = (entity.links ?? []).filter((l: any) => l.status !== 'dead' && !/silkvelvetrecords\.com/.test(l.url));
+
+// Pull IDs for the live-embeddable platforms.
+const find = (re: RegExp) => links.find((l: any) => re.test(l.url))?.url ?? '';
+const spotifyArtist = (find(/open\.spotify\.com\/artist/).match(/artist\/([A-Za-z0-9]+)/) || [])[1] || '';
+const ytChannel = (find(/youtube\.com\/channel/).match(/channel\/(UC[\w-]+)/) || [])[1] || '';
+const ytUploads = ytChannel ? 'UU' + ytChannel.slice(2) : '';
+const soundcloudUrl = find(/soundcloud\.com/);
+
+// Cards for every platform (name + link out). Featured three also get a live embed above.
+const FEATURED = new Set(['Spotify', 'YouTube', 'SoundCloud']);
+const path = '/socials/';
+const title = `${CANONICAL_NAME} — Socials`;
+const description = `Every active ${CANONICAL_NAME} platform in one place — stream, watch, and follow across Spotify, YouTube, SoundCloud, Instagram, TikTok, and more.`;
+const jsonld = graph([
+  musicGroupLd(),
+  organizationLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: CANONICAL_NAME, path: '/lucius-p-thundercat/' },
+    { name: 'Socials', path },
+  ]),
+]);
+---
+
+<Base title={title} description={description} path={path} jsonld={jsonld}>
+  <p class="eyebrow"><a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> · Socials</p>
+  <h1>Socials</h1>
+  <p class="lede">Every active {CANONICAL_NAME} platform in one place — with live players for the ones that support it.</p>
+
+  <section class="soc-featured">
+    {spotifyArtist && (
+      <div class="soc-embed">
+        <h2>Spotify</h2>
+        <iframe title={`${CANONICAL_NAME} on Spotify`} loading="lazy" src={`https://open.spotify.com/embed/artist/${spotifyArtist}?utm_source=generator&theme=0`} width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      </div>
+    )}
+    {ytUploads && (
+      <div class="soc-embed">
+        <h2>YouTube — latest uploads</h2>
+        <div class="soc-yt"><iframe title={`${CANONICAL_NAME} on YouTube`} loading="lazy" src={`https://www.youtube-nocookie.com/embed/videoseries?list=${ytUploads}`} allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      </div>
+    )}
+    {soundcloudUrl && (
+      <div class="soc-embed">
+        <h2>SoundCloud</h2>
+        <iframe title={`${CANONICAL_NAME} on SoundCloud`} loading="lazy" width="100%" height="300" scrolling="no" frameborder="no" src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudUrl)}&color=%237a3b4f&auto_play=false&hide_related=true&show_comments=false&show_reposts=false&visual=true`}></iframe>
+      </div>
+    )}
+  </section>
+
+  <h2>All platforms</h2>
+  <ul class="soc-grid">
+    {links.map((l: any) => (
+      <li>
+        <a class="soc-card" href={l.url} target="_blank" rel="noopener me">
+          <span class="soc-name">{l.platform}</span>
+          <span class="soc-go" aria-hidden="true">↗</span>
+          {FEATURED.has(l.platform) && <span class="soc-live mono">live above</span>}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <p class="muted" style="margin-top:1.6rem"><small>
+    Live players shown for Spotify, YouTube, and SoundCloud (public embeds). Instagram, TikTok, X, and Facebook
+    require per-platform API tokens for live previews — linked out here as a v1 fallback; a "latest highlights"
+    embed can be added per platform later.
+  </small></p>
+</Base>

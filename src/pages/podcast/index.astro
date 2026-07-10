@@ -5,9 +5,10 @@ import { organizationLd, breadcrumbLd, clean, graph } from '../../lib/jsonld';
 import podcast from '../../data/podcast.json';
 
 const episodes = [...podcast.episodes].sort((a, b) => b.air_date.localeCompare(a.air_date));
+const clips = [...podcast.clips].sort((a, b) => b.air_date.localeCompare(a.air_date));
 const path = '/podcast/';
 const title = `${podcast.channel.name} — Episode Guide`;
-const description = `Episode guide for ${podcast.channel.name}: weekly album reviews and hip-hop conversation. Watch each episode and read the full transcript.`;
+const description = `Full episodes of ${podcast.channel.name}: weekly hip-hop album reviews. Watch on YouTube or Spotify and read the full transcript of each episode.`;
 
 const seriesLd = clean({
   '@type': 'PodcastSeries',
@@ -16,36 +17,60 @@ const seriesLd = clean({
   sameAs: podcast.channel.url,
   publisher: { '@id': absolute('/#organization') },
 });
-
 const jsonld = graph([
   seriesLd,
   organizationLd(),
-  breadcrumbLd([
-    { name: LABEL_NAME, path: '/' },
-    { name: podcast.channel.name, path },
-  ]),
+  breadcrumbLd([{ name: LABEL_NAME, path: '/' }, { name: podcast.channel.name, path }]),
 ]);
 ---
 
 <Base title={title} description={description} path={path} jsonld={jsonld}>
   <p class="eyebrow"><a href="/">{LABEL_NAME}</a> · Podcast</p>
   <h1>{podcast.channel.name}</h1>
-  <p class="lede">Weekly album reviews and hip-hop conversation. Every episode below links to the video and a full, readable transcript.</p>
+  <p class="lede">Weekly hip-hop album reviews. Full episodes lead below — watch on YouTube or Spotify, and read the full transcript of each.</p>
 
-  <ul class="ep-guide">
+  <h2>Full episodes</h2>
+  <div class="ep-full-list">
     {episodes.map((ep) => (
+      <article class="ep-full">
+        <div class="ep-video">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${ep.youtube_video_id}`}
+            title={`${ep.title} — ${podcast.channel.name}`}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        {ep.spotify_episode_id && (
+          <iframe class="ep-spotify" title={`${ep.title} on Spotify`} loading="lazy" src={`https://open.spotify.com/embed/episode/${ep.spotify_episode_id}?theme=0`} width="100%" height="152" frameborder="0" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        )}
+        <div class="ep-full-meta">
+          <p class="ep-num mono">Ep {ep.episode_number} · <time datetime={ep.air_date}>{ep.air_date}</time>{ep.duration_min ? ` · ${ep.duration_min} min` : ''}</p>
+          <h3 class="ep-title"><a href={`/podcast/${ep.slug}/`}>{ep.title}</a></h3>
+          <p class="ep-syn">{ep.synopsis}</p>
+          {ep.artists_covered?.length > 0 && <p class="ep-artists mono"><span class="muted">Covered:</span> {ep.artists_covered.join(' · ')}</p>}
+          <p><a href={`/podcast/${ep.slug}/`}>Full transcript →</a></p>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <h2>Clips</h2>
+  <p class="muted" style="margin-top:-0.3rem">Short daily highlights from the channel — quick takes, not full episodes.</p>
+  <ul class="ep-guide clip-guide">
+    {clips.map((c) => (
       <li class="ep-row">
-        <a class="ep-thumb" href={`/podcast/${ep.slug}/`} aria-label={`Episode ${ep.episode_number}: ${ep.title}`}>
-          <img src={`https://i.ytimg.com/vi/${ep.youtube_video_id}/hqdefault.jpg`} alt={`${ep.title} — episode thumbnail`} width="480" height="360" loading="lazy" />
+        <a class="ep-thumb" href={`/podcast/${c.slug}/`} aria-label={c.title}>
+          <img src={`https://i.ytimg.com/vi/${c.youtube_video_id}/hqdefault.jpg`} alt={`${c.title} — clip thumbnail`} width="480" height="360" loading="lazy" />
           <span class="ep-play" aria-hidden="true">▶</span>
         </a>
         <div class="ep-meta">
-          <p class="ep-num mono">Ep {ep.episode_number} · <time datetime={ep.air_date}>{ep.air_date}</time></p>
-          <h2 class="ep-title"><a href={`/podcast/${ep.slug}/`}>{ep.title}</a></h2>
-          <p class="ep-syn">{ep.synopsis}</p>
-          {ep.artists_covered?.length > 0 && (
-            <p class="ep-artists mono"><span class="muted">Covered:</span> {ep.artists_covered.join(' · ')}</p>
-          )}
+          <p class="ep-num mono"><time datetime={c.air_date}>{c.air_date}</time> · Clip</p>
+          <h3 class="ep-title"><a href={`/podcast/${c.slug}/`}>{c.title}</a></h3>
+          <p class="ep-syn">{c.synopsis}</p>
+          {c.artists_covered?.length > 0 && <p class="ep-artists mono"><span class="muted">Covered:</span> {c.artists_covered.join(' · ')}</p>}
         </div>
       </li>
     ))}

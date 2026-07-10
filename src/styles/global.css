@@ -612,3 +612,40 @@ main { flex: 1; padding: 3rem 0 4rem; }
   .ep-thumb { width: 100%; }
   .ep-title { font-size: 1.15rem; }
 }
+
+/* Nav dropdown — an extension of the primary nav, not a new component style. */
+.nav-drop { position: relative; display: inline-flex; }
+.nav-drop-trigger { font-family: inherit; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; color: var(--static); background: none; border: 0; padding: 0 0 2px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem; border-bottom: 1px solid transparent; }
+.nav-drop-trigger:hover, .nav-drop-trigger.active { color: var(--cream); }
+.nav-drop-trigger.active { border-bottom-color: var(--ribbon); }
+.nav-caret { font-size: 0.58rem; transition: transform 0.2s; }
+.nav-drop:hover .nav-caret, .nav-drop.open .nav-caret { transform: rotate(180deg); }
+.nav-drop-menu { position: absolute; top: calc(100% + 0.5rem); right: 0; min-width: 13rem; background: var(--underfelt); border: 1px solid var(--edge); border-radius: 6px; box-shadow: var(--elev-2); padding: 0.4rem; display: none; flex-direction: column; gap: 0.1rem; z-index: 60; }
+.nav-drop-menu::before { content: ''; position: absolute; top: -0.5rem; left: 0; right: 0; height: 0.5rem; } /* hover bridge across the gap */
+.nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu, .nav-drop.open .nav-drop-menu { display: flex; }
+.nav-drop-menu a { display: block; padding: 0.55rem 0.7rem; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--static); border-radius: 4px; border-bottom: 0; white-space: nowrap; }
+.nav-drop-menu a:hover, .nav-drop-menu a[aria-current='page'] { color: var(--cream); background: rgba(122,59,79,0.18); }
+
+/* Socials page */
+.soc-featured { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.4rem; margin: 1.6rem 0 0; }
+.soc-embed { min-width: 0; }
+.soc-embed h2 { font-size: 1.1rem; margin: 0 0 0.6rem; }
+.soc-embed iframe { border-radius: 12px; border: 1px solid var(--edge); background: var(--underfelt); display: block; }
+.soc-yt { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; border: 1px solid var(--edge); }
+.soc-yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.soc-grid { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.7rem; }
+.soc-card { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 0.9rem; border: 1px solid var(--edge); border-radius: 8px; background: var(--underfelt); color: var(--cream); transition: border-color 0.2s, background 0.2s, transform 0.2s; }
+.soc-card:hover { border-color: var(--silk); background: var(--underfelt-2); color: var(--cream); transform: translateY(-2px); }
+.soc-name { font-family: var(--display); font-size: 1rem; flex: 1; }
+.soc-go { color: var(--silk); font-size: 0.85rem; }
+.soc-live { font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--static); border: 1px solid var(--hairline); border-radius: 999px; padding: 0.1rem 0.4rem; }
+
+/* Podcast: full-episode lead cards (guide) */
+.ep-full-list { display: flex; flex-direction: column; gap: 2.2rem; margin: 1.2rem 0 0; }
+.ep-full { border-bottom: 1px solid var(--hairline); padding-bottom: 2rem; }
+.ep-full:last-child { border-bottom: 0; }
+.ep-full .ep-video { margin: 0 0 0.9rem; }
+.ep-spotify { border-radius: 12px; margin: 0 0 0.9rem; display: block; }
+.ep-full-meta .ep-title { margin: 0.15rem 0 0.4rem; }
+.clip-guide { margin-top: 0.8rem; }
+.clip-guide .ep-thumb { width: 150px; }

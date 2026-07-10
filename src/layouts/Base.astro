@@ -15,10 +15,13 @@ export interface Props {
 
 const { title, description, path, jsonld, ogType = 'website', noindex = false } = Astro.props;
 const canonical = absolute(path);
-const nav = [
+const nav: Array<{ href?: string; label: string; dropdown?: { href: string; label: string }[] }> = [
   { href: '/', label: 'Listen' },
-  { href: '/lucius-p-thundercat/', label: 'Lucius P. Thundercat' },
-  { href: '/podcast/', label: 'Podcast' },
+  { label: 'Lucius P. Thundercat', dropdown: [
+    { href: '/lucius-p-thundercat/', label: 'Catalogue' },
+    { href: '/podcast/', label: 'Friday to Friday Podcast' },
+    { href: '/socials/', label: 'Socials' },
+  ] },
   { href: '/contact/', label: 'Contact' },
 ];
 const isCurrent = (href: string) => href === path;
@@ -55,9 +58,38 @@ const isCurrent = (href: string) => href === path;
       <div class="wrap">
         <nav class="primary" aria-label="Primary">
           {nav.map((n) => (
-            <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+            n.dropdown ? (
+              <div class="nav-drop">
+                <button type="button" class:list={['nav-drop-trigger', n.dropdown.some((c) => isCurrent(c.href)) && 'active']} aria-haspopup="true" aria-expanded="false">
+                  {n.label} <span class="nav-caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="nav-drop-menu" role="menu">
+                  {n.dropdown.map((c) => (
+                    <a href={c.href} role="menuitem" aria-current={isCurrent(c.href) ? 'page' : undefined}>{c.label}</a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+            )
           ))}
         </nav>
+        <script is:inline>
+          // Nav dropdown: hover opens on desktop (CSS); click/tap toggles everywhere; Esc + outside-click close.
+          (() => {
+            document.querySelectorAll('.nav-drop').forEach((drop) => {
+              const btn = drop.querySelector('.nav-drop-trigger');
+              if (!btn) return;
+              btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const open = drop.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(open));
+              });
+            });
+            document.addEventListener('click', () => document.querySelectorAll('.nav-drop.open').forEach((d) => { d.classList.remove('open'); d.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false'); }));
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.nav-drop.open').forEach((d) => { d.classList.remove('open'); d.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false'); }); });
+          })();
+        </script>
       </div>
     </header>
 

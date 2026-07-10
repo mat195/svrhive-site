@@ -11,10 +11,15 @@ const transcriptByName: Record<string, string> = {};
 for (const [p, txt] of Object.entries(rawFiles)) transcriptByName[p.split('/').pop() as string] = txt;
 
 export function getStaticPaths() {
-  return podcast.episodes.map((ep) => ({ params: { episode: ep.slug }, props: { ep } }));
+  const all = [
+    ...podcast.episodes.map((ep) => ({ ...ep, kind: 'episode' })),
+    ...podcast.clips.map((c) => ({ ...c, kind: 'clip' })),
+  ];
+  return all.map((ep) => ({ params: { episode: ep.slug }, props: { ep } }));
 }
 
-const { ep } = Astro.props as { ep: (typeof podcast.episodes)[number] };
+const { ep } = Astro.props as { ep: any };
+const isClip = ep.kind === 'clip';
 const path = `/podcast/${ep.slug}/`;
 
 // Turn the raw transcript into semantic paragraphs. Auto-captions mark speaker changes with
@@ -64,7 +69,7 @@ const jsonld = graph([
 ---
 
 <Base title={title} description={description} path={path} ogType="video.other" jsonld={jsonld}>
-  <p class="eyebrow"><a href="/podcast/">{podcast.channel.name}</a> · Episode {ep.episode_number}</p>
+  <p class="eyebrow"><a href="/podcast/">{podcast.channel.name}</a> · {isClip ? 'Clip' : `Episode ${ep.episode_number}`}</p>
   <h1>{ep.title}</h1>
 
   <div class="ep-video">
@@ -77,10 +82,13 @@ const jsonld = graph([
       allowfullscreen
     ></iframe>
   </div>
+  {ep.spotify_episode_id && (
+    <iframe class="ep-spotify" title={`${ep.title} on Spotify`} loading="lazy" src={`https://open.spotify.com/embed/episode/${ep.spotify_episode_id}?theme=0`} width="100%" height="152" frameborder="0" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  )}
 
   <ul class="linklist ep-facts">
     <li><span class="muted">Air date</span><span><time datetime={ep.air_date}>{ep.air_date}</time></span></li>
-    <li><span class="muted">Episode</span><span>{ep.episode_number}</span></li>
+    <li><span class="muted">Format</span><span>{isClip ? 'Clip' : `Full episode${ep.duration_min ? ` · ${ep.duration_min} min` : ''}`}</span></li>
     {ep.artists_covered?.length > 0 && <li><span class="muted">Artists / albums covered</span><span>{ep.artists_covered.join(', ')}</span></li>}
     {ep.hosts?.length > 0 && <li><span class="muted">Hosts</span><span>{ep.hosts.join(', ')}</span></li>}
     <li><span class="muted">Watch</span><span><a href={`https://www.youtube.com/watch?v=${ep.youtube_video_id}`} target="_blank" rel="noopener">YouTube ↗</a></span></li>
