@@ -96,7 +96,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
   ))}
 </ul>
 
-<script type="application/json" id="lr-data" set:html={JSON.stringify(records)}></script>
+<script type="application/json" id="lr-data" set:html={JSON.stringify(records.map(({ catalog, ...r }: any) => r))}></script>
 <script is:inline>
   const initListeningRoom = () => {
     const wheelEl0 = document.getElementById('lr-wheel');

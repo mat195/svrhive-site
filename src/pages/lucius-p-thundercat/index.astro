@@ -74,10 +74,10 @@ const jsonld = graph([
         <a class="sleeve" href={`/lucius-p-thundercat/releases/${r.slug}/`}>
           {r.cover
             ? <span class="art" data-album={r.albumId || undefined} data-preview={r.previewUrl || undefined} data-track={r.trackId || undefined} data-apple-track={r.appleTrackId || undefined} data-apple-album={r.appleAlbumId || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
-            : <span class="art placeholder"><span class="catno">{r.catalog}</span></span>}
+            : <span class="art placeholder"><span class="catno">♪</span></span>}
           <span class="meta">
             <span class="title">{r.title}</span>
-            <span class="sub">{r.catalog}{r.year ? ` · ${r.year}` : ''}{r.featured?.length ? ` · feat. ${r.featured.join(', ')}` : ''}</span>
+            <span class="sub">{r.year ?? ''}{r.featured?.length ? `${r.year ? ' · ' : ''}feat. ${r.featured.join(', ')}` : ''}</span>
           </span>
         </a>
       </li>
@@ -86,7 +86,7 @@ const jsonld = graph([
 
   {primary.length > 0 && (
     <>
-      <h2>Discography <span class="catno" style="margin-left:0.4rem;">SVR-001 → SVR-072</span></h2>
+      <h2>Discography</h2>
       <ul class="sleeve-grid">
         {primary.map((r) => (
           <li>
@@ -94,12 +94,12 @@ const jsonld = graph([
               {r.cover ? (
                 <span class="art" data-album={r.albumId || undefined} data-preview={r.previewUrl || undefined} data-track={r.trackId || undefined} data-apple-track={r.appleTrackId || undefined} data-apple-album={r.appleAlbumId || undefined}><img src={r.cover} alt={`${r.title} cover art`} loading="lazy" width="300" height="300" /></span>
               ) : (
-                <span class="art placeholder"><span class="catno">{r.catalog ?? 'SVR'}</span></span>
+                <span class="art placeholder"><span class="catno">♪</span></span>
               )}
               <span class="meta">
                 <span class="title">{r.title}</span>
                 <span class="sub">
-                  {r.catalog ?? ''}{r.catalog && r.year ? ' · ' : ''}{r.year ?? r.releaseDate ?? ''}
+                  {r.year ?? r.releaseDate ?? ''}
                   {fmt(r.streams) ? <> · <span class="streams">{fmt(r.streams)}</span></> : null}
                 </span>
               </span>

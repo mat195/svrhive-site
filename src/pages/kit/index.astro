@@ -72,7 +72,7 @@ const facts: [string, string][] = [
       <li>
         <a class="sleeve" href={c.cover} download={`${c.slug}.jpg`}>
           <span class="art"><img src={c.cover} alt={`${c.title} cover art`} loading="lazy" width="300" height="300" /></span>
-          <span class="meta"><span class="title">{c.title}</span><span class="sub">{c.catalog}{c.year ? ` · ${c.year}` : ''} · <span class="streams">Download ↓</span></span></span>
+          <span class="meta"><span class="title">{c.title}</span><span class="sub">{c.year ? `${c.year} · ` : ''}<span class="streams">Download ↓</span></span></span>
         </a>
       </li>
     ))}
@@ -86,7 +86,7 @@ const facts: [string, string][] = [
           <span class="art"><img src={c.cover} alt={`${c.title} cover art`} loading="lazy" width="300" height="300" /></span>
           <span class="meta">
             <span class="title">{c.title}</span>
-            <span class="sub">{c.catalog ?? ''}{c.catalog && c.year ? ' · ' : ''}{c.year ?? ''} · <span class="streams">Download ↓</span></span>
+            <span class="sub">{c.year ? `${c.year} · ` : ''}<span class="streams">Download ↓</span></span>
           </span>
         </a>
       </li>
