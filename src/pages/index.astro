@@ -32,4 +32,16 @@ const jsonld = graph([
 
     <ListeningRoom />
   </div>
+  <script is:inline>
+    // Scroll-driven velvet parallax for the hero logo — works on iOS (background-attachment:
+    // fixed renders frozen there). Pans the seamless velvet as the page scrolls.
+    (() => {
+      const logo = document.querySelector('.hero-logo');
+      if (!logo) return;
+      let ticking = false;
+      const update = () => { logo.style.backgroundPositionY = (window.scrollY * 0.45) + 'px'; ticking = false; };
+      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      update();
+    })();
+  </script>
 </Base>

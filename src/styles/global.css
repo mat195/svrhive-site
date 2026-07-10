@@ -480,7 +480,10 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .room-intro h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); margin: 0.15rem 0 0.5rem; }
 /* Glass-plate wordmark replaces the hero heading text. */
 .room-intro h1.hero-logo-h { margin: 0.1rem 0 0.5rem; line-height: 0; }
-.room-intro .hero-logo { display: inline-block; width: min(300px, 66vw); height: auto; aspect-ratio: 1423 / 1193; object-fit: contain; background: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2') center top / 100% auto fixed; border: 5px solid var(--silk); border-radius: 8px; }
+/* Velvet backing pans on scroll via JS (below) — background-attachment: fixed looks
+   frozen on iOS Safari, so we drive background-position-Y instead. repeat-y keeps the
+   seamless tile covered at any offset; 100% auto matches the section's texture scale. */
+.room-intro .hero-logo { display: inline-block; width: min(300px, 66vw); height: auto; aspect-ratio: 1423 / 1193; object-fit: contain; background: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2') 50% 0 / 100% auto repeat-y; border: 5px solid var(--silk); border-radius: 8px; }
 .room-intro .lede { color: var(--static); margin: 0 auto; }
 .room-intro .eyebrow { margin-bottom: 0.5rem; }
 
