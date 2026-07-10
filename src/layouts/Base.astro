@@ -190,7 +190,7 @@ const isCurrent = (href: string) => href === path;
           <div>
             {streamLinks.length > 0 && (
               <div class="f-links">
-                {streamLinks.map((l: any) => <a href={l.url} target="_blank" rel="noopener">{l.label ?? 'Listen'}</a>)}
+                {streamLinks.map((l: any) => <a href={l.url} target="_blank" rel="noopener">{l.platform ?? l.label ?? 'Listen'}</a>)}
               </div>
             )}
             <p class="muted" style="margin:0.7rem 0 0;"><a href="/contact/">Contact</a> · <a href={SITE}>silkvelvetrecords.com</a></p>
