@@ -580,3 +580,35 @@ main { flex: 1; padding: 3rem 0 4rem; }
   .lr-vinyl-disc { width: 104px; height: 104px; }
   .lr-vinyl-disc img { width: 44px; height: 44px; margin: -22px 0 0 -22px; }
 }
+
+/* ── Podcast: episode guide + per-episode pages ─────────────────────────── */
+.ep-guide { list-style: none; padding: 0; margin: 1.6rem 0 0; display: flex; flex-direction: column; gap: 1.1rem; }
+.ep-row { display: flex; gap: 1.1rem; align-items: flex-start; padding-bottom: 1.1rem; border-bottom: 1px solid var(--hairline); }
+.ep-row:last-child { border-bottom: 0; }
+.ep-thumb { position: relative; flex: 0 0 auto; width: 200px; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; border: 1px solid var(--edge); box-shadow: 0 10px 24px -14px rgba(0,0,0,0.85); display: block; background: var(--underfelt); }
+.ep-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.ep-thumb:hover img { transform: scale(1.04); }
+.ep-play { position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.5rem; color: var(--cream); background: radial-gradient(circle at 50% 50%, rgba(9,4,7,0.35), rgba(9,4,7,0.55)); opacity: 0.9; transition: opacity 0.2s; }
+.ep-thumb:hover .ep-play { opacity: 1; color: var(--silk); }
+.ep-meta { min-width: 0; }
+.ep-num { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--silk); margin: 0 0 0.2rem; }
+.ep-title { font-family: var(--display); font-size: 1.3rem; line-height: 1.15; margin: 0 0 0.35rem; }
+.ep-title a { color: var(--cream); }
+.ep-title a:hover { color: var(--ribbon-lift); }
+.ep-syn { margin: 0 0 0.35rem; color: #e6dccb; font-size: 0.95rem; line-height: 1.45; }
+.ep-artists { font-size: 0.72rem; color: var(--static); margin: 0; }
+
+/* Per-episode: responsive 16:9 embed + readable transcript */
+.ep-video { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 1.2rem 0 1.6rem; border-radius: 10px; overflow: hidden; border: 1px solid var(--edge); box-shadow: var(--elev-2); background: #000; }
+.ep-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.ep-facts { margin-bottom: 2rem; }
+.ep-transcript { max-width: var(--measure); margin-top: 2.4rem; border-top: 1px solid var(--hairline); padding-top: 1.4rem; }
+.ep-transcript h2 { margin-top: 0; }
+.ep-transcript-note { margin: 0 0 1.2rem; }
+.ep-transcript p { margin: 0 0 1rem; line-height: 1.7; color: #e6dccb; }
+
+@media (max-width: 560px) {
+  .ep-row { flex-direction: column; gap: 0.6rem; }
+  .ep-thumb { width: 100%; }
+  .ep-title { font-size: 1.15rem; }
+}

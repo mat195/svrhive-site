@@ -1,0 +1,102 @@
+---
+import Base from '../../layouts/Base.astro';
+import { LABEL_NAME, absolute } from '../../lib/entity';
+import { organizationLd, breadcrumbLd, clean, graph } from '../../lib/jsonld';
+import podcast from '../../data/podcast.json';
+
+// Load every transcript file at build time (raw text), keyed by filename, so the text is
+// rendered into static HTML — crawlable server-side, not fetched client-side.
+const rawFiles = import.meta.glob('../../data/transcripts/*.txt', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const transcriptByName: Record<string, string> = {};
+for (const [p, txt] of Object.entries(rawFiles)) transcriptByName[p.split('/').pop() as string] = txt;
+
+export function getStaticPaths() {
+  return podcast.episodes.map((ep) => ({ params: { episode: ep.slug }, props: { ep } }));
+}
+
+const { ep } = Astro.props as { ep: (typeof podcast.episodes)[number] };
+const path = `/podcast/${ep.slug}/`;
+
+// Turn the raw transcript into semantic paragraphs. Auto-captions mark speaker changes with
+// ">>"; treat those as paragraph breaks. No fabricated speaker names — the source is machine
+// captions (transcript_source), so named labels wait for a better transcript.
+const rawTranscript = (ep.transcript_file && transcriptByName[ep.transcript_file]) || '';
+const paragraphs = rawTranscript
+  .replace(/>>/g, '\n\n')
+  .split(/\n\s*\n/)
+  .map((p) => p.replace(/\s+/g, ' ').trim())
+  .filter(Boolean);
+
+const title = `${ep.title} — ${podcast.channel.name}`;
+const description = ep.synopsis;
+const thumb = `https://i.ytimg.com/vi/${ep.youtube_video_id}/hqdefault.jpg`;
+
+const episodeLd = clean({
+  '@type': 'PodcastEpisode',
+  name: ep.title,
+  episodeNumber: ep.episode_number,
+  datePublished: ep.air_date,
+  url: absolute(path),
+  description: ep.synopsis,
+  partOfSeries: { '@type': 'PodcastSeries', name: podcast.channel.name, url: absolute('/podcast/') },
+  associatedMedia: clean({
+    '@type': 'VideoObject',
+    name: ep.title,
+    description: ep.synopsis,
+    thumbnailUrl: thumb,
+    uploadDate: ep.air_date,
+    embedUrl: `https://www.youtube.com/embed/${ep.youtube_video_id}`,
+    contentUrl: `https://www.youtube.com/watch?v=${ep.youtube_video_id}`,
+    transcript: rawTranscript || undefined,
+  }),
+  publisher: { '@id': absolute('/#organization') },
+});
+
+const jsonld = graph([
+  episodeLd,
+  organizationLd(),
+  breadcrumbLd([
+    { name: LABEL_NAME, path: '/' },
+    { name: podcast.channel.name, path: '/podcast/' },
+    { name: ep.title, path },
+  ]),
+]);
+---
+
+<Base title={title} description={description} path={path} ogType="video.other" jsonld={jsonld}>
+  <p class="eyebrow"><a href="/podcast/">{podcast.channel.name}</a> · Episode {ep.episode_number}</p>
+  <h1>{ep.title}</h1>
+
+  <div class="ep-video">
+    <iframe
+      src={`https://www.youtube-nocookie.com/embed/${ep.youtube_video_id}`}
+      title={`${ep.title} — ${podcast.channel.name}`}
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <ul class="linklist ep-facts">
+    <li><span class="muted">Air date</span><span><time datetime={ep.air_date}>{ep.air_date}</time></span></li>
+    <li><span class="muted">Episode</span><span>{ep.episode_number}</span></li>
+    {ep.artists_covered?.length > 0 && <li><span class="muted">Artists / albums covered</span><span>{ep.artists_covered.join(', ')}</span></li>}
+    {ep.hosts?.length > 0 && <li><span class="muted">Hosts</span><span>{ep.hosts.join(', ')}</span></li>}
+    <li><span class="muted">Watch</span><span><a href={`https://www.youtube.com/watch?v=${ep.youtube_video_id}`} target="_blank" rel="noopener">YouTube ↗</a></span></li>
+  </ul>
+
+  <section class="ep-transcript" aria-label="Episode transcript">
+    <h2>Transcript</h2>
+    <p class="ep-transcript-note muted"><small>
+      {ep.transcript_source === 'youtube-auto'
+        ? 'Machine-generated from YouTube auto-captions — lower accuracy, speaker names not identified. To be replaced with a corrected transcript.'
+        : 'Transcript.'}
+    </small></p>
+    {paragraphs.length > 0
+      ? paragraphs.map((p) => <p>{p}</p>)
+      : <p class="muted">Transcript not yet available for this episode.</p>}
+  </section>
+
+  <p style="margin-top:2rem"><a href="/podcast/">← All episodes</a></p>
+</Base>

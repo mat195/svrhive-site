@@ -1,0 +1,47 @@
+{
+  "_about": "Friday to Friday Podcast episode guide. One entry per episode. episode_number is provisional/site-assigned (the channel does not publish official numbers) — reorder as the backlog is filled. transcript_source flags caption quality: 'youtube-auto' = machine-generated, lower quality, swap later without touching code.",
+  "channel": {
+    "name": "Friday To Friday Podcast",
+    "handle": "@FridayToFridayPodcast",
+    "channel_id": "UCufqaTmO2-_rIrNtncd2HEQ",
+    "url": "https://www.youtube.com/@FridayToFridayPodcast"
+  },
+  "episodes": [
+    {
+      "slug": "tyler-the-creator-whisper-rap-twist",
+      "episode_number": 3,
+      "title": "Tyler, the Creator's Whisper Rap Twist",
+      "air_date": "2026-07-10",
+      "youtube_video_id": "1yB-CGGYPwM",
+      "artists_covered": ["YG", "Tyler, the Creator"],
+      "synopsis": "The hosts unpack the surprise Tyler, the Creator feature on YG's \"On the Low\" — bracing for whisper-rap and getting a laid-back subversion instead — and name their favorite cuts on the album.",
+      "hosts": [],
+      "transcript_file": "tyler-the-creator-whisper-rap-twist.txt",
+      "transcript_source": "youtube-auto"
+    },
+    {
+      "slug": "flyana-boss-under-the-influence",
+      "episode_number": 2,
+      "title": "Flyana Boss — Under the Influence",
+      "air_date": "2026-07-09",
+      "youtube_video_id": "0Qw_2Nex9B8",
+      "artists_covered": ["Flyana Boss"],
+      "synopsis": "A high-energy look at Flyana Boss's \"Under the Influence\" — eight songs of catchy, club-ready bangers, with standouts Wasabi, Bands Up, Jungle, and the EDM-trap \"Feeling It.\"",
+      "hosts": [],
+      "transcript_file": "flyana-boss-under-the-influence.txt",
+      "transcript_source": "youtube-auto"
+    },
+    {
+      "slug": "rj-payne-growing-paynes-ep",
+      "episode_number": 1,
+      "title": "RJ Payne — Growing Paynes EP",
+      "air_date": "2026-07-08",
+      "youtube_video_id": "jSC15alaha4",
+      "artists_covered": ["RJ Payne", "Padre"],
+      "synopsis": "A quick take on RJ Payne's five-track \"Growing Paynes\" EP — sharp lyricism over Padre's boom-bap beats, and a more introspective turn from Payne.",
+      "hosts": [],
+      "transcript_file": "rj-payne-growing-paynes-ep.txt",
+      "transcript_source": "youtube-auto"
+    }
+  ]
+}
