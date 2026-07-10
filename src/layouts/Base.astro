@@ -21,10 +21,10 @@ const nav: Array<{ href?: string; label: string; dropdown?: { href: string; labe
     { href: '/lucius-p-thundercat/', label: 'Catalogue' },
     { href: '/socials/', label: 'Socials' },
   ] },
-  { label: 'Carrié', dropdown: [
-    { href: '/podcast/', label: 'Friday to Friday Podcast' },
-  ] },
   { href: '/contact/', label: 'Contact' },
+  // SHELVED: the 'Carrié' dropdown (Friday to Friday Podcast). Podcast routes live under
+  // src/pages/_podcast/ (underscore = Astro skips routing). Restore: move _podcast → podcast
+  // and re-add { label: 'Carrié', dropdown: [{ href: '/podcast/', label: 'Friday to Friday Podcast' }] }.
 ];
 const isCurrent = (href: string) => href === path;
 ---
