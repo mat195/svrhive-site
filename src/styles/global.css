@@ -90,7 +90,8 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 /* Glass-plate wordmark replaces the old .mark + text brand in the nav.
    A square velvet backing sits behind it; the ribbon shows through the
    transparent SvR cutouts and scroll-reveals (fixed) as the page moves. */
-.brand-logo { height: 48px; width: 48px; object-fit: contain; display: block; background: url('/assets/silk-ribbon-tile-1400x700.jpg') center / cover fixed; border-radius: 3px; }
+@keyframes velvet-drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+.brand-logo { height: 48px; width: 48px; object-fit: contain; display: block; background: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2') 0 50% / cover; animation: velvet-drift 22s linear infinite alternate; border: 2px solid var(--silk); border-radius: 4px; }
 @media (max-width: 560px) { .brand-logo { height: 40px; width: 40px; } }
 nav.primary { display: flex; gap: 1.3rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
 nav.primary a { color: var(--static); padding-bottom: 2px; border-bottom: 1px solid transparent; }
@@ -300,7 +301,7 @@ main { flex: 1; padding: 3rem 0 4rem; }
   position: relative;
   width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   margin-top: 1.4rem; margin-bottom: 2.2rem; padding: 2.4rem 0 2.8rem;
-  background-image: url('/assets/silk-ribbon-tile-1400x700.jpg');
+  background-image: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2');
   background-size: 100% auto; background-position: center; background-repeat: repeat-y; background-attachment: fixed;
   border-top: 1.5px solid var(--silk); border-bottom: 1.5px solid var(--silk);
 }
@@ -452,7 +453,7 @@ main { flex: 1; padding: 3rem 0 4rem; }
   position: relative;
   width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   height: var(--band-h, 210px); margin-top: 3.6rem; margin-bottom: 3.6rem;
-  background-image: url('/assets/silk-ribbon-tile-1400x700.jpg');
+  background-image: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2');
   background-size: cover; background-position: center center; background-repeat: no-repeat;
   background-attachment: fixed; /* parallax depth — the band feels like physical fabric on scroll */
   display: grid; place-items: center;
@@ -478,7 +479,7 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .room-intro h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); margin: 0.15rem 0 0.5rem; }
 /* Glass-plate wordmark replaces the hero heading text. */
 .room-intro h1.hero-logo-h { margin: 0.1rem 0 0.5rem; line-height: 0; }
-.room-intro .hero-logo { display: inline-block; width: min(300px, 66vw); height: auto; aspect-ratio: 1795 / 1721; object-fit: contain; background: url('/assets/silk-ribbon-tile-1400x700.jpg') center / cover fixed; border-radius: 6px; }
+.room-intro .hero-logo { display: inline-block; width: min(300px, 66vw); height: auto; aspect-ratio: 1795 / 1721; object-fit: contain; background: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2') 0 50% / cover; animation: velvet-drift 26s linear infinite alternate; border: 5px solid var(--silk); border-radius: 8px; }
 .room-intro .lede { color: var(--static); margin: 0 auto; }
 .room-intro .eyebrow { margin-bottom: 0.5rem; }
 
