@@ -94,9 +94,7 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
    ancestor would break background-attachment: fixed on the plate, freezing its velvet. */
 @keyframes fadeInOnly { from { opacity: 0; } to { opacity: 1; } }
 .hero-fade { opacity: 0; animation: fadeInOnly 0.5s ease-out forwards; }
-.brand-logo { height: 48px; width: auto; aspect-ratio: 1423 / 1193; object-fit: contain; display: block; background: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2') center / cover fixed; border: 2px solid var(--silk); border-radius: 4px; }
-@media (max-width: 560px) { .brand-logo { height: 40px; width: auto; } }
-nav.primary { display: flex; gap: 1.3rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
+nav.primary { display: flex; gap: 1.3rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; margin-left: auto; }
 nav.primary a { color: var(--static); padding-bottom: 2px; border-bottom: 1px solid transparent; }
 nav.primary a:hover { color: var(--cream); }
 nav.primary a[aria-current='page'] { color: var(--cream); border-bottom-color: var(--ribbon); }
@@ -482,7 +480,7 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .room-intro h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); margin: 0.15rem 0 0.5rem; }
 /* Glass-plate wordmark replaces the hero heading text. */
 .room-intro h1.hero-logo-h { margin: 0.1rem 0 0.5rem; line-height: 0; }
-.room-intro .hero-logo { display: inline-block; width: min(300px, 66vw); height: auto; aspect-ratio: 1423 / 1193; object-fit: contain; background: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2') center / cover fixed; border: 5px solid var(--silk); border-radius: 8px; }
+.room-intro .hero-logo { display: inline-block; width: min(300px, 66vw); height: auto; aspect-ratio: 1423 / 1193; object-fit: contain; background: url('/assets/silk-ribbon-tile-1400x700.jpg?v=2') center top / 100% auto fixed; border: 5px solid var(--silk); border-radius: 8px; }
 .room-intro .lede { color: var(--static); margin: 0 auto; }
 .room-intro .eyebrow { margin-bottom: 0.5rem; }
 
