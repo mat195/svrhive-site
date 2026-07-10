@@ -82,7 +82,7 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 .mono { font-family: var(--mono); }
 
 /* Header / nav — wordmark = a stamped silk diamond + tracked caps */
-.site-header { border-bottom: 1px solid var(--edge); }
+.site-header { border-bottom: 1px solid var(--edge); position: relative; z-index: 40; } /* lift above <main> so the dropdown menu (which overflows into main) stays clickable */
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.5rem; gap: 1rem; flex-wrap: wrap; }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-size: 1.05rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cream); }
 .brand:hover { color: var(--cream); }
@@ -620,8 +620,9 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .nav-drop-trigger.active { border-bottom-color: var(--ribbon); }
 .nav-caret { font-size: 0.58rem; transition: transform 0.2s; }
 .nav-drop:hover .nav-caret, .nav-drop.open .nav-caret { transform: rotate(180deg); }
-.nav-drop-menu { position: absolute; top: calc(100% + 0.5rem); right: 0; min-width: 13rem; background: var(--underfelt); border: 1px solid var(--edge); border-radius: 6px; box-shadow: var(--elev-2); padding: 0.4rem; display: none; flex-direction: column; gap: 0.1rem; z-index: 60; }
-.nav-drop-menu::before { content: ''; position: absolute; top: -0.5rem; left: 0; right: 0; height: 0.5rem; } /* hover bridge across the gap */
+/* Menu sits flush under the trigger (no gap) so hover never breaks on the way down;
+   a transparent top border keeps visual breathing room while staying inside the hover area. */
+.nav-drop-menu { position: absolute; top: 100%; right: 0; min-width: 13rem; background: var(--underfelt); background-clip: padding-box; border: 1px solid var(--edge); border-top: 0.5rem solid transparent; border-radius: 6px; box-shadow: var(--elev-2); padding: 0.4rem; display: none; flex-direction: column; gap: 0.1rem; z-index: 60; }
 .nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu, .nav-drop.open .nav-drop-menu { display: flex; }
 .nav-drop-menu a { display: block; padding: 0.55rem 0.7rem; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--static); border-radius: 4px; border-bottom: 0; white-space: nowrap; }
 .nav-drop-menu a:hover, .nav-drop-menu a[aria-current='page'] { color: var(--cream); background: rgba(122,59,79,0.18); }

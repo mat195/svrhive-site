@@ -19,8 +19,10 @@ const nav: Array<{ href?: string; label: string; dropdown?: { href: string; labe
   { href: '/', label: 'Listen' },
   { label: 'Lucius P. Thundercat', dropdown: [
     { href: '/lucius-p-thundercat/', label: 'Catalogue' },
-    { href: '/podcast/', label: 'Friday to Friday Podcast' },
     { href: '/socials/', label: 'Socials' },
+  ] },
+  { label: 'Carrié', dropdown: [
+    { href: '/podcast/', label: 'Friday to Friday Podcast' },
   ] },
   { href: '/contact/', label: 'Contact' },
 ];
@@ -75,19 +77,23 @@ const isCurrent = (href: string) => href === path;
           ))}
         </nav>
         <script is:inline>
-          // Nav dropdown: hover opens on desktop (CSS); click/tap toggles everywhere; Esc + outside-click close.
+          // Nav dropdown: hover opens on desktop (CSS, no gap); click/tap toggles everywhere;
+          // close only on a click OUTSIDE any dropdown (so clicking a menu item still works), or Esc.
           (() => {
-            document.querySelectorAll('.nav-drop').forEach((drop) => {
-              const btn = drop.querySelector('.nav-drop-trigger');
-              if (!btn) return;
+            const closeAll = () => document.querySelectorAll('.nav-drop.open').forEach((d) => {
+              d.classList.remove('open'); d.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false');
+            });
+            document.querySelectorAll('.nav-drop-trigger').forEach((btn) => {
               btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const open = drop.classList.toggle('open');
-                btn.setAttribute('aria-expanded', String(open));
+                e.preventDefault();
+                const drop = btn.closest('.nav-drop');
+                const willOpen = !drop.classList.contains('open');
+                closeAll();
+                if (willOpen) { drop.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
               });
             });
-            document.addEventListener('click', () => document.querySelectorAll('.nav-drop.open').forEach((d) => { d.classList.remove('open'); d.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false'); }));
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.nav-drop.open').forEach((d) => { d.classList.remove('open'); d.querySelector('.nav-drop-trigger')?.setAttribute('aria-expanded', 'false'); }); });
+            document.addEventListener('click', (e) => { if (!e.target.closest('.nav-drop')) closeAll(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
           })();
         </script>
       </div>
