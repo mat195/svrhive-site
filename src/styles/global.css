@@ -674,3 +674,12 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .crate-details > summary::-webkit-details-marker { display: none; }
 .crate-details > summary::before { content: '▸ '; color: var(--silk); }
 .crate-details[open] > summary::before { content: '▾ '; }
+
+/* Hero wordmark — legible label name beneath the glass-plate logomark. */
+.room-intro .hero-wordmark { font-family: var(--display); font-size: clamp(1rem, 2.6vw, 1.4rem); letter-spacing: 0.26em; text-transform: uppercase; color: var(--cream); margin: 0.15rem 0 0.5rem; }
+
+/* Visualizer mode switcher on the stage. */
+.vstage-modes { position: absolute; z-index: 3; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; padding: 0 1rem; }
+.vstage-modes button { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--static); background: rgba(22,16,28,0.55); border: 1px solid var(--edge); border-radius: 999px; padding: 0.3rem 0.7rem; cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s; backdrop-filter: blur(4px); }
+.vstage-modes button:hover { color: var(--cream); }
+.vstage-modes button.on { color: var(--velvet); background: rgba(var(--accent, 201 168 106), 0.9); background: rgb(var(--accent, 201,168,106)); border-color: transparent; }

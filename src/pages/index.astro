@@ -8,7 +8,7 @@ import ListeningRoom from '../components/ListeningRoom.astro';
 // from the retired /label/ page — then the interactive vinyl crate, which now lives on a velvet
 // section directly below the hero (above the full discography), so the "press play" moment is one
 // of the first things visible. The full catalogue list follows for deeper browsing.
-const releaseCount = 72;
+const releaseCount = 70;
 
 const title = `${LABEL_NAME} — home of ${CANONICAL_NAME}`;
 const description = `${LABEL_NAME}: independent Canadian record label in Montréal, home of ${CANONICAL_NAME} — ${releaseCount} releases from a single deep Montréal catalogue. Pull a record and hear it.`;
@@ -25,6 +25,7 @@ const jsonld = graph([
     <div class="room-intro">
       <p class="eyebrow anim-up" style="animation-delay:0ms;">Independent record label · Montréal, Québec</p>
       <h1 class="hero-fade hero-logo-h" style="animation-delay:60ms;"><img class="hero-logo" src="/assets/svr-glass-plate-logo.png?v=2" alt={LABEL_NAME} width="1423" height="1193" /></h1>
+      <p class="hero-wordmark anim-up" style="animation-delay:100ms;">{LABEL_NAME}</p>
       <p class="lede anim-up" style="animation-delay:140ms;">
         Home of <a href="/lucius-p-thundercat/">{CANONICAL_NAME}</a> — {releaseCount} releases from a single deep Montréal catalogue.
       </p>

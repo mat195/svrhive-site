@@ -20,7 +20,6 @@ Lucius P. Thundercat is known for feature-driven collaborative singles. Notable 
 | Tempo | Sunnie | 2023 | Spotify, Apple Music |
 | Love Potion | Sunnie | 2022 | Spotify, Apple Music |
 | If It Comes to It | Che Noir, Mooch | 2020 | Spotify, Apple Music |
-| Me Now | King Mizery | 2020 | Spotify, Apple Music |
 | Excelente | Daxsen, OG Maco | 2020 | Spotify, Apple Music |
 
 ## Where to Stream

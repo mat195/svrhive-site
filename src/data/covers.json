@@ -422,21 +422,6 @@
     "appleAlbumId": "1271848919",
     "appleTrackId": "1271849294"
   },
-  "me-now": {
-    "title": "Me Now",
-    "catalog": "SVR-041",
-    "year": "2020",
-    "streams": 15821,
-    "cover": "/assets/cover-art/me-now.jpg",
-    "albumId": "1zpSJQCfHdbT1tDa0kfxcq",
-    "featured": [
-      "King Mizery"
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/e3/31/bf/e331bfa1-1caa-d0ae-e2ee-10c50ba6d4bb/mzaf_14472574295662617509.plus.aac.p.m4a",
-    "trackId": "459q7Utkmr8aYaT2KliSrd",
-    "appleAlbumId": "1503412701",
-    "appleTrackId": "1503412702"
-  },
   "black-sacrifice-a-dedication": {
     "title": "Black Sacrifice (A Dedication)",
     "catalog": "SVR-009",
@@ -739,22 +724,6 @@
     "trackId": "4Kp5EilxWm9lk7iWd63f3A",
     "appleAlbumId": "1499395759",
     "appleTrackId": "1499395760"
-  },
-  "the-steez": {
-    "title": "The Steez",
-    "catalog": "SVR-045",
-    "year": "2020",
-    "streams": 1997,
-    "cover": "/assets/cover-art/the-steez.jpg",
-    "albumId": "3JbrrVnoxnhuib7fDpkdTg",
-    "featured": [
-      "Vegas of the North",
-      "J. Knock"
-    ],
-    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/cb/e5/13/cbe513ba-003f-47f1-eb6b-acc08ef94e3e/mzaf_326821708680863831.plus.aac.p.m4a",
-    "trackId": "7eoOqwz0AGSWS7ZVYFakSE",
-    "appleAlbumId": "1513498071",
-    "appleTrackId": "1513498079"
   },
   "purple-mattress": {
     "title": "Purple Mattress",

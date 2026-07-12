@@ -7,7 +7,7 @@ draft: false
 ---
 # Who is Lucius P. Thundercat?
 
-Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist based in Montréal, releasing through Silk Velvet Records. His sound is melodic and pop-forward — R&B-influenced rap that moves through trap and lofi, touching boom bap as texture. Active since 2016, his catalogue runs to 72 releases, available across all major streaming platforms.
+Lucius P. Thundercat is a Canadian hip-hop rapper and vocalist based in Montréal, releasing through Silk Velvet Records. His sound is melodic and pop-forward — R&B-influenced rap that moves through trap and lofi, touching boom bap as texture. Active since 2016, his catalogue runs to roughly 70 releases, available across all major streaming platforms.
 
 ## The sound
 
@@ -23,7 +23,6 @@ He works feature-first: recurring collaborations with vocalists like Magi Merlin
 | Tempo (feat. Sunnie) | 2023 | Sunnie |
 | Love Potion (feat. Sunnie) | 2022 | Sunnie |
 | Hate Fuck (feat. Project Pat) | 2020 | Project Pat |
-| Me Now (feat. King Mizery) | 2020 | King Mizery |
 | Just Got Paid | 2016 | — (debut) |
 
 ## Where to listen

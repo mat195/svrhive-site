@@ -89,12 +89,18 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       <strong class="vstage-title" id="lr-vtitle"></strong>
     </div>
   </div>
+  <div class="vstage-modes" id="lr-vmodes" role="tablist" aria-label="Visualizer style">
+    <button type="button" data-mode="ring" class="on">Velvet Ring</button>
+    <button type="button" data-mode="waves">Silk Waves</button>
+    <button type="button" data-mode="bloom">Bloom</button>
+    <button type="button" data-mode="orbit">Orbit</button>
+  </div>
 </section>
 
 {/* Full list — kept in the DOM for crawlers/no-JS (titles + Spotify links), collapsed below
     the stage since the wheel + stage now carry the browsing/listening experience. */}
 <details class="crate-details">
-  <summary class="lr-fulltitle mono">The full crate — all {records.length} tracks</summary>
+  <summary class="lr-fulltitle mono">The full crate</summary>
 <ul class="lr-list">
   {records.map((r) => (
     <li class="lr-row" data-slug={r.slug}>
@@ -311,7 +317,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       const resize = () => { const r = stage.getBoundingClientRect(); W = Math.max(1, r.width | 0); H = Math.max(1, r.height | 0); cv.width = W * dpr; cv.height = H * dpr; cx2.setTransform(dpr, 0, 0, dpr, 0, 0); };
       resize(); addEventListener('resize', resize, { passive: true });
 
-      let actx, analyser, freq, built = false;
+      let actx, analyser, freq, wave, built = false;
       const buildGraph = () => {
         if (built) { if (actx && actx.state === 'suspended') actx.resume(); return; }
         try {
@@ -319,7 +325,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
           const src = actx.createMediaElementSource(audio);
           analyser = actx.createAnalyser(); analyser.fftSize = 512; analyser.smoothingTimeConstant = 0.82;
           src.connect(analyser); analyser.connect(actx.destination);
-          freq = new Uint8Array(analyser.frequencyBinCount); built = true;
+          freq = new Uint8Array(analyser.frequencyBinCount); wave = new Uint8Array(analyser.fftSize); built = true;
         } catch (e) { built = true; } // fall through to non-reactive idle visuals
       };
 
@@ -338,20 +344,58 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       };
       coverImg.addEventListener('load', extract); if (coverImg.complete && coverImg.src) extract();
 
-      const N = 70, P = []; const rnd = (a, b) => a + Math.random() * (b - a);
-      for (let i = 0; i < N; i++) P.push({ x: Math.random(), y: Math.random(), r: rnd(0.6, 2.2), v: rnd(0.02, 0.09), ph: Math.random() * 6.28 });
+      const N = 90, P = []; const rnd = (a, b) => a + Math.random() * (b - a);
+      for (let i = 0; i < N; i++) P.push({ x: Math.random(), y: Math.random(), r: rnd(0.6, 2.2), v: rnd(0.02, 0.09), ph: Math.random() * 6.28, a: Math.random() * 6.28, rad: rnd(0.10, 0.46), dir: Math.random() < 0.5 ? 1 : -1 });
+
+      // Visualizer mode + switcher (persisted).
+      let mode = 'ring'; try { mode = localStorage.getItem('lr-viz') || 'ring'; } catch (e) {}
+      const modeBtns = [...document.querySelectorAll('#lr-vmodes button')];
+      const setMode = (m) => { mode = m; try { localStorage.setItem('lr-viz', m); } catch (e) {} modeBtns.forEach((b) => b.classList.toggle('on', b.dataset.mode === m)); };
+      modeBtns.forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode)));
+      setMode(mode);
 
       let raf = 0, level = 0, bass = 0, t = 0, pulse = 0, idle = 0;
+      const A = () => accent.join(',');
+      const MIN = () => Math.min(W, H);
+
+      // ── mode renderers ──────────────────────────────────────────────────────
+      const RING = (cx, cy) => {
+        if (analyser) { const R0 = MIN() * 0.20, bars = 96; cx2.lineWidth = 2; for (let i = 0; i < bars; i++) { const amp = freq[(i / bars * freq.length * 0.7) | 0] / 255; const a = i / bars * 6.283 - 1.5708, len = 6 + amp * MIN() * 0.09; cx2.strokeStyle = `rgba(${A()},${0.22 + amp * 0.6})`; cx2.beginPath(); cx2.moveTo(cx + Math.cos(a) * R0, cy + Math.sin(a) * R0); cx2.lineTo(cx + Math.cos(a) * (R0 + len), cy + Math.sin(a) * (R0 + len)); cx2.stroke(); } }
+        if (pulse > 0.02) { const R = MIN() * (0.22 + (1 - pulse) * 0.5); cx2.strokeStyle = `rgba(${A()},${pulse * 0.4})`; cx2.lineWidth = 2 + pulse * 3; cx2.beginPath(); cx2.arc(cx, cy, R, 0, 6.283); cx2.stroke(); }
+        for (const p of P) { p.y -= p.v * (0.4 + level * 2.2) * 0.01; if (p.y < -0.05) { p.y = 1.05; p.x = Math.random(); } cx2.fillStyle = `rgba(${A()},${(0.14 + level * 0.7) * (0.4 + 0.6 * Math.abs(Math.sin(t * 1.5 + p.ph)))})`; cx2.beginPath(); cx2.arc(p.x * W, p.y * H, p.r * (1 + bass * 1.2), 0, 6.283); cx2.fill(); }
+      };
+      // Silk Waves — layered time-domain ribbons that ripple like fabric.
+      const WAVES = (cx, cy) => {
+        if (!wave) return; const layers = 4;
+        for (let L = 0; L < layers; L++) {
+          const yoff = cy + (L - (layers - 1) / 2) * (MIN() * 0.085), amp = MIN() * 0.06 * (0.5 + level * 1.7) * (1 - L * 0.12);
+          cx2.beginPath();
+          for (let x = 0; x <= W; x += 6) { const v = (wave[(x / W * wave.length) | 0] - 128) / 128; const y = yoff + v * amp + Math.sin(x * 0.008 + t * 1.2 + L) * (6 + bass * 22); x === 0 ? cx2.moveTo(x, y) : cx2.lineTo(x, y); }
+          cx2.strokeStyle = `rgba(${A()},${0.16 + (layers - L) / layers * 0.36})`; cx2.lineWidth = 1.4 + (layers - L) * 0.6; cx2.stroke();
+        }
+      };
+      // Bloom — a slowly-rotating mirrored frequency mandala.
+      const BLOOM = (cx, cy) => {
+        if (!analyser) return; const petals = 72, R0 = MIN() * 0.13;
+        cx2.save(); cx2.translate(cx, cy); cx2.rotate(t * 0.12);
+        for (let i = 0; i < petals; i++) { const amp = freq[((i % (petals / 2)) / (petals / 2) * freq.length * 0.6) | 0] / 255; const a = i / petals * 6.283, len = R0 + amp * MIN() * 0.32, x = Math.cos(a) * len, y = Math.sin(a) * len; cx2.strokeStyle = `rgba(${A()},${0.05 + amp * 0.22})`; cx2.lineWidth = 1; cx2.beginPath(); cx2.moveTo(Math.cos(a) * R0, Math.sin(a) * R0); cx2.lineTo(x, y); cx2.stroke(); cx2.fillStyle = `rgba(${A()},${0.12 + amp * 0.5})`; cx2.beginPath(); cx2.arc(x, y, 2 + amp * 7, 0, 6.283); cx2.fill(); }
+        cx2.restore();
+      };
+      // Orbit — dust orbiting the record, scattering on the beat.
+      const ORBIT = (cx, cy) => {
+        const base = MIN() * 0.16;
+        for (const p of P) { p.a += (0.003 + level * 0.02) * p.dir; const rr = base + p.rad * MIN() * 0.5 * (1 + bass * 0.7), x = cx + Math.cos(p.a) * rr, y = cy + Math.sin(p.a) * rr * 0.72; if (bass > 0.42) { cx2.strokeStyle = `rgba(${A()},${(bass - 0.42) * 0.28})`; cx2.lineWidth = 1; cx2.beginPath(); cx2.moveTo(cx, cy); cx2.lineTo(x, y); cx2.stroke(); } cx2.fillStyle = `rgba(${A()},${0.2 + level * 0.6})`; cx2.beginPath(); cx2.arc(x, y, p.r * (1 + bass), 0, 6.283); cx2.fill(); }
+      };
+      const RENDER = { ring: RING, waves: WAVES, bloom: BLOOM, orbit: ORBIT };
+
       const draw = () => {
         t += 0.016; let tl = 0, tb = 0;
-        if (analyser) { analyser.getByteFrequencyData(freq); const nb = freq.length; for (let i = 0; i < nb; i++) tl += freq[i]; for (let i = 0; i < 8; i++) tb += freq[i]; tl /= nb * 255; tb /= 8 * 255; }
+        if (analyser) { analyser.getByteFrequencyData(freq); if (wave) analyser.getByteTimeDomainData(wave); const nb = freq.length; for (let i = 0; i < nb; i++) tl += freq[i]; for (let i = 0; i < 8; i++) tb += freq[i]; tl /= nb * 255; tb /= 8 * 255; }
         level += (tl - level) * 0.2; bass += (tb - bass) * 0.35;
         if (bass > 0.55 && pulse < 0.1) pulse = 1; pulse *= 0.92;
         stage.style.setProperty('--level', level.toFixed(3)); stage.style.setProperty('--bass', bass.toFixed(3));
-        cx2.clearRect(0, 0, W, H); const cx = W / 2, cy = H / 2, A = accent.join(',');
-        if (analyser) { const R0 = Math.min(W, H) * 0.20, bars = 96; cx2.lineWidth = 2; for (let i = 0; i < bars; i++) { const amp = freq[(i / bars * freq.length * 0.7) | 0] / 255; const a = i / bars * 6.283 - 1.5708, len = 6 + amp * Math.min(W, H) * 0.09; cx2.strokeStyle = `rgba(${A},${0.22 + amp * 0.6})`; cx2.beginPath(); cx2.moveTo(cx + Math.cos(a) * R0, cy + Math.sin(a) * R0); cx2.lineTo(cx + Math.cos(a) * (R0 + len), cy + Math.sin(a) * (R0 + len)); cx2.stroke(); } }
-        if (pulse > 0.02) { const R = Math.min(W, H) * (0.22 + (1 - pulse) * 0.5); cx2.strokeStyle = `rgba(${A},${pulse * 0.4})`; cx2.lineWidth = 2 + pulse * 3; cx2.beginPath(); cx2.arc(cx, cy, R, 0, 6.283); cx2.stroke(); }
-        for (const p of P) { p.y -= p.v * (0.4 + level * 2.2) * 0.01; if (p.y < -0.05) { p.y = 1.05; p.x = Math.random(); } cx2.fillStyle = `rgba(${A},${(0.14 + level * 0.7) * (0.4 + 0.6 * Math.abs(Math.sin(t * 1.5 + p.ph)))})`; cx2.beginPath(); cx2.arc(p.x * W, p.y * H, p.r * (1 + bass * 1.2), 0, 6.283); cx2.fill(); }
+        cx2.clearRect(0, 0, W, H);
+        (RENDER[mode] || RING)(W / 2, H / 2);
         raf = requestAnimationFrame(draw);
       };
       audio.addEventListener('play', () => { clearTimeout(idle); buildGraph(); stage.classList.add('playing'); if (!raf) raf = requestAnimationFrame(draw); });

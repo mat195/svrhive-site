@@ -372,20 +372,6 @@
       "dsp_status": "live"
     },
     {
-      "slug": "the-steez",
-      "title": "The Steez",
-      "type": "MusicRecording",
-      "role": "primary",
-      "featured": [
-        "Vegas of the North",
-        "J. Knock"
-      ],
-      "releaseDate": "2020-05-29",
-      "isrc": "QZES92065928",
-      "source": "Spotify",
-      "dsp_status": "live"
-    },
-    {
       "slug": "excelente",
       "title": "Excelente",
       "type": "MusicRecording",
@@ -418,19 +404,6 @@
       "featured": [],
       "releaseDate": "2020-04-27",
       "isrc": "QZFZ72089854",
-      "source": "Spotify",
-      "dsp_status": "live"
-    },
-    {
-      "slug": "me-now",
-      "title": "Me Now",
-      "type": "MusicRecording",
-      "role": "primary",
-      "featured": [
-        "King Mizery"
-      ],
-      "releaseDate": "2020-03-30",
-      "isrc": "QZFZ72024233",
       "source": "Spotify",
       "dsp_status": "live"
     },
