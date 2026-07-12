@@ -69,16 +69,32 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
           </div>
         </div>
       </div>
-      <audio id="lr-audio" preload="none"></audio>
+      <audio id="lr-audio" preload="none" crossorigin="anonymous"></audio>
     </div>
   </div>
 </div>
   </div>
 </section>
 
-{/* Full list — rich rows (thumbnail + play), also the static fallback: every track is
-    in the HTML before any JS runs (crawlers + no-JS get titles + Spotify links). */}
-<h2 class="lr-fulltitle mono">The full crate</h2>
+{/* Audio-reactive "velvet stage" — the room comes alive when a preview plays. Real Web Audio
+    analysis of the clip (Apple CDN sends Access-Control-Allow-Origin:*) drives the velvet
+    pulse, gold dust, and the frequency ring around the spinning record; the room re-tints to
+    the cover's dominant colour. Progressive enhancement: no JS/no audio → nothing lost. */}
+<section class="vstage" id="lr-vstage" aria-label="Now playing">
+  <canvas class="vstage-fx" id="lr-vfx" aria-hidden="true"></canvas>
+  <div class="vstage-core">
+    <div class="vstage-disc" id="lr-vdisc" aria-hidden="true"><span class="vstage-label"><img id="lr-vcover" src="" alt="" /></span></div>
+    <div class="vstage-meta">
+      <p class="vstage-np" id="lr-vnp">Pull a record — the room listens with you.</p>
+      <strong class="vstage-title" id="lr-vtitle"></strong>
+    </div>
+  </div>
+</section>
+
+{/* Full list — kept in the DOM for crawlers/no-JS (titles + Spotify links), collapsed below
+    the stage since the wheel + stage now carry the browsing/listening experience. */}
+<details class="crate-details">
+  <summary class="lr-fulltitle mono">The full crate — all {records.length} tracks</summary>
 <ul class="lr-list">
   {records.map((r) => (
     <li class="lr-row" data-slug={r.slug}>
@@ -95,6 +111,7 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     </li>
   ))}
 </ul>
+</details>
 
 <script type="application/json" id="lr-data" set:html={JSON.stringify(records.map(({ catalog, ...r }: any) => r))}></script>
 <script is:inline>
@@ -164,6 +181,8 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
       document.getElementById('lr-title').textContent = rec.title;
       document.getElementById('lr-meta').textContent = [rec.year, fmtStreams(rec.streams)].filter(Boolean).join(' · ');
       const vc = document.getElementById('lr-vinyl-cover'); if (vc) { vc.src = rec.cover; vc.alt = rec.title + ' cover art'; }
+      const vco = document.getElementById('lr-vcover'); if (vco && rec.cover) { vco.src = rec.cover; vco.alt = ''; }
+      const vt = document.getElementById('lr-vtitle'); if (vt) vt.textContent = rec.title;
       document.getElementById('lr-full').innerHTML = fullButtons(rec);
     };
     // As you spin, the player tracks the front record — but only while nothing is playing.
@@ -278,6 +297,67 @@ const fmt = (n?: number) => (n == null ? '' : n >= 1000 ? `${(n / 1000).toFixed(
     audio.addEventListener('ended', () => { player.classList.remove('playing'); playBtn.textContent = '▶'; playBtn.setAttribute('aria-label', 'Play'); });
     audio.addEventListener('timeupdate', () => { const d = audio.duration || 30; document.getElementById('lr-fill').style.width = (audio.currentTime / d * 100) + '%'; document.getElementById('lr-cur').textContent = fmtT(audio.currentTime); });
     audio.addEventListener('loadedmetadata', () => { document.getElementById('lr-dur').textContent = fmtT(audio.duration); });
+
+    // ── Audio-reactive velvet stage ─────────────────────────────────────────────
+    // Real Web Audio analysis of the playing preview drives the velvet glow, a gold-dust
+    // particle field, and a frequency ring around the spinning record; the room re-tints to
+    // the cover's dominant colour. Degrades gracefully if Web Audio is unavailable.
+    (() => {
+      const stage = document.getElementById('lr-vstage'), cv = document.getElementById('lr-vfx');
+      const coverImg = document.getElementById('lr-vcover');
+      if (!stage || !cv) return;
+      const cx2 = cv.getContext('2d');
+      let W = 1, H = 1, dpr = Math.min(2, window.devicePixelRatio || 1);
+      const resize = () => { const r = stage.getBoundingClientRect(); W = Math.max(1, r.width | 0); H = Math.max(1, r.height | 0); cv.width = W * dpr; cv.height = H * dpr; cx2.setTransform(dpr, 0, 0, dpr, 0, 0); };
+      resize(); addEventListener('resize', resize, { passive: true });
+
+      let actx, analyser, freq, built = false;
+      const buildGraph = () => {
+        if (built) { if (actx && actx.state === 'suspended') actx.resume(); return; }
+        try {
+          actx = new (window.AudioContext || window.webkitAudioContext)();
+          const src = actx.createMediaElementSource(audio);
+          analyser = actx.createAnalyser(); analyser.fftSize = 512; analyser.smoothingTimeConstant = 0.82;
+          src.connect(analyser); analyser.connect(actx.destination);
+          freq = new Uint8Array(analyser.frequencyBinCount); built = true;
+        } catch (e) { built = true; } // fall through to non-reactive idle visuals
+      };
+
+      // Dominant colour from the cover → --accent (best-effort; cross-origin taint keeps gold).
+      let accent = [201, 168, 106];
+      const pick = document.createElement('canvas'); pick.width = pick.height = 12;
+      const pctx = pick.getContext('2d', { willReadFrequently: true });
+      const extract = () => {
+        try {
+          pctx.drawImage(coverImg, 0, 0, 12, 12);
+          const d = pctx.getImageData(0, 0, 12, 12).data; let r = 0, g = 0, b = 0, n = 0;
+          for (let i = 0; i < d.length; i += 4) { const R = d[i], G = d[i+1], B = d[i+2]; if (Math.max(R,G,B) - Math.min(R,G,B) < 22 || Math.max(R,G,B) < 40) continue; r += R; g += G; b += B; n++; }
+          if (n) accent = [r / n | 0, g / n | 0, b / n | 0];
+        } catch (e) { /* tainted → keep gold */ }
+        stage.style.setProperty('--accent', accent.join(','));
+      };
+      coverImg.addEventListener('load', extract); if (coverImg.complete && coverImg.src) extract();
+
+      const N = 70, P = []; const rnd = (a, b) => a + Math.random() * (b - a);
+      for (let i = 0; i < N; i++) P.push({ x: Math.random(), y: Math.random(), r: rnd(0.6, 2.2), v: rnd(0.02, 0.09), ph: Math.random() * 6.28 });
+
+      let raf = 0, level = 0, bass = 0, t = 0, pulse = 0, idle = 0;
+      const draw = () => {
+        t += 0.016; let tl = 0, tb = 0;
+        if (analyser) { analyser.getByteFrequencyData(freq); const nb = freq.length; for (let i = 0; i < nb; i++) tl += freq[i]; for (let i = 0; i < 8; i++) tb += freq[i]; tl /= nb * 255; tb /= 8 * 255; }
+        level += (tl - level) * 0.2; bass += (tb - bass) * 0.35;
+        if (bass > 0.55 && pulse < 0.1) pulse = 1; pulse *= 0.92;
+        stage.style.setProperty('--level', level.toFixed(3)); stage.style.setProperty('--bass', bass.toFixed(3));
+        cx2.clearRect(0, 0, W, H); const cx = W / 2, cy = H / 2, A = accent.join(',');
+        if (analyser) { const R0 = Math.min(W, H) * 0.20, bars = 96; cx2.lineWidth = 2; for (let i = 0; i < bars; i++) { const amp = freq[(i / bars * freq.length * 0.7) | 0] / 255; const a = i / bars * 6.283 - 1.5708, len = 6 + amp * Math.min(W, H) * 0.09; cx2.strokeStyle = `rgba(${A},${0.22 + amp * 0.6})`; cx2.beginPath(); cx2.moveTo(cx + Math.cos(a) * R0, cy + Math.sin(a) * R0); cx2.lineTo(cx + Math.cos(a) * (R0 + len), cy + Math.sin(a) * (R0 + len)); cx2.stroke(); } }
+        if (pulse > 0.02) { const R = Math.min(W, H) * (0.22 + (1 - pulse) * 0.5); cx2.strokeStyle = `rgba(${A},${pulse * 0.4})`; cx2.lineWidth = 2 + pulse * 3; cx2.beginPath(); cx2.arc(cx, cy, R, 0, 6.283); cx2.stroke(); }
+        for (const p of P) { p.y -= p.v * (0.4 + level * 2.2) * 0.01; if (p.y < -0.05) { p.y = 1.05; p.x = Math.random(); } cx2.fillStyle = `rgba(${A},${(0.14 + level * 0.7) * (0.4 + 0.6 * Math.abs(Math.sin(t * 1.5 + p.ph)))})`; cx2.beginPath(); cx2.arc(p.x * W, p.y * H, p.r * (1 + bass * 1.2), 0, 6.283); cx2.fill(); }
+        raf = requestAnimationFrame(draw);
+      };
+      audio.addEventListener('play', () => { clearTimeout(idle); buildGraph(); stage.classList.add('playing'); if (!raf) raf = requestAnimationFrame(draw); });
+      const settle = () => { stage.classList.remove('playing'); clearTimeout(idle); idle = setTimeout(() => { if (raf) { cancelAnimationFrame(raf); raf = 0; cx2.clearRect(0, 0, W, H); } }, 1500); };
+      audio.addEventListener('pause', settle); audio.addEventListener('ended', settle);
+    })();
 
     const spinToSlug = (slug) => {                              // bring a record to the front (list / deep-link)
       const idx = wheelList.findIndex((x) => x.slug === slug);

@@ -650,3 +650,27 @@ main { flex: 1; padding: 3rem 0 4rem; }
 .ep-full-meta .ep-title { margin: 0.15rem 0 0.4rem; }
 .clip-guide { margin-top: 0.8rem; }
 .clip-guide .ep-thumb { width: 150px; }
+
+/* ── Audio-reactive velvet stage (replaces the full-crate list as the listening centrepiece) ── */
+.vstage { position: relative; width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); min-height: clamp(400px, 64vh, 640px); display: grid; place-items: center; overflow: hidden; --accent: 201,168,106; --level: 0; --bass: 0; background: radial-gradient(120% 92% at 50% 52%, rgba(122,59,79,0.20), var(--velvet) 68%); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); margin-top: 1.6rem; }
+/* the velvet "breathes" — a cover-tinted glow that swells with the bass and brightens with level */
+.vstage::before { content: ''; position: absolute; left: 50%; top: 50%; width: min(84vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.78 + var(--bass) * 0.55)); background: radial-gradient(circle, rgba(var(--accent), calc(0.08 + var(--level) * 0.30)), transparent 62%); pointer-events: none; }
+.vstage-fx { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.vstage-core { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 1.3rem; text-align: center; padding: 1.8rem; }
+.vstage-disc { position: relative; width: clamp(200px, 42vw, 320px); aspect-ratio: 1; border-radius: 50%; background: repeating-radial-gradient(circle at 50% 50%, #100b15 0 2px, #17111d 2px 4px); box-shadow: 0 30px 70px -24px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(var(--accent), 0.28); display: grid; place-items: center; }
+.vstage-label { width: 46%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 1px solid rgba(var(--accent), 0.45); box-shadow: inset 0 0 14px rgba(0,0,0,0.6); position: relative; z-index: 1; }
+.vstage-label img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vstage-disc::after { content: ''; position: absolute; width: 9px; height: 9px; border-radius: 50%; background: rgba(var(--accent), 0.95); box-shadow: 0 0 0 4px var(--velvet); z-index: 2; }
+.vstage.playing .vstage-disc { animation: vinyl-spin 3.6s linear infinite; }
+.vstage-meta { max-width: 32rem; }
+.vstage-np { color: var(--static); font-size: 0.95rem; margin: 0; }
+.vstage-title { display: none; font-family: var(--display); font-size: clamp(1.4rem, 3vw, 2rem); color: var(--cream); }
+.vstage.playing .vstage-np { display: none; }
+.vstage.playing .vstage-title { display: block; }
+@media (prefers-reduced-motion: reduce) { .vstage.playing .vstage-disc { animation: none; } }
+/* the crate list, now a collapsed detail below the stage */
+.crate-details { margin-top: 2rem; }
+.crate-details > summary { cursor: pointer; list-style: none; }
+.crate-details > summary::-webkit-details-marker { display: none; }
+.crate-details > summary::before { content: '▸ '; color: var(--silk); }
+.crate-details[open] > summary::before { content: '▾ '; }
