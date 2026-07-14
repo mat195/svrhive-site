@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import { LABEL_NAME, CANONICAL_NAME, absolute } from '../../lib/entity';
+import { organizationLd, breadcrumbLd, clean, graph } from '../../lib/jsonld';
+
+const path = '/carrie/';
+const name = 'Carrié';
+const title = `${name} — ${LABEL_NAME}`;
+const description = `${name} — Producer and Manager. Founder of ${LABEL_NAME}, manager for ${CANONICAL_NAME}, and co-host of Friday to Friday.`;
+
+// Roster entry — Carrié's own Instagram plus the Friday to Friday podcast.
+const socials = [
+  { label: '@svrcarriayy', url: 'https://www.instagram.com/svrcarriayy/' },
+  { label: '@fridaytofridaypodcast', url: 'https://www.instagram.com/fridaytofridaypodcast/' },
+];
+
+const personLd = clean({
+  '@type': 'Person',
+  '@id': absolute(`${path}#person`),
+  name,
+  jobTitle: ['Producer', 'Manager'],
+  description: `Founder of ${LABEL_NAME}, manager for ${CANONICAL_NAME}, and co-host of Friday to Friday.`,
+  worksFor: { '@id': absolute('/#organization') },
+  sameAs: socials.map((s) => s.url),
+});
+const jsonld = graph([
+  personLd,
+  organizationLd(),
+  breadcrumbLd([{ name: LABEL_NAME, path: '/' }, { name, path }]),
+]);
+---
+
+<Base title={title} description={description} path={path} jsonld={jsonld}>
+  <p class="eyebrow"><a href="/">{LABEL_NAME}</a> · Roster</p>
+  <h1>{name}</h1>
+  <p class="lede">Producer, Manager — Founder of {LABEL_NAME}, Manager for {CANONICAL_NAME}, Co-host of Friday to Friday.</p>
+
+  <h2>Find Carrié</h2>
+  <ul class="soc-grid">
+    {socials.map((s) => (
+      <li>
+        <a class="soc-card" href={s.url} target="_blank" rel="noopener me">
+          <span class="soc-name">{s.label}</span>
+          <span class="soc-go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

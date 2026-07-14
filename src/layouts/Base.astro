@@ -21,10 +21,11 @@ const nav: Array<{ href?: string; label: string; dropdown?: { href: string; labe
     { href: '/lucius-p-thundercat/', label: 'Catalogue' },
     { href: '/socials/', label: 'Socials' },
   ] },
+  { href: '/carrie/', label: 'Carrié' },
   { href: '/contact/', label: 'Contact' },
-  // SHELVED: the 'Carrié' dropdown (Friday to Friday Podcast). Podcast routes live under
-  // src/pages/_podcast/ (underscore = Astro skips routing). Restore: move _podcast → podcast
-  // and re-add { label: 'Carrié', dropdown: [{ href: '/podcast/', label: 'Friday to Friday Podcast' }] }.
+  // The Friday to Friday podcast now lives at its own site (f2fpod.com), so it's no longer
+  // embedded here. The shelved podcast routes stay parked under src/pages/_podcast/ (underscore =
+  // Astro skips routing) — the 'Carrié' item above is Mat's roster/bio entry, not the podcast.
 ];
 const isCurrent = (href: string) => href === path;
 ---
